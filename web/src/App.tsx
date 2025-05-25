@@ -24,22 +24,20 @@ const App = () => {
   return (
     <AppProvider>
       <div className="app" ref={appDiv}>
-        <div className="app-wrapper">
-          <Routes>
-            <Route path="/" element={<PageLayout />}>
-              <Route index element={<Home />} />
-              <Route path="login" element={<Login />} />
-              <Route path="register" element={<Registration />} />
+        <Routes>
+          <Route path="/" element={<PageLayout />}>
+            <Route index element={<Home />} />
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Registration />} />
 
-              {user && (
-                <>
-                  <Route path="profile" element={'<Profile />'} />
-                  <Route path="transfer" element={'<Transfer />'} />
-                </>
-              )}
-            </Route>
-          </Routes>
-        </div>
+            {user && (
+              <>
+                <Route path="profile" element={'<Profile />'} />
+                <Route path="transfer" element={'<Transfer />'} />
+              </>
+            )}
+          </Route>
+        </Routes>
       </div>
       <ThemeToggler />
     </AppProvider>
