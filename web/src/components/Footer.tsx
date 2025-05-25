@@ -1,7 +1,7 @@
 import { Home, RadioTower, Send, UserPen } from "lucide-react";
 import { Link } from 'react-router-dom';
 import { useAuth } from "../hooks/useAuth";
-import { NavItem } from "../types/navigation";
+import { NavItem } from "../types";
 
 import './Footer.css';
 
