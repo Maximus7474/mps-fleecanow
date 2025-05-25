@@ -1,10 +1,17 @@
-# Fleeca Now
-A simple app inspired by venmo to allow players to send money in various manners.
+# 💸 Fleeca Now
 
-# Contributions
-Before contributing please read the [Contributing Guidelines](CONTRIBUTING.md).
-Any PRs made that do not follow the guidelines will not be considered.
+A lightweight app inspired by **Venmo**, designed for FiveM servers to allow players to send and receive money in various ways.
 
-# Credits
-- UI template: [lb-scripts](https://github.com/lbphone/lb-phone-app-template/)
-- Typescript boilerplate: [Overextended](https://github.com/overextended/fivem-typescript-boilerplate)
+---
+
+## 📥 Contributions
+
+Before submitting changes, please read the [Contributing Guidelines](CONTRIBUTING.md).
+Pull Requests that do not follow these guidelines will not be considered.
+
+---
+
+## 🙌 Credits
+
+* 🎨 **UI Template**: [lb-scripts](https://github.com/lbphone/lb-phone-app-template)
+* ⚙️ **TypeScript Boilerplate**: [Overextended](https://github.com/overextended/fivem-typescript-boilerplate)
