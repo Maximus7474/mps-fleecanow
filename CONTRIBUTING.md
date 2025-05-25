@@ -1,4 +1,4 @@
-# Special Mentions
+## Special Mentions
 
 This template is built from Overextended's boilerplate. This was a team of heavily invested open source developers in the Cfx development community.
 - Overextended [Github Organisation](https://github.com/overextended)
@@ -8,6 +8,21 @@ They have since end of April 2025 stopped all work on FiveM, people interested i
 - [CommunityOx](https://github.com/CommunityOx)
 
 Remember, open source is what powers many of the servers out there and these resources are a vital backbone for so many, without these developers FiveM would most definetly not be what it is now.
+
+## Guidelines
+
+- Commits:
+All commits should follow the shared conventions on this subject, these are viewable here: [conventionalcommits.org](https://www.conventionalcommits.org/en/v1.0.0/)
+
+- Code:
+Code should be cleanly written, complex functions or methods should be commented in a clear manner.
+
+Function Naming:
+  - ui:
+    - Components: PascalCase
+    - Exported Functions: PascalCase
+    - Localized Functions: camelCase
+    - Types/Interfaces: PascalCase
 
 ## Getting Started
 
