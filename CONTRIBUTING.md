@@ -1,18 +1,3 @@
-## 🙌 Special Mentions
-
-This template is built from **Overextended's boilerplate**, created by a team of highly dedicated open source developers in the Cfx community.
-
-* 🌐 [Overextended GitHub Organization](https://github.com/overextended)
-* ⚙️ [TypeScript Boilerplate](https://github.com/overextended/fivem-typescript-boilerplate)
-
-As of **April 2025**, Overextended has ceased development on FiveM projects. Continued community-driven contributions are now available via:
-
-* 🤝 [CommunityOx GitHub](https://github.com/CommunityOx)
-
-> Open source is the backbone of many FiveM servers. Without the contributions of these developers, the platform would not be what it is today.
-
----
-
 ## 📐 Guidelines
 
 ### 📝 Commits
