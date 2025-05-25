@@ -1,10 +1,9 @@
-import { ChevronDown, RadioTower, Send, UserPen } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import './Home.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
-  const navigate = useNavigate();
   const { user, logout } = useAuth();
 
   return (
@@ -46,18 +45,6 @@ const Home: React.FC = () => {
           <li>🔧 April 15: We've fixed several bugs to improve your experience.</li>
         </ul>
       </details>
-
-      <footer>
-        <Link to='/transfer'>
-          <Send />
-        </Link>
-        <Link to='/proximity'>
-          <RadioTower />
-        </Link>
-        <Link to='/profile'>
-          <UserPen />
-        </Link>
-      </footer>
     </div>
   );
 }

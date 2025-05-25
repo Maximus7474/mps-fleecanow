@@ -95,38 +95,3 @@ section > button {
 .news li {
   margin-bottom: 0.5rem;
 }
-
-.home > footer {
-  position: absolute;
-  bottom: 1px;
-  width: 100%;
-
-  display: flex;
-  justify-content: space-evenly;
-
-  border-radius: 0 0 3.6rem 3.6rem;
-
-  padding: 1em 0.25em;
-
-  background-color: var(--background-highlight);
-}
-
-.home > footer > a {
-  height: 3em;
-  width: 3em;
-  padding: 0.5em;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 4em;
-  color: var(--text-primary);
-
-  transition: all ease 0.2s;
-}
-
-.home > footer > a:hover {
-  color: var(--background-primary);
-  background-color: var(--primary);
-}

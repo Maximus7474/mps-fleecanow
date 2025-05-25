@@ -1,0 +1,35 @@
+
+footer.app-footer {
+  position: absolute;
+  bottom: 1px;
+  width: 100%;
+
+  display: flex;
+  justify-content: space-evenly;
+
+  border-radius: 0 0 3.6rem 3.6rem;
+
+  padding: 1.2em 0.25em;
+
+  background-color: var(--background-highlight);
+}
+
+footer.app-footer > a {
+  height: 3em;
+  width: 3em;
+  padding: 0.5em;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 4em;
+  color: var(--text-primary);
+
+  transition: all ease 0.2s;
+}
+
+footer.app-footer > a:hover {
+  color: var(--background-primary);
+  background-color: var(--primary);
+}
