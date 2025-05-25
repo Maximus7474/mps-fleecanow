@@ -18,11 +18,7 @@ import { devMode } from './utils';
  *
  * @return returnData - A promise for the data sent back by the NuiCallbacks CB argument
  */
-export async function fetchNui<T = unknown>(
-  eventName: string,
-  data?: unknown,
-  mockData?: T,
-): Promise<T> {
+export async function fetchNui<T = unknown>(eventName: string, data?: unknown, mockData?: T): Promise<T> {
   const options = {
     method: 'post',
     headers: {

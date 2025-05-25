@@ -1,7 +1,7 @@
-import { Home, RadioTower, Send, UserPen } from "lucide-react";
+import { Home, RadioTower, Send, UserPen } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useAuth } from "../hooks/useAuth";
-import { NavItem } from "../types";
+import { useAuth } from '../hooks/useAuth';
+import { NavItem } from '../types';
 
 import './Footer.css';
 
@@ -36,18 +36,17 @@ const Footer: React.FC = () => {
   const { user } = useAuth();
 
   return (
-    <footer className="app-footer">
-      {
-        routes.map(({ icon, path, requiresAuth }, i) => (
+    <footer className='app-footer'>
+      {routes.map(
+        ({ icon, path, requiresAuth }, i) =>
           ((requiresAuth && user !== null) || !requiresAuth) && (
             <Link to={path} key={i}>
               {icon}
             </Link>
-          )
-        ))
-      }
+          ),
+      )}
     </footer>
-  )
+  );
 };
 
 export default Footer;

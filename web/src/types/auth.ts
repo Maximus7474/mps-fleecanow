@@ -1,5 +1,3 @@
-import { User } from "./user";
+import { User } from './user';
 
-export type LoginResponse =
-  | { success: true; user: User }
-  | { success: false; error: string };
+export type LoginResponse = { success: true; user: User } | { success: false; error: string };

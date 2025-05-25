@@ -26,8 +26,7 @@ interface AppConfig {
   onDelete?: () => void;
 }
 
-
-const url: string = GetResourceMetadata(GetCurrentResourceName(), "ui_page", 0);
+const url: string = GetResourceMetadata(GetCurrentResourceName(), 'ui_page', 0);
 
 export const appConfig: AppConfig = {
   identifier: Config.Identifier,

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './Login.css'
+import './Login.css';
 import { useAuth } from '../../hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
@@ -22,52 +22,52 @@ const Login: React.FC = () => {
     }
   }, [user, navigate]);
 
-  return (<div className='login'>
-    <img src='/icon.png' />
+  return (
+    <div className='login'>
+      <img src='/icon.png' />
 
-    <form className='login-form' onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor='username'>Username:</label>
-        <input
-          type='text'
-          name='username'
-          placeholder='username'
-          required
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </div>
-
-      <div>
-        <label htmlFor='password'>Password:</label>
+      <form className='login-form' onSubmit={handleSubmit}>
         <div>
+          <label htmlFor='username'>Username:</label>
           <input
-            type={showPassword ? 'text' : 'password'}
-            name='password'
-            placeholder='password'
+            type='text'
+            name='username'
+            placeholder='username'
             required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
-          <button type='button' onClick={() => setShowPassword((prev) => !prev)} className='show-password'>
-            {
-              showPassword ? <Eye /> : <EyeOff />
-            }
-          </button>
         </div>
-      </div>
 
-      <button type='submit' className='login-button'>
-        Login
-      </button>
-    </form>
-    <div>
-      <p>
-        Don't have an account ?<br/>
-        <Link to='/register'>Register</Link> now !
-      </p>
+        <div>
+          <label htmlFor='password'>Password:</label>
+          <div>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              name='password'
+              placeholder='password'
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button type='button' onClick={() => setShowPassword((prev) => !prev)} className='show-password'>
+              {showPassword ? <Eye /> : <EyeOff />}
+            </button>
+          </div>
+        </div>
+
+        <button type='submit' className='login-button'>
+          Login
+        </button>
+      </form>
+      <div>
+        <p>
+          Don't have an account ?<br />
+          <Link to='/register'>Register</Link> now !
+        </p>
+      </div>
     </div>
-  </div>);
+  );
 };
 
 export default Login;

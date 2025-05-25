@@ -16,14 +16,14 @@ if (window.name === '' || devMode) {
         <AuthProvider>
           <App />
         </AuthProvider>
-      </HashRouter>
+      </HashRouter>,
     );
   };
 
   if (devMode) {
     renderApp();
   } else {
-    window.addEventListener('message', event => {
+    window.addEventListener('message', (event) => {
       if (event.data === 'componentsLoaded') renderApp();
     });
   }

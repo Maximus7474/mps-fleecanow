@@ -4,7 +4,7 @@ import Frame from './components/dev/Frame';
 import { devMode } from './utils/utils';
 import ThemeToggler from './components/dev/Theming';
 import { useAuth } from './hooks/useAuth';
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from 'react-router-dom';
 import Login from './pages/Login/Login';
 import Registration from './pages/Registration/Registration';
 import Home from './pages/Home/Home';
@@ -23,17 +23,17 @@ const App = () => {
 
   return (
     <AppProvider>
-      <div className="app" ref={appDiv}>
+      <div className='app' ref={appDiv}>
         <Routes>
-          <Route path="/" element={<PageLayout />}>
+          <Route path='/' element={<PageLayout />}>
             <Route index element={<Home />} />
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Registration />} />
+            <Route path='login' element={<Login />} />
+            <Route path='register' element={<Registration />} />
 
             {user && (
               <>
-                <Route path="profile" element={'<Profile />'} />
-                <Route path="transfer" element={'<Transfer />'} />
+                <Route path='profile' element={'<Profile />'} />
+                <Route path='transfer' element={'<Transfer />'} />
               </>
             )}
           </Route>
@@ -70,7 +70,7 @@ const AppProvider = ({ children }: { children: ReactNode }) => {
     handleResize();
 
     return (
-      <div className="dev-wrapper">
+      <div className='dev-wrapper'>
         <Frame>{children}</Frame>
       </div>
     );

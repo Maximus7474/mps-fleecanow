@@ -13,20 +13,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   async function login(username: string, password: string) {
     setLoading(true);
 
-    fetchNui<LoginResponse>('fleecanow:login', {username, password}, {
-      success: true,
-      user: {
-        uuid: '17fecfcd-c694-41a3-a647-118ccf7c6bed',
-        username: 'maximusprime',
-        displayName: 'Maximus Prime',
-        avatar: undefined,
-      }
-    }).then(data => {
+    fetchNui<LoginResponse>(
+      'fleecanow:login',
+      { username, password },
+      {
+        success: true,
+        user: {
+          uuid: '17fecfcd-c694-41a3-a647-118ccf7c6bed',
+          username: 'maximusprime',
+          displayName: 'Maximus Prime',
+          avatar: undefined,
+        },
+      },
+    ).then((data) => {
       if (data.success) {
         setUser(data.user);
-        navigate('/profile')
-      }
-      else {
+        navigate('/profile');
+      } else {
         setUser(null);
         setLoginError(data.error);
       }
@@ -39,9 +42,5 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     fetchNui('fleecanow:logout');
   }
 
-  return (
-    <AuthContext.Provider value={{ user, loginError, login, logout, loading }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
+  return <AuthContext.Provider value={{ user, loginError, login, logout, loading }}>{children}</AuthContext.Provider>;
+}

@@ -1,5 +1,5 @@
-import { createContext, useContext } from "react";
-import { User } from "../types";
+import { createContext, useContext } from 'react';
+import { User } from '../types';
 
 type AuthContextType = {
   user: User | null;
