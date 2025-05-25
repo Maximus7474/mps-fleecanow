@@ -1,66 +1,91 @@
-## Special Mentions
+## 🙌 Special Mentions
 
-This template is built from Overextended's boilerplate. This was a team of heavily invested open source developers in the Cfx development community.
-- Overextended [Github Organisation](https://github.com/overextended)
-- [Typescript Boilerplate](https://github.com/overextended/fivem-typescript-boilerplate)
+This template is built from **Overextended's boilerplate**, created by a team of highly dedicated open source developers in the Cfx community.
 
-They have since end of April 2025 stopped all work on FiveM, people interested in their work can contribute in the community driven organisation.
-- [CommunityOx](https://github.com/CommunityOx)
+* 🌐 [Overextended GitHub Organization](https://github.com/overextended)
+* ⚙️ [TypeScript Boilerplate](https://github.com/overextended/fivem-typescript-boilerplate)
 
-Remember, open source is what powers many of the servers out there and these resources are a vital backbone for so many, without these developers FiveM would most definetly not be what it is now.
+As of **April 2025**, Overextended has ceased development on FiveM projects. Continued community-driven contributions are now available via:
 
-## Guidelines
+* 🤝 [CommunityOx GitHub](https://github.com/CommunityOx)
 
-- Commits:
-All commits should follow the shared conventions on this subject, these are viewable here: [conventionalcommits.org](https://www.conventionalcommits.org/en/v1.0.0/)
+> Open source is the backbone of many FiveM servers. Without the contributions of these developers, the platform would not be what it is today.
 
-- Code:
-Code should be cleanly written, complex functions or methods should be commented in a clear manner.
+---
 
-Function Naming:
-  - ui:
-    - Components: PascalCase
-    - Exported Functions: PascalCase
-    - Localized Functions: camelCase
-    - Types/Interfaces: PascalCase
+## 📐 Guidelines
 
-## Getting Started
+### 📝 Commits
 
-### Node.js v18+
+All commits must follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.
 
-Install any LTS release of [`Node.js`](https://nodejs.org/) from v18.
+### 🧑‍💻 Code Quality
 
-### pnpm
+* Code must be clean, readable, and maintainable.
+* Complex logic should be clearly commented for clarity.
 
-Install the [`pnpm`](https://pnpm.io/installation) package manager globally.
+### 🔤 Function & Naming Conventions
 
-```
+#### UI Code
+
+| Element                  | Naming Style |
+| ------------------------ | ------------ |
+| Components               | `PascalCase` |
+| Exported Functions       | `PascalCase` |
+| Local/Internal Functions | `camelCase`  |
+| Types / Interfaces       | `PascalCase` |
+
+---
+
+## 🚀 Getting Started
+
+### 📦 Node.js (v18+)
+
+Install any LTS release of [`Node.js`](https://nodejs.org/) **v18 or higher**.
+
+### 📦 pnpm
+
+Install the [`pnpm`](https://pnpm.io/installation) package manager globally:
+
+```bash
 npm install -g pnpm
 ```
 
-## Development
+---
 
-Use `pnpm watch` to actively rebuild modified files while developing the resource.
+## 🛠️ Development
 
-During web development, use `pnpm web:dev` to start vite's webserver and watch for changes.
+* Run `pnpm watch` to actively rebuild modified files during development.
+* For web development, start the Vite dev server with:
 
-## Build
+```bash
+pnpm web:dev
+```
 
-Use `pnpm build` to build all project files in production mode.
+---
 
-To build and create GitHub releases, tag your commit (e.g. `v1.0.0`) and push it.
+## 📦 Build
 
-## Layout
+* Use `pnpm build` to build all project files in **production mode**.
+* To create a GitHub release, **tag** your commit (e.g. `v1.0.0`) and push it:
 
-- [/dist/](dist)
-  - Compiled project files.
-- [/locales/](locales)
-  - JSON files used for translations with [ox_lib](https://overextended.dev/ox_lib/Modules/Locale/Shared).
-- [/scripts/](scripts)
-  - Scripts used in the development process, but not part of the compiled resource.
-- [/src/](src)
-  - Project source code.
-- [/static/](static)
-  - Files to include with the resource that aren't compiled or loaded (e.g. config).
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
 
-*Guide Credit to Overextended - ([github](https://github.com/overextended)) - ([more info](https://overextended.dev))*
+---
+
+## 🗂️ Project Layout
+
+| Folder                 | Description                                                                                         |
+| ---------------------- | --------------------------------------------------------------------------------------------------- |
+| [`/dist/`](dist)       | Compiled project files.                                                                             |
+| [`/locales/`](locales) | JSON translation files used with [`ox_lib`](https://overextended.dev/ox_lib/Modules/Locale/Shared). |
+| [`/scripts/`](scripts) | Dev scripts (not part of the compiled resource).                                                    |
+| [`/src/`](src)         | Project source code.                                                                                |
+| [`/static/`](static)   | Files included with the resource (not compiled).                                                    |
+
+---
+
+*📘 Getting Started section credit: [Overextended](https://github.com/overextended) — [Docs](https://overextended.dev)*
