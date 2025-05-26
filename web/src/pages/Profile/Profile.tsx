@@ -60,7 +60,15 @@ const ProfilePage: React.FC = () => {
       </header>
       <div className='profile-card'>
         <div className='profile'>
-          <img className='avatar' src={user.avatar || '/icon.png'} alt={`${user.username}'s avatar`} />
+          <img
+            className='avatar'
+            src={user.avatar || '/icon.png'}
+            alt={`${user.username}'s avatar`}
+            onError={({ currentTarget }) => {
+              currentTarget.onerror = null; // avoid looping
+              currentTarget.src = '/icon.png';
+            }}
+          />
           <h2 className='display-name'>{user.displayName || user.username}</h2>
           <p className='username'>@{user.username}</p>
           {user?.email && <p className='email'>{user.email}</p>}
