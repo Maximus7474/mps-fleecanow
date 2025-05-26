@@ -10,6 +10,12 @@
   text-align: center;
 }
 
+.transfer-page > section {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+}
+
 .transfer-page > section .main {
   margin-top: 2vh;
 }
@@ -30,4 +36,74 @@ section > div .actions button {
   height: fit-content;
   padding: 2em;
   border-radius: 2em;
+}
+
+section > div > button.return {
+  position: absolute;
+  top: -2.75em;
+  left: 0;
+  height: fit-content;
+  width: min-content;
+  padding: 0.5em 1em;
+  display: flex;
+  justify-content: space-around;
+  gap: 1em;
+  align-items: center;
+}
+
+.closeby-users > p {
+  text-align: center;
+}
+
+.closeby-users > div {
+  overflow-y: auto;
+  max-height: 75vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  align-items: center;
+  padding: 2em 0;
+}
+
+.closeby-users .card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1.5em;
+  width: 90%;
+  border-radius: 3em;
+  box-shadow: 0 4px 8px var(--secondary-shadow);
+  transition: transform 0.3s ease;
+  background-color: var(--background-primary);
+}
+
+.closeby-users .card:hover {
+  transform: translateY(-0.25em) scale(1.01);
+}
+
+.closeby-users .card img {
+  width: 5em;
+  height: 5em;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px var(--secondary-shadow);
+}
+
+.closeby-users .card > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.0125em;
+  justify-content: center;
+} 
+
+.closeby-users .card > div:first-of-type {
+  width: 40%;
+}
+
+.closeby-users .card > div:last-of-type {
+  width: 5em;
+  height: 5em;
+  background-color: var(--background-highlight);
+  border-radius: 50%;
+  text-align: center;
 }
