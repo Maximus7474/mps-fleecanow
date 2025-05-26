@@ -28,7 +28,7 @@ const routes: NavItem[] = [
     icon: <BookUser />,
     path: '/contacts',
     tooltip: 'Contacts',
-    requiresAuth: false,
+    requiresAuth: true,
   },
   {
     icon: <UserPen />,
