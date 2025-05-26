@@ -1,8 +1,11 @@
 import { useState } from 'react';
-import './Transfer.css';
-import { Radio, Undo2, User } from 'lucide-react';
+import { transferAction } from './subpages/types';
 
-type transferAction = 'home' | 'username' | 'proximity';
+import ProximuityTransfer from './subpages/Proximity';
+import UsernameTransfer from './subpages/Username';
+import TransferTypeSelection from './subpages/Main';
+
+import './Transfer.css';
 
 const Transfer: React.FC = () => {
   const [currentAction, setAction] = useState<transferAction>('home');
@@ -14,33 +17,11 @@ const Transfer: React.FC = () => {
       </header>
       <section>
         {currentAction === 'home' ? (
-          <div className='main'>
-            <p>How do you want to send money ?</p>
-            <div className='actions'>
-              <button onClick={() => setAction('username')}>
-                <User size={128} />
-                <h3>By username</h3>
-              </button>
-              <button onClick={() => setAction('proximity')}>
-                <Radio size={128} />
-                <h3>By proximity</h3>
-              </button>
-            </div>
-          </div>
+          <TransferTypeSelection setSection={setAction} />
         ) : currentAction === 'username' ? (
-          <>
-            <button onClick={() => setAction('home')}>
-              <Undo2 />
-            </button>
-            Huh ?
-          </>
+          <UsernameTransfer setSection={setAction} />
         ) : currentAction === 'proximity' ? (
-          <>
-            <button onClick={() => setAction('home')}>
-              <Undo2 />
-            </button>
-            Double Huh ?
-          </>
+          <ProximuityTransfer setSection={setAction} />
         ) : (
           <>Invalid</>
         )}
