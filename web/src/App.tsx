@@ -10,6 +10,7 @@ import Registration from './pages/Registration/Registration';
 import Home from './pages/Home/Home';
 import PageLayout from './components/PageLayout';
 import ProfilePage from './pages/Profile/Profile';
+import Transfer from './pages/Transfer/Transfer';
 
 const App = () => {
   const { user } = useAuth();
@@ -34,7 +35,7 @@ const App = () => {
             {user && (
               <>
                 <Route path='profile' element={<ProfilePage />} />
-                <Route path='transfer' element={'<Transfer />'} />
+                <Route path='transfer' element={<Transfer />} />
                 <Route path='feed' element={'<Feed />'} />
                 <Route path='contacts' element={'<Contacts />'} />
               </>
