@@ -1,6 +1,6 @@
 import { useState, ReactNode } from 'react';
 import { fetchNui } from '../../utils/fetchNui';
-import { User, LoginResponse } from '../../types';
+import { User, LoginResponse, UpdateProfileResponse } from '../../types';
 import { AuthContext } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,8 +22,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           uuid: '17fecfcd-c694-41a3-a647-118ccf7c6bed',
           username: 'maximusprime',
           displayName: 'Maximus Prime',
-          email:'maximus.prime@lbscripts.com',
-          avatar: undefined,
+          email: 'maximus.prime@lbscripts.com',
+          avatar: 'https://avatars.githubusercontent.com/u/94017712?v=4',
         },
       },
     ).then((data) => {
@@ -43,5 +43,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     fetchNui('fleecanow:logout');
   }
 
-  return <AuthContext.Provider value={{ user, loginError, login, logout, loading }}>{children}</AuthContext.Provider>;
+  async function updateUser(user: User) {
+    const result = await fetchNui<UpdateProfileResponse>('fleecanow:updateProfile', user, {success: true, user});
+
+    if (result.success) {
+      setUser(result.user);
+      return result.user;
+    } else {
+      console.error('Unable to update user:', result.error);
+      return false;
+    }
+  }
+
+  return <AuthContext.Provider value={{ user, loginError, login, logout, updateUser, loading }}>{children}</AuthContext.Provider>;
 }
