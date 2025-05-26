@@ -2,12 +2,11 @@ import { LogOut, PenLine, Trash } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import './Profile.css';
 import { devMode } from '../../utils/utils';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 type DeletionResponse = { success: true } | { success: false; error: string };
 
 const ProfilePage: React.FC = () => {
-  const navigate= useNavigate();
   const { user, logout } = useAuth();
 
   const handleDelete = () => {
@@ -51,8 +50,7 @@ const ProfilePage: React.FC = () => {
   };
 
   if (!user) {
-    navigate('/');
-    return;
+    return <Navigate to='/' replace />;
   }
 
   return (
