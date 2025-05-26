@@ -4,7 +4,7 @@ import Frame from './components/dev/Frame';
 import { devMode } from './utils/utils';
 import ThemeToggler from './components/dev/Theming';
 import { useAuth } from './hooks/useAuth';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login/Login';
 import Registration from './pages/Registration/Registration';
 import Home from './pages/Home/Home';
@@ -39,6 +39,9 @@ const App = () => {
                 <Route path='contacts' element={'<Contacts />'} />
               </>
             )}
+
+            {/* Redirect if accessing an unknown or unauthorised page */}
+            <Route path='*' element={<Navigate to='/' replace />} />
           </Route>
         </Routes>
       </div>
