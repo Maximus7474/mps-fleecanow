@@ -1,0 +1,33 @@
+.transfer-page {
+  background-color: var(--background-primary);
+  color: var(--text-primary);
+  width: 100%;
+  min-height: 90vh;
+  padding: 4rem 1rem 1rem;
+}
+
+.transfer-page > header > h2 {
+  text-align: center;
+}
+
+.transfer-page > section .main {
+  margin-top: 2vh;
+}
+
+.transfer-page > section .main > p {
+  text-align: center;
+}
+
+.transfer-page > section > div .actions {
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+section > div .actions button {
+  height: fit-content;
+  padding: 2em;
+  border-radius: 2em;
+}
