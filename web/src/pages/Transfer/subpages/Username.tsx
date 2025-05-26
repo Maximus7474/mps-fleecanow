@@ -3,11 +3,11 @@ import { TransferProps } from './types';
 
 const UsernameTransfer: React.FC<TransferProps> = ({ setSection }) => {
   return (
-    <>
-      <button onClick={() => setSection('home')}>
+    <div>
+      <button onClick={() => setSection('home')} className='return'>
         <Undo2 />
       </button>
-    </>
+    </div>
   );
 };
 
