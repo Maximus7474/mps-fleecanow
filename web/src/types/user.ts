@@ -11,6 +11,12 @@ export interface UserLogin {
   password: string;
 }
 
+export interface UserSharedProfile {
+  username: string;
+  displayName?: string;
+  avatar?: string;
+}
+
 export type LoginResponse = { success: true; user: User } | { success: false; error: string };
 
 export type UpdateProfileResponse = { success: true; user: User } | { success: false; error: string };
