@@ -18,7 +18,8 @@ const ProfilePage: React.FC = () => {
 
     components.setPopUp({
       title: 'Account Deletion',
-      description: 'This action is irreversible, all information, money and contacts linked to this account will be lost!',
+      description:
+        'This action is irreversible, all information, money and contacts linked to this account will be lost!',
       buttons: [
         {
           title: 'Cancel',
@@ -27,18 +28,17 @@ const ProfilePage: React.FC = () => {
           title: 'Confirm',
           color: 'red',
           cb: () => {
-            fetchNui<DeletionResponse>('fleecanow:deleteaccount', {})
-            .then((res) => {
+            fetchNui<DeletionResponse>('fleecanow:deleteaccount', {}).then((res) => {
               if (!res.success) {
                 components.setPopUp({
                   title: 'Unable to delete account',
                   description: res.error,
                   buttons: [
                     {
-                      title: 'Close'
-                    }
-                  ]
-                })
+                      title: 'Close',
+                    },
+                  ],
+                });
               } else {
                 logout();
               }
@@ -63,6 +63,7 @@ const ProfilePage: React.FC = () => {
           <img className='avatar' src={user.avatar || '/icon.png'} alt={`${user.username}'s avatar`} />
           <h2 className='display-name'>{user.displayName || user.username}</h2>
           <p className='username'>@{user.username}</p>
+          {user?.email && <p className='email'>{user.email}</p>}
         </div>
         <div className='actions'>
           <button onClick={logout} className='destructive'>

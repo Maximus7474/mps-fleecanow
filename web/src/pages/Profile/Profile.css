@@ -103,3 +103,9 @@
   color: var(--text-secondary);
   margin: 0.25rem 0;
 }
+
+.email {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  word-break: break-word;
+}
