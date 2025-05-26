@@ -1,16 +1,19 @@
 import { ReactNode, useEffect, useRef } from 'react';
-import './App.css';
-import Frame from './components/dev/Frame';
-import { devMode } from './utils/utils';
-import ThemeToggler from './components/dev/Theming';
-import { useAuth } from './hooks/useAuth';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import Login from './pages/Login/Login';
-import Registration from './pages/Registration/Registration';
-import Home from './pages/Home/Home';
+import { useAuth } from './hooks/useAuth';
+import { devMode } from './utils/utils';
+
+import Frame from './components/dev/Frame';
+import ThemeToggler from './components/dev/Theming';
 import PageLayout from './components/PageLayout';
+
+import Home from './pages/Home/Home';
+import Login from './pages/Login/Login';
 import ProfilePage from './pages/Profile/Profile';
+import Registration from './pages/Registration/Registration';
 import Transfer from './pages/Transfer/Transfer';
+
+import './App.css';
 
 const App = () => {
   const { user } = useAuth();
