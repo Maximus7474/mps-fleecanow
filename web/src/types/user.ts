@@ -10,3 +10,7 @@ export interface UserLogin {
   username: string;
   password: string;
 }
+
+export type LoginResponse = { success: true; user: User } | { success: false; error: string };
+
+export type UpdateProfileResponse = { success: true; user: User } | { success: false; error: string };
