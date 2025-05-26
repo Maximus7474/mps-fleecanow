@@ -44,7 +44,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function updateUser(user: User) {
-    const result = await fetchNui<UpdateProfileResponse>('fleecanow:updateProfile', user, {success: true, user});
+    const result = await fetchNui<UpdateProfileResponse>('fleecanow:updateProfile', user, { success: true, user });
 
     if (result.success) {
       setUser(result.user);
@@ -55,5 +55,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  return <AuthContext.Provider value={{ user, loginError, login, logout, updateUser, loading }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, loginError, login, logout, updateUser, loading }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }

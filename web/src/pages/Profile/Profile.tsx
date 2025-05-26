@@ -12,7 +12,7 @@ interface editProfileError {
   avatar?: string;
   displayName?: string;
   email?: string;
-  username?: string
+  username?: string;
 }
 
 const ProfilePage: React.FC = () => {
@@ -65,13 +65,12 @@ const ProfilePage: React.FC = () => {
   };
 
   const handleSave = () => {
-
     let invalidData = false;
     const newData = {
       ...user,
     };
     const errors: editProfileError = {};
-    
+
     const urlRegex = /^https?:\/\/[^\s/$.?#].[^\s]*$/i;
     if (avatar.length > 20 && urlRegex.test(avatar)) {
       newData.avatar = avatar;
@@ -79,7 +78,7 @@ const ProfilePage: React.FC = () => {
       invalidData = true;
       errors.avatar = 'Avatar image URL is invalid';
     }
-    
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (email.length > 10 && emailRegex.test(avatar)) {
       newData.email = email;
@@ -101,8 +100,7 @@ const ProfilePage: React.FC = () => {
       displayName,
       email,
       username,
-    })
-    .then(r => {
+    }).then((r) => {
       if (r) {
         setIsEditing(false);
       } else {
@@ -110,7 +108,7 @@ const ProfilePage: React.FC = () => {
         console.error('unable to update');
       }
     });
-  }
+  };
 
   const profilePicSource = (temporary: string, current: string, fallback: string): string => {
     const imageUrlRegex = /^https?:\/\/.+\.(jpg|jpeg|png|gif|webp|bmp|svg)(\?.*)?$/i;
@@ -131,7 +129,7 @@ const ProfilePage: React.FC = () => {
       </header>
       <div className='profile-card'>
         <div className='profile'>
-          <ProfilePicture 
+          <ProfilePicture
             className='avatar'
             src={profilePicSource(avatar ?? '', user.avatar ?? '', '/icon.png')}
             alt={`${user.username}'s avatar`}
@@ -193,13 +191,13 @@ const ProfilePage: React.FC = () => {
           )}
         </div>
         <div className='actions'>
-          {
-            isEditing ? (
-              <button onClick={handleSave} className='edit'>
-                <Save />
-                <p>Save</p>
-              </button>
-            ) : (<>
+          {isEditing ? (
+            <button onClick={handleSave} className='edit'>
+              <Save />
+              <p>Save</p>
+            </button>
+          ) : (
+            <>
               <button onClick={logout} className='destructive'>
                 <LogOut />
                 <p>Log Out</p>
@@ -212,8 +210,8 @@ const ProfilePage: React.FC = () => {
                 <Trash />
                 <p>Delete Profile</p>
               </button>
-            </>)
-          }
+            </>
+          )}
         </div>
       </div>
     </div>

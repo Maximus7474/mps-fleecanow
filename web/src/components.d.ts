@@ -302,8 +302,8 @@ declare global {
     setFullscreenImage: (data: string) => void;
     setHomeIndicatorVisible: (visible: boolean) => void;
   };
-  var fetchNui: <T>(eventName: string, data?: unknown, mockData?: T) => Promise<T>;
-  var useNuiEvent: <T>(eventName: string, cb: (data: T) => void) => void;
+  // var fetchNui: <T>(eventName: string, data?: unknown, mockData?: T) => Promise<T>;
+  // var useNuiEvent: <T>(eventName: string, cb: (data: T) => void) => void;
   var formatPhoneNumber: (number: string) => string;
   var getSettings: () => Promise<Settings>;
   var onSettingsChange: (cb: (settings: Settings) => void) => void;

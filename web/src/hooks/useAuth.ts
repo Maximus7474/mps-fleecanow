@@ -6,7 +6,7 @@ type AuthContextType = {
   loginError: string | null;
   login: (username: string, password: string) => Promise<void>;
   logout: () => void;
-  updateUser: (user: User) => Promise<User|false>;
+  updateUser: (user: User) => Promise<User | false>;
   loading: boolean;
 };
 
