@@ -3,6 +3,7 @@ import { useAuth } from '../../hooks/useAuth';
 import './Profile.css';
 import { devMode } from '../../utils/utils';
 import { Navigate } from 'react-router-dom';
+import ProfilePicture from '../../components/ProfilePicture';
 
 type DeletionResponse = { success: true } | { success: false; error: string };
 
@@ -60,14 +61,11 @@ const ProfilePage: React.FC = () => {
       </header>
       <div className='profile-card'>
         <div className='profile'>
-          <img
+          <ProfilePicture 
             className='avatar'
             src={user.avatar || '/icon.png'}
             alt={`${user.username}'s avatar`}
-            onError={({ currentTarget }) => {
-              currentTarget.onerror = null; // avoid looping
-              currentTarget.src = '/icon.png';
-            }}
+            fallback='/icon.png'
           />
           <h2 className='display-name'>{user.displayName || user.username}</h2>
           <p className='username'>@{user.username}</p>
