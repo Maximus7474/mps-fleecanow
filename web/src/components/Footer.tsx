@@ -1,4 +1,4 @@
-import { Home, RadioTower, Send, UserPen } from 'lucide-react';
+import { BookUser, Home, MessageSquareMore, Send, UserPen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { NavItem } from '../types';
@@ -13,15 +13,21 @@ const routes: NavItem[] = [
     requiresAuth: true,
   },
   {
-    icon: <RadioTower />,
-    path: '/proximity',
-    tooltip: undefined,
+    icon: <MessageSquareMore />,
+    path: '/feed',
+    tooltip: 'Feed',
     requiresAuth: true,
   },
   {
     icon: <Home />,
     path: '/',
     tooltip: 'Home Screen',
+    requiresAuth: false,
+  },
+  {
+    icon: <BookUser />,
+    path: '/contacts',
+    tooltip: 'Contacts',
     requiresAuth: false,
   },
   {
