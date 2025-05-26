@@ -22,6 +22,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           uuid: '17fecfcd-c694-41a3-a647-118ccf7c6bed',
           username: 'maximusprime',
           displayName: 'Maximus Prime',
+          email:'maximus.prime@lbscripts.com',
           avatar: undefined,
         },
       },
