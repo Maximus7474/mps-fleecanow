@@ -1,5 +1,5 @@
 import { BookUser, Home, MessageSquareMore, Send, UserPen } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { NavItem } from '../types';
 
@@ -39,6 +39,7 @@ const routes: NavItem[] = [
 ];
 
 const Footer: React.FC = () => {
+  const { pathname } = useLocation();
   const { user } = useAuth();
 
   return (
@@ -46,7 +47,7 @@ const Footer: React.FC = () => {
       {routes.map(
         ({ icon, path, requiresAuth }, i) =>
           ((requiresAuth && user !== null) || !requiresAuth) && (
-            <Link to={path} key={i}>
+            <Link to={path} key={i} className={pathname === path ? 'selected' : undefined}>
               {icon}
             </Link>
           ),

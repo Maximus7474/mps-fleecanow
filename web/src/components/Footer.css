@@ -33,3 +33,8 @@ footer.app-footer > a:hover {
   color: var(--background-primary);
   background-color: var(--primary);
 }
+
+footer.app-footer > a.selected {
+  color: var(--background-primary);
+  background-color: var(--primary);
+}
