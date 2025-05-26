@@ -23,7 +23,11 @@ const ThemeToggler: React.FC = () => {
     <div className='menu'>
       <button onClick={toggleTheme}>
         {theme === 'light' ? <Sun /> : <Moon />}
-        <span className="tooltip">Switch to<br/>{theme !== 'light' ? 'light' : 'dark'} theme</span>
+        <span className='tooltip'>
+          Switch to
+          <br />
+          {theme !== 'light' ? 'light' : 'dark'} theme
+        </span>
       </button>
     </div>
   );
