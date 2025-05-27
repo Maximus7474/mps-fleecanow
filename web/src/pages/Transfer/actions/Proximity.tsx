@@ -3,7 +3,7 @@ import { ProximityShareProfile, TransferProps } from '../../../types';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchNui } from '../../../utils/fetchNui';
-import { proximityShareProfiles } from './debug';
+import { proximityShareProfiles } from '../debug';
 import ProfilePicture from '../../../components/ProfilePicture';
 
 const ProximuityTransfer: React.FC<TransferProps> = ({ setSection }) => {
