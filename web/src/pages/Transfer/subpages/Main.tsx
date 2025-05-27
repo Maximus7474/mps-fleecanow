@@ -1,5 +1,5 @@
 import { Radio, User } from 'lucide-react';
-import { TransferProps } from './types';
+import { TransferProps } from '../../../types';
 
 const TransferTypeSelection: React.FC<TransferProps> = ({ setSection }) => {
   return (

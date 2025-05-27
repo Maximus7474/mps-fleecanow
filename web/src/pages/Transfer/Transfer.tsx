@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { transferAction } from './subpages/types';
 
 import ProximuityTransfer from './subpages/Proximity';
 import UsernameTransfer from './subpages/Username';
 import TransferTypeSelection from './subpages/Main';
 
 import './Transfer.css';
+import { transferAction } from '../../types';
 
 const Transfer: React.FC = () => {
   const [currentAction, setAction] = useState<transferAction>('home');

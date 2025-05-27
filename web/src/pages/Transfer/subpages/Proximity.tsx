@@ -1,5 +1,5 @@
 import { Undo2 } from 'lucide-react';
-import { ProximityShareProfile, TransferProps } from './types';
+import { ProximityShareProfile, TransferProps } from '../../../types';
 import { useEffect, useState } from 'react';
 import { fetchNui } from '../../../utils/fetchNui';
 import { proximityShareProfiles } from './debug';
