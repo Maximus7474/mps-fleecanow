@@ -38,7 +38,10 @@ const App = () => {
             {user && (
               <>
                 <Route path='profile' element={<ProfilePage />} />
-                <Route path='transfer' element={<Transfer />} />
+                <Route path='transfer'>
+                  <Route index element={<Transfer />} />
+                  <Route path='confirm' element={'<ConfirmTransfer />'} />
+                </Route>
                 <Route path='feed' element={'<Feed />'} />
                 <Route path='contacts' element={'<Contacts />'} />
               </>
