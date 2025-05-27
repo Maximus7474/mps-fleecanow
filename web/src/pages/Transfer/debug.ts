@@ -1,4 +1,4 @@
-import { ProximityShareProfile } from './types';
+import { ProximityShareProfile } from 'src/types';
 
 export const proximityShareProfiles: ProximityShareProfile[] = [
   {
