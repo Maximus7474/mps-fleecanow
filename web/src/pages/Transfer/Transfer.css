@@ -104,6 +104,8 @@ section > div > button.return {
   width: 5em;
   height: 5em;
   background-color: var(--background-highlight);
+  color: color-mix(in srgb, var(--text-primary) 50%, var(--text-secondary) 50%);
   border-radius: 50%;
   text-align: center;
+  font-style: italic;
 }
