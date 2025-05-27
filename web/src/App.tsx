@@ -12,6 +12,7 @@ import Login from './pages/Login/Login';
 import ProfilePage from './pages/Profile/Profile';
 import Registration from './pages/Registration/Registration';
 import Transfer from './pages/Transfer/Transfer';
+import ConfirmTransfer from './pages/Transfer/subpages/ConfirmTransfer';
 
 import './App.css';
 
@@ -40,7 +41,7 @@ const App = () => {
                 <Route path='profile' element={<ProfilePage />} />
                 <Route path='transfer'>
                   <Route index element={<Transfer />} />
-                  <Route path='confirm' element={'<ConfirmTransfer />'} />
+                  <Route path='confirm' element={<ConfirmTransfer />} />
                 </Route>
                 <Route path='feed' element={'<Feed />'} />
                 <Route path='contacts' element={'<Contacts />'} />
