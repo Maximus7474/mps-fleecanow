@@ -76,6 +76,8 @@ section > div > button.return {
   box-shadow: 0 4px 8px var(--secondary-shadow);
   transition: transform 0.3s ease;
   background-color: var(--background-primary);
+  color: var(--text-primary);
+  text-decoration: none;
 }
 
 .closeby-users .card:hover {
