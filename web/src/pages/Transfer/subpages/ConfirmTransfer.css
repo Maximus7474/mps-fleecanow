@@ -1,0 +1,49 @@
+.confirm-transfer-page {
+  background-color: var(--background-primary);
+  color: var(--text-primary);
+  width: 100%;
+  min-height: 90vh;
+  padding: 4rem 1rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+}
+
+.confirm-transfer-page > div,
+.confirm-transfer-page .profile div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.confirm-transfer-page .profile {
+  background-color: var(--background-highlight);
+  width: 80%;
+  padding: 2em;
+  border-radius: 2em;
+  box-shadow: 0 4px 8px var(--secondary-shadow);
+  gap: 0.5em;
+}
+
+.confirm-transfer-page .profile > img {
+  width: 14em;
+  height: 14em;
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--secondary-shadow);
+}
+
+.confirm-transfer-page .profile div input {
+  width: 80%;
+}
+
+.confirm-transfer-page .profile button {
+  margin-top: 0.5em;
+  background-color: var(--background-primary);
+}
+
+.confirm-transfer-page .profile button:hover {
+  background-color: var(--primary);
+  color: var(--background-primary);
+}
