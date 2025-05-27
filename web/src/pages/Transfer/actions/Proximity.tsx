@@ -26,19 +26,20 @@ const ProximuityTransfer: React.FC<TransferProps> = ({ setSection }) => {
           {proximityUsers.map((user, i) => {
             const query = new URLSearchParams({
               username: user.username,
-              previous: 'proximity'
+              previous: 'proximity',
             }).toString();
 
             return (
-            <Link key={i} to={`/transfer/confirm?${query}`} className='card'>
-              <ProfilePicture src={user.avatar ?? '/icon.png'} fallback='/icon.png' className='' />
-              <div>
-                <p>{user.displayName ?? user.username}</p>
-                <p className='username'>@{user.username}</p>
-              </div>
-              <div>{user.distance}m</div>
-            </Link>
-          )})}
+              <Link key={i} to={`/transfer/confirm?${query}`} className='card'>
+                <ProfilePicture src={user.avatar ?? '/icon.png'} fallback='/icon.png' className='' />
+                <div>
+                  <p>{user.displayName ?? user.username}</p>
+                  <p className='username'>@{user.username}</p>
+                </div>
+                <div>{user.distance}m</div>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </div>

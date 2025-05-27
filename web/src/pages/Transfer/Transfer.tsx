@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import ProximuityTransfer from './subpages/Proximity';
-import UsernameTransfer from './subpages/Username';
-import TransferTypeSelection from './subpages/Main';
+import ProximuityTransfer from './actions/Proximity';
+import UsernameTransfer from './actions/Username';
+import TransferTypeSelection from './actions/Main';
 
 import './Transfer.css';
 import { transferAction } from '../../types';
