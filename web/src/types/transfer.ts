@@ -9,3 +9,10 @@ export interface TransferProps {
 export interface ProximityShareProfile extends UserSharedProfile {
   distance: number;
 }
+
+export interface TransferData {
+  destination: string;
+  amount: number;
+  message?: string;
+  public: boolean;
+}
