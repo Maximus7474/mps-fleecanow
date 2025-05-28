@@ -6,6 +6,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { TransferData, UserSharedProfile } from '../../../types';
 import ProfilePicture from '../../../components/ProfilePicture';
 import { Send, TriangleAlert, Undo2 } from 'lucide-react';
+import { fetchNui } from '../../../utils/fetchNui';
 
 const ConfirmTransfer: React.FC = () => {
   const navigate = useNavigate();
@@ -27,6 +28,43 @@ const ConfirmTransfer: React.FC = () => {
 
     setLoading(false);
   }, []);
+
+  const confirmTransfer = () => {
+    components.setPopUp({
+      title: 'Send Money',
+      description: `Are you sure you want to send ${transferData.amount}$ to @${transferData.destination} ?`,
+      buttons: [
+        {
+          title: 'Yes',
+          color: 'blue',
+          cb: () => {
+            fetchNui<{ success: boolean; message?: string }>('fleecanow:sendtransfer', transferData, {
+              success: true,
+            }).then((resp) => {
+              if (resp.success) {
+                sendNotification({
+                  title: 'Money Transfer',
+                  thumbnail: './icon.png',
+                  content: `${transferData.amount}$ was sent to @${transferData.destination}`,
+                });
+                navigate('/transfer');
+              } else {
+                components.setPopUp({
+                  title: 'Unable to send',
+                  description: resp.message ?? 'We were unable to send the money',
+                  buttons: [
+                    {
+                      title: 'Okay',
+                    },
+                  ],
+                });
+              }
+            });
+          },
+        },
+      ],
+    });
+  };
 
   if (loading) {
     return <div className='confirm-transfer-page'>Loading</div>;
@@ -112,7 +150,7 @@ const ConfirmTransfer: React.FC = () => {
             Public:
           </label>
         </div> */}
-        <button style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1em' }}>
+        <button className='send-money' onClick={confirmTransfer}>
           <Send />
           Send money
         </button>

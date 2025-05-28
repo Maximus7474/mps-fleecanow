@@ -10,7 +10,7 @@
   height: 90vh;
 }
 
-.confirm-transfer-page > div,
+.confirm-transfer-page>div,
 .confirm-transfer-page .profile div {
   display: flex;
   flex-direction: column;
@@ -27,7 +27,7 @@
   gap: 0.5em;
 }
 
-.confirm-transfer-page .profile > img {
+.confirm-transfer-page .profile>img {
   width: 14em;
   height: 14em;
   border-radius: 50%;
@@ -46,4 +46,11 @@
 .confirm-transfer-page .profile button:hover {
   background-color: var(--primary);
   color: var(--background-primary);
+}
+
+.confirm-transfer-page .profile .send-money {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em
 }
