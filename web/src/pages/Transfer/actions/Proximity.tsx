@@ -5,17 +5,32 @@ import { Link } from 'react-router-dom';
 import { fetchNui } from '../../../utils/fetchNui';
 import { proximityShareProfiles } from '../debug';
 import ProfilePicture from '../../../components/ProfilePicture';
+import { useNuiEvent } from '../../../hooks/useNuiEvent';
 
 const ProximuityTransfer: React.FC<TransferProps> = ({ setSection }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [proximityUsers, setProximityUsers] = useState<ProximityShareProfile[]>([]);
 
   useEffect(() => {
-    fetchNui<ProximityShareProfile[]>('fleecanow:getcloseplayers', {}, proximityShareProfiles).then((resp) => {
-      setProximityUsers(resp);
-      setLoading(false);
+    let isMounted = true;
+
+    fetchNui<ProximityShareProfile[]>('fleecanow:getcloseplayers', {}, proximityShareProfiles)
+    .then((resp) => {
+      if (isMounted) {
+        setProximityUsers(resp);
+        setLoading(false);
+      }
     });
+
+    return () => {
+      fetchNui('fleecanow:stopcloseplayers');
+      isMounted = false;
+    };
   }, []);
+
+  useNuiEvent<ProximityShareProfile[]>('fleecanow:updatecloseplayers', (users) => {
+    setProximityUsers(users);
+  });
 
   if (loading) {
     return (
@@ -25,7 +40,7 @@ const ProximuityTransfer: React.FC<TransferProps> = ({ setSection }) => {
         </button>
         <h3 className='no-users'>Loading users</h3>
       </div>
-    )
+    );
   }
 
   if (proximityUsers.length === 0) {
@@ -36,7 +51,7 @@ const ProximuityTransfer: React.FC<TransferProps> = ({ setSection }) => {
         </button>
         <h3>No users found</h3>
       </div>
-    )
+    );
   }
 
   return (
