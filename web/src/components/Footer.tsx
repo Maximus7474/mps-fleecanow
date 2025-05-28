@@ -12,24 +12,24 @@ const routes: NavItem[] = [
     tooltip: 'Transfer Money',
     requiresAuth: true,
   },
-  {
-    icon: <MessageSquareMore />,
-    path: '/feed',
-    tooltip: 'Feed',
-    requiresAuth: true,
-  },
+  // {
+  //   icon: <MessageSquareMore />,
+  //   path: '/feed',
+  //   tooltip: 'Feed',
+  //   requiresAuth: true,
+  // },
   {
     icon: <Home />,
     path: '/',
     tooltip: 'Home Screen',
     requiresAuth: false,
   },
-  {
-    icon: <BookUser />,
-    path: '/contacts',
-    tooltip: 'Contacts',
-    requiresAuth: true,
-  },
+  // {
+  //   icon: <BookUser />,
+  //   path: '/contacts',
+  //   tooltip: 'Contacts',
+  //   requiresAuth: true,
+  // },
   {
     icon: <UserPen />,
     path: '/profile',
