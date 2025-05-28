@@ -23,6 +23,7 @@ const App = () => {
   useEffect(() => {
     if (devMode) {
       document.body.style.visibility = 'visible';
+      document.body.setAttribute('devmode', 'true');
       return;
     }
   }, []);
@@ -53,7 +54,7 @@ const App = () => {
           </Route>
         </Routes>
       </div>
-      <ThemeToggler />
+      {devMode && <ThemeToggler />}
     </AppProvider>
   );
 };

@@ -1,9 +1,9 @@
-body {
+body[devmode='true'] {
   background-color: #ffffff;
   color: #000;
 }
 
-body[data-theme='dark'] {
+body[devmode='true'][data-theme='dark'] {
   background-color: #1e1e1e;
   color: #fff;
 }
