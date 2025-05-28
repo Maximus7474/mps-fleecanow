@@ -115,6 +115,7 @@ const ConfirmTransfer: React.FC = () => {
           <input
             type='number'
             value={transferData.amount}
+            min={0}
             onChange={(e) =>
               setTransferData((prev) => ({
                 ...prev,
