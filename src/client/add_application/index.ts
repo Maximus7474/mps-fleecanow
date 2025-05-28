@@ -4,7 +4,6 @@ import { appConfig } from './data';
 const lbPhone = 'lb-phone';
 
 const loadApplication = () => {
-
   const lbPhoneExports = global.exports[lbPhone];
 
   const response = lbPhoneExports.AddCustomApp(appConfig) as [boolean, string?];

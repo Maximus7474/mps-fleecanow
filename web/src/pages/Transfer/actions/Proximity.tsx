@@ -14,8 +14,7 @@ const ProximuityTransfer: React.FC<TransferProps> = ({ setSection }) => {
   useEffect(() => {
     let isMounted = true;
 
-    fetchNui<ProximityShareProfile[]>('fleecanow:getcloseplayers', {}, proximityShareProfiles)
-    .then((resp) => {
+    fetchNui<ProximityShareProfile[]>('fleecanow:getcloseplayers', {}, proximityShareProfiles).then((resp) => {
       if (isMounted) {
         setProximityUsers(resp);
         setLoading(false);
