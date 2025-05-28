@@ -51,7 +51,7 @@ section > div > button.return {
   align-items: center;
 }
 
-section > div > h3.no-users {
+section > div > h3 {
   padding-top: 18em;
   text-align: center;
 }

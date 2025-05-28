@@ -28,6 +28,17 @@ const ProximuityTransfer: React.FC<TransferProps> = ({ setSection }) => {
     )
   }
 
+  if (proximityUsers.length === 0) {
+    return (
+      <div>
+        <button onClick={() => setSection('home')} className='return'>
+          <Undo2 />
+        </button>
+        <h3>No users found</h3>
+      </div>
+    )
+  }
+
   return (
     <div>
       <button onClick={() => setSection('home')} className='return'>
