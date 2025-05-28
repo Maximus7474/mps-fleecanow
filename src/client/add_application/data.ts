@@ -38,14 +38,14 @@ export const appConfig: AppConfig = {
   size: 59812,
 
   images: [
-    `https://cfx-nui-${GetCurrentResourceName()}/ui/dist/screenshot-light.png`,
-    `https://cfx-nui-${GetCurrentResourceName()}/ui/dist/screenshot-dark.png`,
+    `https://cfx-nui-${GetCurrentResourceName()}/dist/web/screenshot-light.png`,
+    `https://cfx-nui-${GetCurrentResourceName()}/dist/web/screenshot-dark.png`,
   ],
 
   ui: url.includes('http') ? url : `${GetCurrentResourceName()}/${url}`,
   icon: url.includes('http')
     ? `${url}/public/icon.png`
-    : `https://cfx-nui-${GetCurrentResourceName()}/ui/dist/icon.png`,
+    : `https://cfx-nui-${GetCurrentResourceName()}/dist/web/icon.png`,
 
   fixBlur: true,
 
