@@ -6,6 +6,12 @@ import { Link } from 'react-router-dom';
 const Home: React.FC = () => {
   const { user, logout } = useAuth();
 
+  /* 
+    ToDo:
+    - Show current money on account
+    - Add button to add money
+  */
+
   return (
     <div className='home'>
       <div className='logo'>
