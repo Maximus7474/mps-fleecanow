@@ -24,7 +24,7 @@ const Login: React.FC = () => {
 
   return (
     <div className='login'>
-      <img src='/icon.png' />
+      <img src='./icon.png' />
 
       <form className='login-form' onSubmit={handleSubmit}>
         <div>

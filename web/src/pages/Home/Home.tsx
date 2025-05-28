@@ -9,7 +9,7 @@ const Home: React.FC = () => {
   return (
     <div className='home'>
       <div className='logo'>
-        <img src='/icon.png' alt='App Icon' />
+        <img src='./icon.png' alt='App Icon' />
       </div>
 
       {user ? (

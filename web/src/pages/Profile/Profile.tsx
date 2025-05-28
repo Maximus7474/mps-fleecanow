@@ -131,9 +131,9 @@ const ProfilePage: React.FC = () => {
         <div className='profile'>
           <ProfilePicture
             className='avatar'
-            src={profilePicSource(avatar ?? '', user.avatar ?? '', '/icon.png')}
+            src={profilePicSource(avatar ?? '', user.avatar ?? '', './icon.png')}
             alt={`${user.username}'s avatar`}
-            fallback='/icon.png'
+            fallback='./icon.png'
           />
           {isEditing ? (
             <div className='profile-edit'>

@@ -61,7 +61,7 @@ const ConfirmTransfer: React.FC = () => {
     <div className='confirm-transfer-page'>
       <div className='profile'>
         <h3>Sending money to</h3>
-        <ProfilePicture src={targetUser.avatar ?? '/icon.png'} />
+        <ProfilePicture src={targetUser.avatar ?? './icon.png'} />
         <div>
           <h2 className='display-name'>{targetUser.displayName || targetUser.username}</h2>
           <p className='username'>@{targetUser.username}</p>

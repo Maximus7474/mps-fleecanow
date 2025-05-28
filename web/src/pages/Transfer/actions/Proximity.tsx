@@ -31,7 +31,7 @@ const ProximuityTransfer: React.FC<TransferProps> = ({ setSection }) => {
 
             return (
               <Link key={i} to={`/transfer/confirm?${query}`} className='card'>
-                <ProfilePicture src={user.avatar ?? '/icon.png'} fallback='/icon.png' className='' />
+                <ProfilePicture src={user.avatar ?? './icon.png'} fallback='./icon.png' className='' />
                 <div>
                   <p>{user.displayName ?? user.username}</p>
                   <p className='username'>@{user.username}</p>
