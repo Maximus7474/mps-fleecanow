@@ -94,12 +94,13 @@ const ConfirmTransfer: React.FC = () => {
             }
           />
         </div>
-        <div style={{ width: '80%', display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5em' }}>
+        {/* Implemented at a later stage */}
+        {/* <div style={{ width: '80%', display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5em' }}>
           <input
             type='checkbox'
             id='public'
             style={{ width: '1.2em', height: '1.2em' }}
-            checked={!!transferData.message}
+            checked={transferData.public}
             onChange={(e) =>
               setTransferData((prev) => ({
                 ...prev,
@@ -110,7 +111,7 @@ const ConfirmTransfer: React.FC = () => {
           <label htmlFor='public' style={{ margin: 0 }}>
             Public:
           </label>
-        </div>
+        </div> */}
         <button style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1em' }}>
           <Send />
           Send money
