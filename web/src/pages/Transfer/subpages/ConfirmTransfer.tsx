@@ -20,13 +20,19 @@ const ConfirmTransfer: React.FC = () => {
   });
 
   useEffect(() => {
-    const userName = searchParams.get('username');
+    const username = searchParams.get('username');
     if (devMode) {
-      const foundUser = proximityShareProfiles.find((user) => user.username === userName);
+      const foundUser = proximityShareProfiles.find((user) => user.username === username);
       if (foundUser) setTargetUser(foundUser);
+      setLoading(false);
+    } else {
+      fetchNui<UserSharedProfile | null>('fleecanow:getuserprofile', { username }).then((user) => {
+        setTargetUser(user);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
     }
-
-    setLoading(false);
   }, []);
 
   const confirmTransfer = () => {
