@@ -1,16 +1,17 @@
-.login {
+.register {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 3em;
   padding: 1em;
-  min-height: 100vh;
+  min-height: 85vh;
   background-color: var(--background-primary);
 }
 
-.login img {
-  margin-bottom: 2em;
+.register img {
+  margin-bottom: 0.5em;
   max-width: 12em;
   height: auto;
   border-radius: 2em;
@@ -23,7 +24,7 @@
   padding: 2em 1em;
   display: flex;
   flex-direction: column;
-  row-gap: 1.5em;
+  row-gap: 1em;
 }
 
 .register-form div {
@@ -88,6 +89,7 @@
   font-size: medium;
   font-weight: 300;
   font-style: italic;
+  font-size: small;
   line-height: 1em;
 }
 

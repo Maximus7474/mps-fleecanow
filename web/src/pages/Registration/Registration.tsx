@@ -38,7 +38,7 @@ const Registration: React.FC = () => {
   }, [user, navigate]);
 
   return (
-    <div className='login'>
+    <div className='register'>
       <img src='./icon.png' />
 
       <form className='register-form' onSubmit={handleSubmit}>
