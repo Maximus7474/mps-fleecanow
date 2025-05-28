@@ -51,6 +51,26 @@ section > div > button.return {
   align-items: center;
 }
 
+section > div > h3.no-users {
+  padding-top: 18em;
+  text-align: center;
+}
+section > div > h3.no-users::after {
+  content: "";
+  text-align: left;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  animation: dots 1.5s steps(3, end) infinite;
+  width: 0.8em;
+}
+@keyframes dots {
+  0% { content: ""; }
+  33% { content: "."; }
+  66% { content: ".."; }
+  100% { content: "..."; }
+}
+
 .closeby-users > p {
   text-align: center;
 }

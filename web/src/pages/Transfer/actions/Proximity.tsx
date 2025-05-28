@@ -7,13 +7,26 @@ import { proximityShareProfiles } from '../debug';
 import ProfilePicture from '../../../components/ProfilePicture';
 
 const ProximuityTransfer: React.FC<TransferProps> = ({ setSection }) => {
+  const [loading, setLoading] = useState<boolean>(true);
   const [proximityUsers, setProximityUsers] = useState<ProximityShareProfile[]>([]);
 
   useEffect(() => {
     fetchNui<ProximityShareProfile[]>('fleecanow:getcloseplayers', {}, proximityShareProfiles).then((resp) => {
       setProximityUsers(resp);
+      setLoading(false);
     });
   }, []);
+
+  if (loading) {
+    return (
+      <div>
+        <button onClick={() => setSection('home')} className='return'>
+          <Undo2 />
+        </button>
+        <h3 className='no-users'>Loading users</h3>
+      </div>
+    )
+  }
 
   return (
     <div>
