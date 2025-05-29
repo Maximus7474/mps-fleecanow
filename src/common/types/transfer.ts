@@ -1,4 +1,4 @@
-import { UserSharedProfile } from 'src/types';
+import { UserSharedProfile } from '@common/types';
 
 export type transferAction = 'home' | 'username' | 'proximity';
 

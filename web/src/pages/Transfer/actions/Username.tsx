@@ -1,5 +1,5 @@
 import { Search, Undo2 } from 'lucide-react';
-import { TransferProps, UsernameValidationResponse } from '../../../types';
+import { TransferProps, UsernameValidationResponse } from '@common/types';
 import { useState } from 'react';
 import { proximityShareProfiles } from '../debug';
 import { useNavigate } from 'react-router-dom';

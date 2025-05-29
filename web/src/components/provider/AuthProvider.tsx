@@ -1,6 +1,6 @@
 import { useState, ReactNode, useEffect } from 'react';
 import { fetchNui } from '../../utils/fetchNui';
-import { User, LoginResponse, UpdateProfileResponse } from '../../types';
+import { User, LoginResponse, UpdateProfileResponse } from '@common/types';
 import { AuthContext } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
