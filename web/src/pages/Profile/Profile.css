@@ -132,7 +132,7 @@
   margin-top: 1rem;
 }
 
-p.error {
+.profile-edit > div > p.error {
   position: absolute;
   bottom: 0.05em;
   right: 3em;
