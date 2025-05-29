@@ -54,7 +54,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function updateUser(user: User) {
-    const result = await fetchNui<UpdateProfileResponse>('fleecanow:updateProfile', user, { success: true, user });
+    const result = await fetchNui<UpdateProfileResponse>('fleecanow:updateProfile', user, {
+      success: true,
+      user,
+    });
 
     if (result.success) {
       setUser(result.user);
