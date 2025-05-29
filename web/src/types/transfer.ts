@@ -2,6 +2,8 @@ import { UserSharedProfile } from 'src/types';
 
 export type transferAction = 'home' | 'username' | 'proximity';
 
+export type UsernameValidationResponse = { success: true; username: string } | { success: false; error: string };
+
 export interface TransferProps {
   setSection: (section: transferAction) => void;
 }
