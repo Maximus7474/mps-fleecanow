@@ -26,12 +26,13 @@ const ConfirmTransfer: React.FC = () => {
       if (foundUser) setTargetUser(foundUser);
       setLoading(false);
     } else {
-      fetchNui<UserSharedProfile | null>('fleecanow:getuserprofile', { username }).then((user) => {
-        setTargetUser(user);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      fetchNui<UserSharedProfile | null>('fleecanow:getuserprofile', { username })
+        .then((user) => {
+          setTargetUser(user);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
   }, []);
 
