@@ -1,4 +1,4 @@
-import { resourceExport } from "./export";
+import { resourceExport } from '@common/export';
 
 type CallbackResponse<T = any> = (...args: any[]) => void;
 

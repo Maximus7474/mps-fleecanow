@@ -1,6 +1,6 @@
 import { waitForResourceStarted } from '@common/utils';
 import { appConfig } from './data';
-import { resourceExport } from '../utils/export';
+import { resourceExport } from '@common/export';
 
 const lbPhone = 'lb-phone';
 
