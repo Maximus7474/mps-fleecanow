@@ -47,6 +47,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
   }
 
+  async function register(username: string, password: string): Promise<LoginResponse> {
+    setLoading(true);
+    try {
+      const response = await fetchNui<LoginResponse>(
+        'fleecanow:register',
+        { username, password },
+        {
+          success: true,
+          user: mockAccount,
+        },
+      );
+
+      if (response.success) {
+        setUser(response.user);
+        setLoading(false);
+        return { success: true, user: response.user };
+      } else {
+        setLoading(false);
+        return { success: false, error: response.error ?? 'Unable to register' };
+      }
+    } catch (err) {
+      console.error('Unable to register account !', err);
+      return { success: false, error: 'Unable to register' };
+    }
+  }
+
   function logout() {
     setUser(null);
     fetchNui('fleecanow:logout');
@@ -68,7 +94,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, loginError, login, logout, updateUser, loading }}>
+    <AuthContext.Provider value={{ user, loginError, login, logout, register, updateUser, loading }}>
       {children}
     </AuthContext.Provider>
   );
