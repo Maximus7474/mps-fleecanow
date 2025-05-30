@@ -62,6 +62,14 @@
   pointer-events: none;
 }
 
+.register-form .invalid-registration {
+  color: var(--error-primary);
+  font-size: 1em;
+  text-align: center;
+  font-weight: 600;
+  pointer-events: none;
+}
+
 .register-form .register-button {
   align-self: center;
   padding: 0.75em 1.5em;
@@ -84,7 +92,7 @@
   opacity: 0.6;
 }
 
-.register div:last-of-type > p {
+.register div:last-of-type > p:not(.invalid-registration) {
   text-align: center;
   font-size: medium;
   font-weight: 300;

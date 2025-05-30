@@ -7,17 +7,25 @@ type formFields = 'username' | 'password' | 'confirmedPassword';
 
 const Registration: React.FC = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, register } = useAuth();
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmedPassword, setConfirmedPassword] = useState<string>('');
   const [invalidFields, setInvalidFields] = useState<Map<formFields, string>>(new Map());
+  const [registrationError, setRegistrationError] = useState<string | null>();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateFields()) return;
-    // register(username, password);
+    register(username, password)
+    .then((data) => {
+      if (data.success) {
+        navigate('/');
+      } else {
+        setRegistrationError(data.error);
+      }
+    });
   };
 
   const validateFields = () => {
@@ -79,6 +87,10 @@ const Registration: React.FC = () => {
             onChange={(e) => setConfirmedPassword(e.target.value)}
           />
           <p className='invalid-field'>{invalidFields.get('confirmedPassword')}</p>
+        </div>
+
+        <div>
+          <p className='invalid-registration'>{registrationError}</p>
         </div>
 
         <button type='submit' className='register-button'>
