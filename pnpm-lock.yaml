@@ -14,6 +14,9 @@ importers:
       '@communityox/ox_lib':
         specifier: latest
         version: 3.30.9
+      '@communityox/oxmysql':
+        specifier: ^1.4.3
+        version: 1.4.3
       '@nativewrappers/fivem':
         specifier: latest
         version: 0.0.103
@@ -217,6 +220,9 @@ packages:
 
   '@communityox/ox_lib@3.30.9':
     resolution: {integrity: sha512-f0zNydWVCoE1j7bAhlVFHQyveuTfEojVgqXVUX2byWTsw0ef3soR33Qt/S8R5fSS5Q+Si8SXkkHkco9LnhF7vw==}
+
+  '@communityox/oxmysql@1.4.3':
+    resolution: {integrity: sha512-PWaG9JKpJea/n6QocAyZR/q5ZGiBM+tzxo3gXp5tg8pDqFqkS/s7eBkS0W02lZbw/FrhcIhEDztoUI9rHXxMdQ==}
 
   '@esbuild/aix-ppc64@0.23.1':
     resolution: {integrity: sha512-6VhYk1diRqrhBAqpJEdjASR/+WVRtfjpqKuNw11cLiaWpAT/Uu+nokB+UJnevzy/P9C/ty6AOe0dwueMrGh/iQ==}
@@ -1223,6 +1229,8 @@ snapshots:
       csstype: 3.1.3
       fast-printf: 1.6.10
       typescript: 5.8.3
+
+  '@communityox/oxmysql@1.4.3': {}
 
   '@esbuild/aix-ppc64@0.23.1':
     optional: true
