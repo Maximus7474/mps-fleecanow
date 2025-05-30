@@ -1,0 +1,99 @@
+import { oxmysql as MySQL } from '@communityox/oxmysql';
+import { RegisterCallback } from '../utils/callbacks';
+import { resourceExport } from '@common/export';
+import { LoginResponse, User } from '@common/types';
+
+interface ServerUser extends User {
+  source: number;
+  phone_number: string;
+}
+
+interface RawUser {
+  username: string;
+  display_name?: string;
+  email?: string;
+  avatar?: string;
+}
+
+let connectedUsers: { [key: string]: ServerUser } = {};
+let userNameForSource: { [key: number]: string } = {};
+
+RegisterCallback('fleecanow:getconnectedaccount', async (source: number): Promise<User | null> => {
+  const phone_number = resourceExport('lb-phone', 'GetEquippedPhoneNumber')(source);
+
+  if (!phone_number) return null;
+
+  const username: string | null = await MySQL.single(
+    'SELECT `username` FROM `phone_logged_in_accounts` WHERE `app` = "FleecaNow" AND `phone_number` = ?',
+    [phone_number],
+  );
+
+  if (!username) return null;
+
+  const rawUser: RawUser | null = await MySQL.single(
+    'SELECT `username`, `display_name`, `email`, `avatar` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
+    [username],
+  );
+
+  if (!rawUser) return null;
+
+  const user: User = {
+    username: rawUser.username,
+    email: rawUser.email,
+    displayName: rawUser.display_name,
+    avatar: rawUser.avatar,
+  };
+
+  connectedUsers[user.username] = {
+    ...user,
+    source,
+    phone_number,
+  };
+  userNameForSource[source] = user.username;
+
+  return user;
+});
+
+RegisterCallback(
+  'fleecanow:login',
+  async (source: number, data: { username: string; password: string }): Promise<LoginResponse> => {
+    const hashedPassword = GetPasswordHash(data.password);
+
+    const rawUser: RawUser | null = await MySQL.single(
+      'SELECT `username`, `display_name`, `email`, `avatar` FROM `phone_fleecanow_accounts` WHERE `username` = ? AND `password` = ?',
+      [data.username, hashedPassword],
+    );
+
+    if (!rawUser) return { success: false, error: 'Invalid username or password' };
+
+    const phone_number = resourceExport('lb-phone', 'GetEquippedPhoneNumber')(source);
+
+    const user: User = {
+      username: rawUser.username,
+      email: rawUser.email,
+      displayName: rawUser.display_name,
+      avatar: rawUser.avatar,
+    };
+
+    connectedUsers[user.username] = {
+      ...user,
+      source,
+      phone_number,
+    };
+    userNameForSource[source] = user.username;
+
+    return { success: true, user };
+  },
+);
+
+RegisterCallback('fleecanow:logout', async (source: number) => {
+  const user = connectedUsers[userNameForSource[source]];
+
+  await MySQL.update(
+    'DELETE FROM `phone_logged_in_accounts` WHERE `app` = `FleecaNow` AND `username` = ? AND `phone_number` = ?',
+    [user.username, user.phone_number],
+  );
+
+  delete connectedUsers[user.username];
+  delete userNameForSource[source];
+});
