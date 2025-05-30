@@ -95,7 +95,6 @@ const ProfilePage: React.FC = () => {
     }
 
     updateUser({
-      uuid: user!.uuid, // Woops
       avatar: avatar ?? user?.avatar,
       displayName,
       email,
