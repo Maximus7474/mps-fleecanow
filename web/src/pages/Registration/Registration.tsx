@@ -18,8 +18,7 @@ const Registration: React.FC = () => {
     e.preventDefault();
 
     if (!validateFields()) return;
-    register(username, password)
-    .then((data) => {
+    register(username, password).then((data) => {
       if (data.success) {
         navigate('/');
       } else {
