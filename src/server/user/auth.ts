@@ -18,6 +18,10 @@ interface RawUser {
 let connectedUsers: { [key: string]: ServerUser } = {};
 let userNameForSource: { [key: number]: string } = {};
 
+const setPlayerStatebag = (src: number, user: User | null) => {
+  Player(src).state.set('fleecanow-username', user ? user.username : null, true);
+};
+
 RegisterCallback('fleecanow:getconnectedaccount', async (source: number): Promise<User | null> => {
   const phone_number = resourceExport('lb-phone', 'GetEquippedPhoneNumber')(source);
 
@@ -50,6 +54,7 @@ RegisterCallback('fleecanow:getconnectedaccount', async (source: number): Promis
     phone_number,
   };
   userNameForSource[source] = user.username;
+  setPlayerStatebag(source, user);
 
   return user;
 });
@@ -95,5 +100,13 @@ RegisterCallback('fleecanow:logout', async (source: number) => {
   );
 
   delete connectedUsers[user.username];
+  delete userNameForSource[source];
+  setPlayerStatebag(source, null);
+});
+
+on('playerDropped', () => {
+  const source = global.source;
+  const username = userNameForSource[source];
+  delete connectedUsers[username];
   delete userNameForSource[source];
 });
