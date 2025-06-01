@@ -86,6 +86,50 @@ RegisterCallback(
       phone_number,
     };
     userNameForSource[source] = user.username;
+    setPlayerStatebag(source, user);
+
+    return { success: true, user };
+  },
+);
+
+RegisterCallback(
+  'fleecanow:register',
+  async (source: number, data: { username: string; password: string }): Promise<LoginResponse> => {
+    const exists = await MySQL.single('SELECT 1 FROM `phone_fleecanow_accounts` WHERE `username` = ? LIMIT 1', [
+      data.username,
+    ]);
+
+    if (exists) return { success: false, error: 'Username is taken' };
+
+    const hashedPassword = GetPasswordHash(data.password);
+
+    const id = await MySQL.insert('INSERT INTO `phone_fleecanow_accounts` (username, password) VALUES (?, ?)', [
+      data.username, hashedPassword
+    ]);
+
+    if (!id) return { success: false, error: 'Unable to register account' };
+
+    const phone_number = resourceExport('lb-phone', 'GetEquippedPhoneNumber')(source);
+
+    const rawUser: RawUser | null = await MySQL.single(
+      'SELECT `username`, `display_name`, `email`, `avatar` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
+      [data.username],
+    );
+
+    const user: User = {
+      username: rawUser.username,
+      email: rawUser.email,
+      displayName: rawUser.display_name,
+      avatar: rawUser.avatar,
+    };
+
+    connectedUsers[user.username] = {
+      ...user,
+      source,
+      phone_number,
+    };
+    userNameForSource[source] = user.username;
+    setPlayerStatebag(source, user);
 
     return { success: true, user };
   },
