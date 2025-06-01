@@ -22,6 +22,15 @@ RegisterNuiCallback(
   },
 );
 
+RegisterNuiCallback(
+  'fleecanow:register',
+  async (data: { username: string; password: string }, cb: (response: LoginResponse) => void) => {
+    const response: LoginResponse = await awaitCallback('fleecanow:register', data);
+    if (response.success) currentUser = response.user;
+    cb(response);
+  },
+);
+
 RegisterNuiCallback('fleecanow:logout', async (_: null, cb: Function) => {
   TriggerServerEvent('fleecanow:logout');
   currentUser = null;
