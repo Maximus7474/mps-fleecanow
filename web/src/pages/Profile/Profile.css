@@ -15,7 +15,7 @@
   gap: 1rem;
   justify-content: center;
   align-items: center;
-  height: 70vh;
+  height: 80vh;
 }
 
 .profile-card > div.profile {
@@ -84,12 +84,12 @@
 }
 
 .avatar {
-  width: 10em;
-  height: 10em;
+  width: 8em;
+  height: 8em;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid var(--primary);
-  margin-bottom: 1rem;
+  margin-bottom: 0.125rem;
 }
 
 .display-name {
@@ -119,13 +119,13 @@
 }
 
 .profile input {
-  width: 80%;
+  width: 90%;
   background-color: var(--background-primary);
   box-shadow: 0 4px 8px var(--secondary-shadow);
 }
 
 .profile label {
-  width: 80%;
+  width: 90%;
 }
 
 .profile label:last-of-type {
