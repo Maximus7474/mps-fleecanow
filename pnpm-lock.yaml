@@ -12,7 +12,7 @@ importers:
         specifier: ^1.9.4
         version: 1.9.4
       '@communityox/ox_lib':
-        specifier: latest
+        specifier: ^3.30.9
         version: 3.30.9
       '@communityox/oxmysql':
         specifier: ^1.4.3
