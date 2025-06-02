@@ -80,9 +80,10 @@ const ProfilePage: React.FC = () => {
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    console.log(email, emailRegex.test(avatar))
     if (email.length > 10 && emailRegex.test(avatar)) {
       newData.email = email;
-    } else {
+    } else if (email.length !== 0) {
       invalidData = true;
       errors.email = 'Email address is invalid';
     }
@@ -93,6 +94,8 @@ const ProfilePage: React.FC = () => {
       alert('Simulated data being saved');
       setIsEditing(false);
     }
+
+    if (invalidData) return;
 
     updateUser({
       avatar: avatar ?? user?.avatar,
