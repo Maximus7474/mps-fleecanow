@@ -1,6 +1,6 @@
 import { oxmysql as MySQL } from '@communityox/oxmysql';
 import { resourceExport } from '@common/export';
-import { LoginResponse, User } from '@common/types';
+import { LoginResponse, UpdateProfileResponse, User } from '@common/types';
 import { RegisterServerCallback } from '../utils/callbacks';
 
 interface ServerUser extends User {
@@ -120,6 +120,10 @@ RegisterServerCallback(
     return { success: true, user };
   },
 );
+
+RegisterServerCallback('fleecanow:updateProfile', async (source: number, data: User): Promise<UpdateProfileResponse> => {
+  return { success: false, error: 'Not yet setup'}
+})
 
 onNet('fleecanow:logout', async (source: number) => {
   const user = connectedUsers[userNameForSource[source]];
