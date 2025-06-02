@@ -6,8 +6,7 @@ import { Navigate } from 'react-router-dom';
 import ProfilePicture from '../../components/ProfilePicture';
 import { useState } from 'react';
 import { fetchNui } from '../../utils/fetchNui';
-
-type DeletionResponse = { success: true } | { success: false; error: string };
+import type { DeletionResponse } from '@common/types';
 interface editProfileError {
   avatar?: string;
   displayName?: string;

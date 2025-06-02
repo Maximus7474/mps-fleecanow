@@ -16,6 +16,8 @@ export interface UserSharedProfile {
   avatar?: string;
 }
 
+export type DeletionResponse = { success: true } | { success: false; error: string };
+
 export type LoginResponse = { success: true; user: User } | { success: false; error: string };
 
 export type UpdateProfileResponse = { success: true; user: User } | { success: false; error: string };
