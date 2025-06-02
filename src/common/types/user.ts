@@ -3,6 +3,7 @@ export interface User {
   email?: string;
   displayName?: string;
   avatar?: string;
+  proximitySharing: boolean;
 }
 
 export interface UserLogin {

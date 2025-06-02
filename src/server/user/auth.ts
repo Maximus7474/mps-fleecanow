@@ -13,6 +13,7 @@ interface RawUser {
   display_name?: string;
   email?: string;
   avatar?: string;
+  proximity_sharing: number;
 }
 
 let connectedUsers: { [key: string]: ServerUser } = {};
@@ -40,7 +41,7 @@ RegisterServerCallback('fleecanow:getconnectedaccount', async (source: number): 
   if (!username) return null;
 
   const rawUser: RawUser | null = await MySQL.single(
-    'SELECT `username`, `display_name`, `email`, `avatar` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
+    'SELECT `username`, `display_name`, `email`, `avatar`, `proximity_sharing` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
     [username.username],
   );
   if (!rawUser) return null;
@@ -50,6 +51,7 @@ RegisterServerCallback('fleecanow:getconnectedaccount', async (source: number): 
     email: rawUser.email,
     displayName: rawUser.display_name,
     avatar: rawUser.avatar,
+    proximitySharing: rawUser.proximity_sharing === 1,
   };
 
   connectedUsers[user.username] = { ...user, source, phone_number };
@@ -63,7 +65,7 @@ RegisterServerCallback(
   'fleecanow:login',
   async (source: number, data: { username: string; password: string }): Promise<LoginResponse> => {
     const rawUser: (RawUser & { password: string }) | null = await MySQL.single(
-      'SELECT `username`, `display_name`, `email`, `avatar`, `password` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
+      'SELECT `username`, `display_name`, `email`, `avatar`, `password`, `proximity_sharing` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
       [data.username],
     );
 
@@ -79,6 +81,7 @@ RegisterServerCallback(
       email: rawUser.email,
       displayName: rawUser.display_name,
       avatar: rawUser.avatar,
+      proximitySharing: rawUser.proximity_sharing === 1,
     };
 
     connectedUsers[user.username] = { ...user, source, phone_number };
@@ -120,6 +123,7 @@ RegisterServerCallback(
       email: rawUser.email,
       displayName: rawUser.display_name,
       avatar: rawUser.avatar,
+      proximitySharing: rawUser.proximity_sharing === 1,
     };
 
     connectedUsers[user.username] = { ...user, source, phone_number };
@@ -156,8 +160,15 @@ RegisterServerCallback(
     const email = newUser.email && isValidEmail(newUser.email) ? newUser.email : null;
 
     await MySQL.query(
-      'UPDATE `phone_fleecanow_accounts` SET `username` = ?, `display_name` = ?, `email` = ?, `avatar` = ? WHERE `username` = ?',
-      [newUser.username, newUser.displayName, email, newUser.avatar, currentUser.username],
+      'UPDATE `phone_fleecanow_accounts` SET `username` = ?, `display_name` = ?, `email` = ?, `avatar` = ?, `proximity_sharing` = ? WHERE `username` = ?',
+      [
+        newUser.username,
+        newUser.displayName,
+        email,
+        newUser.avatar,
+        newUser.proximitySharing ? 1 : 0,
+        currentUser.username,
+      ],
     );
 
     connectedUsers[newUser.username] = {
@@ -182,15 +193,11 @@ RegisterServerCallback('fleecanow:deleteaccount', async (source: number): Promis
 
   const username = usernameResult.username;
 
-  await MySQL.query(
-    'DELETE FROM `phone_fleecanow_accounts` WHERE `username` = ?',
-    [username],
-  );
+  await MySQL.query('DELETE FROM `phone_fleecanow_accounts` WHERE `username` = ?', [username]);
 
-  await MySQL.query(
-    'DELETE FROM `phone_logged_in_accounts` WHERE `app` = "FleecaNow" AND `phone_number` = ?',
-    [phone_number],
-  );
+  await MySQL.query('DELETE FROM `phone_logged_in_accounts` WHERE `app` = "FleecaNow" AND `phone_number` = ?', [
+    phone_number,
+  ]);
 
   delete connectedUsers[username];
   delete userNameForSource[source];
