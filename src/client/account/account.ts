@@ -1,4 +1,4 @@
-import { LoginResponse, UpdateProfileResponse, User } from '@common/types';
+import type { DeletionResponse, LoginResponse, UpdateProfileResponse, User } from '@common/types';
 import { triggerServerCallback } from '../utils/callbacks';
 
 let currentUser: User | null;
@@ -36,6 +36,12 @@ RegisterNuiCallback(
     cb(response);
   },
 );
+
+RegisterNuiCallback('fleecanow:deleteaccount', async (_: null, cb: (data: DeletionResponse) => void) => {
+  const response: DeletionResponse = await triggerServerCallback('fleecanow:deleteaccount');
+  if (response.success) currentUser = null;
+  cb(response);
+});
 
 RegisterNuiCallback('fleecanow:logout', async (_: null, cb: Function) => {
   TriggerServerEvent('fleecanow:logout');
