@@ -1,4 +1,4 @@
-import { LoginResponse, User } from '@common/types';
+import { LoginResponse, UpdateProfileResponse, User } from '@common/types';
 import { triggerServerCallback } from '../utils/callbacks';
 
 let currentUser: User | null;
@@ -11,6 +11,12 @@ RegisterNuiCallback('fleecanow:getconnectedaccount', async (_: null, cb: (data: 
   const user: User | null = await triggerServerCallback('fleecanow:getconnectedaccount');
   currentUser = user;
   cb(user);
+});
+
+RegisterNuiCallback('fleecanow:updateProfile', async (_: null, cb: (data: UpdateProfileResponse | null) => void) => {
+  const response: UpdateProfileResponse | null = await triggerServerCallback('fleecanow:updateProfile');
+  if (response.success) currentUser = response.user;
+  cb(response);
 });
 
 RegisterNuiCallback(
