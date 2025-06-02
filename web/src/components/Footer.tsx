@@ -1,7 +1,7 @@
-import { BookUser, Home, MessageSquareMore, Send, UserPen } from 'lucide-react';
+import { /* BookUser, */ Home, /* MessageSquareMore, */ Send, UserPen } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
-import { NavItem } from '../types';
+import type { NavItem } from '../types';
 
 import './Footer.css';
 

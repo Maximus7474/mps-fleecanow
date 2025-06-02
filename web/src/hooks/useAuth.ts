@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { LoginResponse, User } from '@common/types';
+import type { LoginResponse, User } from '@common/types';
 
 type AuthContextType = {
   user: User | null;

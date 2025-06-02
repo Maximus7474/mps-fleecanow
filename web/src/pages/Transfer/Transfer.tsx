@@ -3,9 +3,9 @@ import { useState } from 'react';
 import ProximuityTransfer from './actions/Proximity';
 import UsernameTransfer from './actions/Username';
 import TransferTypeSelection from './actions/Main';
+import type { transferAction } from '@common/types';
 
 import './Transfer.css';
-import { transferAction } from '../../types';
 
 const Transfer: React.FC = () => {
   const [currentAction, setAction] = useState<transferAction>('home');

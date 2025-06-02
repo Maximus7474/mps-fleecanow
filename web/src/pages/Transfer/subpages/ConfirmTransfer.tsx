@@ -3,7 +3,7 @@ import './ConfirmTransfer.css';
 import { devMode } from '../../../utils/utils';
 import { proximityShareProfiles } from '../debug';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { TransferData, UserSharedProfile } from '../../../types';
+import type { TransferData, UserSharedProfile } from '@common/types';
 import ProfilePicture from '../../../components/ProfilePicture';
 import { Send, TriangleAlert, Undo2 } from 'lucide-react';
 import { fetchNui } from '../../../utils/fetchNui';
