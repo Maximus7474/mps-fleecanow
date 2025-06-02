@@ -16,9 +16,7 @@ RegisterNuiCallback('fleecanow:getconnectedaccount', async (_: null, cb: (data: 
 RegisterNuiCallback(
   'fleecanow:login',
   async (data: { username: string; password: string }, cb: (response: LoginResponse) => void) => {
-    console.log('Login Request', data.username, data.password);
     const response: LoginResponse = await triggerServerCallback('fleecanow:login', data);
-    console.log('Login Request Response', JSON.stringify(response));
     if (response.success) currentUser = response.user;
     cb(response);
   },

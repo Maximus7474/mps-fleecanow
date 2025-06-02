@@ -85,12 +85,9 @@ RegisterServerCallback(
 RegisterServerCallback(
   'fleecanow:register',
   async (source: number, data: { username: string; password: string }): Promise<LoginResponse> => {
-    console.log('Registering new user', data.username, data.password);
-
     const exists = await MySQL.single('SELECT 1 FROM `phone_fleecanow_accounts` WHERE `username` = ? LIMIT 1', [
       data.username,
     ]);
-    console.log('is username taken ?', exists !== null);
 
     if (exists) return { success: false, error: 'Username is taken' };
 
@@ -99,7 +96,6 @@ RegisterServerCallback(
       data.username,
       hashedPassword,
     ]);
-    console.log('Inserted data:', data.username, hashedPassword, 'result:', id);
 
     if (!id) return { success: false, error: 'Unable to register account' };
 

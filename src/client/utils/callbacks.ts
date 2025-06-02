@@ -10,7 +10,7 @@ const generateUUID = (): string => {
 export const triggerServerCallback = <T = any>(name: string, data?: any): Promise<T> => {
   return new Promise((resolve, reject) => {
     const id = generateUUID();
-    console.log('Creating cb:', id, name);
+
     pendingCallbacks.set(id, (res) => {
       if (res.success) resolve(res.data as T);
       else reject(res.error);
@@ -22,7 +22,7 @@ export const triggerServerCallback = <T = any>(name: string, data?: any): Promis
 
 onNet('myResource:client:callbackResponse', (requestId: string, response: CallbackResponse) => {
   const cb = pendingCallbacks.get(requestId);
-  console.log('Received cb:', requestId, JSON.stringify(response));
+
   if (cb) {
     cb(response);
     pendingCallbacks.delete(requestId);
