@@ -11,9 +11,6 @@ importers:
       '@biomejs/biome':
         specifier: ^1.9.4
         version: 1.9.4
-      '@communityox/ox_lib':
-        specifier: ^3.30.9
-        version: 3.30.9
       '@communityox/oxmysql':
         specifier: ^1.4.3
         version: 1.4.3
@@ -217,9 +214,6 @@ packages:
   '@communityox/fx-utils@0.0.4':
     resolution: {integrity: sha512-/IAlSwykgwt1BPwk0+7bvSvTGDQDiduss/BWqeWdnOz3Bim9sSrNzJoEI0CE8UMyjjs4UTth7xQdYYT2WGgvcA==}
     hasBin: true
-
-  '@communityox/ox_lib@3.30.9':
-    resolution: {integrity: sha512-f0zNydWVCoE1j7bAhlVFHQyveuTfEojVgqXVUX2byWTsw0ef3soR33Qt/S8R5fSS5Q+Si8SXkkHkco9LnhF7vw==}
 
   '@communityox/oxmysql@1.4.3':
     resolution: {integrity: sha512-PWaG9JKpJea/n6QocAyZR/q5ZGiBM+tzxo3gXp5tg8pDqFqkS/s7eBkS0W02lZbw/FrhcIhEDztoUI9rHXxMdQ==}
@@ -546,9 +540,6 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@nativewrappers/client@1.7.33':
-    resolution: {integrity: sha512-phuBBGdDPxZiZyw5CaFs1XWfvllnEtwATMdLaNucwMofVg/O/FjlP1bTUq4SOm4qhSZ4Zdo351ijHzBSIbZs6g==}
-
   '@nativewrappers/fivem@0.0.103':
     resolution: {integrity: sha512-x0W00Mx9ZN/rTS9XZc5Kf1hjahqRmlo9sPiuJP4kCYeQG4LDJyglXCsHcfNfygGq6WEblG1W2FLgm4MGDn/wHA==}
 
@@ -783,10 +774,6 @@ packages:
   fast-glob@3.3.3:
     resolution: {integrity: sha512-7MptL8U0cqcFdzIzwOTHoilX9x5BrNqye7Z/LuC7kCMRio1EMSyqRK3BEAUD7sXRq4iT4AzTVuZdhgQ2TCvYLg==}
     engines: {node: '>=8.6.0'}
-
-  fast-printf@1.6.10:
-    resolution: {integrity: sha512-GwTgG9O4FVIdShhbVF3JxOgSBY2+ePGsu2V/UONgoCPzF9VY6ZdBMKsHKCYQHZwNk3qNouUolRDsgVxcVA5G1w==}
-    engines: {node: '>=10.0'}
 
   fastq@1.19.1:
     resolution: {integrity: sha512-GwLTyxkCXjXbxqIhTsMI2Nui8huMPtnxg7krajPJAjnEG/iiOS7i+zCtWGZR9G0NBKbXKh6X9m9UIsYX/N6vvQ==}
@@ -1223,13 +1210,6 @@ snapshots:
       esbuild: 0.23.1
       tsc-alias: 1.8.16
 
-  '@communityox/ox_lib@3.30.9':
-    dependencies:
-      '@nativewrappers/client': 1.7.33
-      csstype: 3.1.3
-      fast-printf: 1.6.10
-      typescript: 5.8.3
-
   '@communityox/oxmysql@1.4.3': {}
 
   '@esbuild/aix-ppc64@0.23.1':
@@ -1400,8 +1380,6 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
-
-  '@nativewrappers/client@1.7.33': {}
 
   '@nativewrappers/fivem@0.0.103': {}
 
@@ -1655,8 +1633,6 @@ snapshots:
       glob-parent: 5.1.2
       merge2: 1.4.1
       micromatch: 4.0.8
-
-  fast-printf@1.6.10: {}
 
   fastq@1.19.1:
     dependencies:
