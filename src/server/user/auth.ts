@@ -134,9 +134,10 @@ RegisterServerCallback(
 
 RegisterServerCallback('fleecanow:updateProfile', async (source: number, data: User): Promise<UpdateProfileResponse> => {
   return { success: false, error: 'Not yet setup'}
-})
+});
 
-onNet('fleecanow:logout', async (source: number) => {
+onNet('fleecanow:logout', async () => {
+  const source = global.source;
   const user = connectedUsers[userNameForSource[source]];
   await MySQL.update(
     'DELETE FROM `phone_logged_in_accounts` WHERE `app` = "FleecaNow" AND `username` = ? AND `phone_number` = ?',
