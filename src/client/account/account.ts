@@ -13,8 +13,8 @@ RegisterNuiCallback('fleecanow:getconnectedaccount', async (_: null, cb: (data: 
   cb(user);
 });
 
-RegisterNuiCallback('fleecanow:updateProfile', async (_: null, cb: (data: UpdateProfileResponse | null) => void) => {
-  const response: UpdateProfileResponse | null = await triggerServerCallback('fleecanow:updateProfile');
+RegisterNuiCallback('fleecanow:updateProfile', async (data: null, cb: (data: UpdateProfileResponse | null) => void) => {
+  const response: UpdateProfileResponse | null = await triggerServerCallback('fleecanow:updateProfile', data);
   if (response.success) currentUser = response.user;
   cb(response);
 });
