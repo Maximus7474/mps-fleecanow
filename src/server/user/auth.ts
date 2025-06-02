@@ -1,5 +1,4 @@
 import { oxmysql as MySQL } from '@communityox/oxmysql';
-import { RegisterCallback } from '../utils/callbacks';
 import { resourceExport } from '@common/export';
 import { LoginResponse, User } from '@common/types';
 
@@ -22,7 +21,7 @@ const setPlayerStatebag = (src: number, user: User | null) => {
   Player(src).state.set('fleecanow-username', user ? user.username : null, true);
 };
 
-RegisterCallback('fleecanow:getconnectedaccount', async (source: number): Promise<User | null> => {
+RegisterServerCallback('fleecanow:getconnectedaccount', async (source: number): Promise<User | null> => {
   const phone_number = resourceExport('lb-phone', 'GetEquippedPhoneNumber')(source);
 
   if (!phone_number) return null;
@@ -59,7 +58,7 @@ RegisterCallback('fleecanow:getconnectedaccount', async (source: number): Promis
   return user;
 });
 
-RegisterCallback(
+RegisterServerCallback(
   'fleecanow:login',
   async (source: number, data: { username: string; password: string }): Promise<LoginResponse> => {
     const hashedPassword = GetPasswordHash(data.password);
@@ -92,7 +91,7 @@ RegisterCallback(
   },
 );
 
-RegisterCallback(
+RegisterServerCallback(
   'fleecanow:register',
   async (source: number, data: { username: string; password: string }): Promise<LoginResponse> => {
     const exists = await MySQL.single('SELECT 1 FROM `phone_fleecanow_accounts` WHERE `username` = ? LIMIT 1', [
@@ -104,7 +103,8 @@ RegisterCallback(
     const hashedPassword = GetPasswordHash(data.password);
 
     const id = await MySQL.insert('INSERT INTO `phone_fleecanow_accounts` (username, password) VALUES (?, ?)', [
-      data.username, hashedPassword
+      data.username,
+      hashedPassword,
     ]);
 
     if (!id) return { success: false, error: 'Unable to register account' };
@@ -135,7 +135,7 @@ RegisterCallback(
   },
 );
 
-RegisterCallback('fleecanow:logout', async (source: number) => {
+RegisterServerCallback('fleecanow:logout', async (source: number) => {
   const user = connectedUsers[userNameForSource[source]];
 
   await MySQL.update(

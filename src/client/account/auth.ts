@@ -1,5 +1,5 @@
 import { LoginResponse, User } from '@common/types';
-import { awaitCallback } from '../utils/callbacks';
+import { triggerServerCallback } from '../utils/callbacks';
 
 let currentUser: User | null;
 
@@ -8,7 +8,7 @@ export const getCurrentUser = () => {
 };
 
 RegisterNuiCallback('fleecanow:getconnectedaccount', async (_: null, cb: (data: User | null) => void) => {
-  const user: User | null = await awaitCallback('fleecanow:getconnectedaccount');
+  const user: User | null = await triggerServerCallback('fleecanow:getconnectedaccount');
   currentUser = user;
   cb(user);
 });
@@ -16,7 +16,9 @@ RegisterNuiCallback('fleecanow:getconnectedaccount', async (_: null, cb: (data: 
 RegisterNuiCallback(
   'fleecanow:login',
   async (data: { username: string; password: string }, cb: (response: LoginResponse) => void) => {
-    const response: LoginResponse = await awaitCallback('fleecanow:login', data);
+    console.log('Login Request', data.username, data.password);
+    const response: LoginResponse = await triggerServerCallback('fleecanow:login', data);
+    console.log('Login Request Response', JSON.stringify(response));
     if (response.success) currentUser = response.user;
     cb(response);
   },
@@ -25,7 +27,7 @@ RegisterNuiCallback(
 RegisterNuiCallback(
   'fleecanow:register',
   async (data: { username: string; password: string }, cb: (response: LoginResponse) => void) => {
-    const response: LoginResponse = await awaitCallback('fleecanow:register', data);
+    const response: LoginResponse = await triggerServerCallback('fleecanow:register', data);
     if (response.success) currentUser = response.user;
     cb(response);
   },
