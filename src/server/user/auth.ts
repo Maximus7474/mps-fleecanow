@@ -25,9 +25,9 @@ const setPlayerStatebag = (src: number, user: User | null) => {
 const setLoggedInAccount = async (phoneNumber: string, username: string) => {
   await MySQL.rawExecute(
     'INSERT INTO phone_logged_in_accounts (app, phone_number, username) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE username = VALUES(username)',
-    ['FleecaNow', phoneNumber, username]
+    ['FleecaNow', phoneNumber, username],
   );
-}
+};
 
 RegisterServerCallback('fleecanow:getconnectedaccount', async (source: number): Promise<User | null> => {
   const phone_number = resourceExport('lb-phone', 'GetEquippedPhoneNumber')(source);
@@ -132,9 +132,43 @@ RegisterServerCallback(
   },
 );
 
-RegisterServerCallback('fleecanow:updateProfile', async (source: number, data: User): Promise<UpdateProfileResponse> => {
-  return { success: false, error: 'Not yet setup'}
-});
+RegisterServerCallback(
+  'fleecanow:updateProfile',
+  async (source: number, newUser: User): Promise<UpdateProfileResponse> => {
+    const currentUser = connectedUsers[userNameForSource[source]];
+    if (!currentUser) {
+      return { success: false, error: 'User not connected' };
+    }
+
+    if (currentUser.username !== newUser.username) {
+      const existingUser: RawUser | null = await MySQL.single(
+        'SELECT `username` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
+        [newUser.username],
+      );
+
+      if (existingUser) {
+        return { success: false, error: 'Username already taken' };
+      }
+    }
+
+    const isValidEmail = (email: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    const email = newUser.email && isValidEmail(newUser.email) ? newUser.email : null;
+
+    await MySQL.query(
+      'UPDATE `phone_fleecanow_accounts` SET `username` = ?, `display_name` = ?, `email` = ?, `avatar` = ? WHERE `username` = ?',
+      [newUser.username, newUser.displayName, email, newUser.avatar, currentUser.username],
+    );
+
+    connectedUsers[newUser.username] = {
+      ...currentUser,
+      ...newUser,
+    };
+    userNameForSource[source] = newUser.username;
+
+    return { success: true, user: connectedUsers[newUser.username] };
+  },
+);
 
 onNet('fleecanow:logout', async () => {
   const source = global.source;
