@@ -12,6 +12,7 @@
       "@common/*": ["../src/common/*"]
     },
     "types": ["@types/node", "./nui.d.ts"],
+    "verbatimModuleSyntax": true,
 
     /* Bundler mode */
     "moduleResolution": "bundler",

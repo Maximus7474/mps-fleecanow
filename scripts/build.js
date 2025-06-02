@@ -25,6 +25,7 @@ createBuilder(
         target: ['node22'],
         format: 'cjs',
         dropLabels: [...dropLabels, '$CLIENT'],
+        external: ['shared'],
       },
     },
     {
@@ -34,6 +35,7 @@ createBuilder(
         target: ['es2021'], 
         format: 'iife',
         dropLabels: [...dropLabels, '$SERVER'],
+        external: ['shared'],
       },
     },
   ],
