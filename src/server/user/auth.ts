@@ -22,6 +22,13 @@ const setPlayerStatebag = (src: number, user: User | null) => {
   Player(src).state.set('fleecanow-username', user ? user.username : null, true);
 };
 
+const setLoggedInAccount = async (phoneNumber: string, username: string) => {
+  await MySQL.rawExecute(
+    'INSERT INTO phone_logged_in_accounts (app, phone_number, username) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE username = VALUES(username)',
+    ['FleecaNow', phoneNumber, username]
+  );
+}
+
 RegisterServerCallback('fleecanow:getconnectedaccount', async (source: number): Promise<User | null> => {
   const phone_number = resourceExport('lb-phone', 'GetEquippedPhoneNumber')(source);
   if (!phone_number) return null;
@@ -62,7 +69,7 @@ RegisterServerCallback(
 
     if (!rawUser) return { success: false, error: 'Invalid username or password' };
 
-    const passwordValid = await VerifyPasswordHash(data.password, rawUser.password);
+    const passwordValid = VerifyPasswordHash(data.password, rawUser.password);
     if (!passwordValid) return { success: false, error: 'Invalid username or password' };
 
     const phone_number = resourceExport('lb-phone', 'GetEquippedPhoneNumber')(source);
@@ -76,7 +83,9 @@ RegisterServerCallback(
 
     connectedUsers[user.username] = { ...user, source, phone_number };
     userNameForSource[source] = user.username;
+
     setPlayerStatebag(source, user);
+    setLoggedInAccount(phone_number, user.username);
 
     return { success: true, user };
   },
@@ -115,7 +124,9 @@ RegisterServerCallback(
 
     connectedUsers[user.username] = { ...user, source, phone_number };
     userNameForSource[source] = user.username;
+
     setPlayerStatebag(source, user);
+    setLoggedInAccount(phone_number, user.username);
 
     return { success: true, user };
   },
