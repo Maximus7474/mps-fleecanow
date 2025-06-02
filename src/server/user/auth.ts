@@ -1,6 +1,7 @@
 import { oxmysql as MySQL } from '@communityox/oxmysql';
 import { resourceExport } from '@common/export';
 import { LoginResponse, User } from '@common/types';
+import { RegisterServerCallback } from '../utils/callbacks';
 
 interface ServerUser extends User {
   source: number;
@@ -61,14 +62,15 @@ RegisterServerCallback('fleecanow:getconnectedaccount', async (source: number): 
 RegisterServerCallback(
   'fleecanow:login',
   async (source: number, data: { username: string; password: string }): Promise<LoginResponse> => {
-    const hashedPassword = GetPasswordHash(data.password);
-
-    const rawUser: RawUser | null = await MySQL.single(
-      'SELECT `username`, `display_name`, `email`, `avatar` FROM `phone_fleecanow_accounts` WHERE `username` = ? AND `password` = ?',
-      [data.username, hashedPassword],
+    const rawUser: (RawUser & { password: string }) | null = await MySQL.single(
+      'SELECT `username`, `display_name`, `email`, `avatar`, `password` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
+      [data.username],
     );
 
     if (!rawUser) return { success: false, error: 'Invalid username or password' };
+
+    const passwordValid = await VerifyPasswordHash(data.password, rawUser.password);
+    if (!passwordValid) return { success: false, error: 'Invalid username or password' };
 
     const phone_number = resourceExport('lb-phone', 'GetEquippedPhoneNumber')(source);
 
