@@ -18,7 +18,7 @@ import { devMode } from './utils';
  *
  * @return returnData - A promise for the data sent back by the NuiCallbacks CB argument
  */
-export async function fetchNui<T = unknown>(eventName: string, data?: unknown, mockData?: T): Promise<T> {
+export async function fetchNui<T = unknown>(eventName: string, data?: unknown, mockData?: T): Promise<T | null> {
   const options = {
     method: 'post',
     headers: {
@@ -29,13 +29,21 @@ export async function fetchNui<T = unknown>(eventName: string, data?: unknown, m
 
   if (devMode && mockData) return mockData;
 
-  const resourceName = (window as any).GetParentResourceName
-    ? (window as any).GetParentResourceName()
-    : 'nui-frame-app';
+  const resourceName = (window as any).resourceName ?? 'mps-lb-fleecanow';
 
-  const resp = await fetch(`https://${resourceName}/${eventName}`, options);
+  try {
+    const resp = await fetch(`https://${resourceName}/${eventName}`, options);
 
-  const respFormatted = await resp.json();
+    if (!resp.ok) throw Error(`${resp.status} - ${resp.statusText}`);
 
-  return respFormatted;
+    const respFormatted = await resp.json();
+
+    return respFormatted;
+  } catch (error: any) {
+    console.error('Unable to fetch from NUI, details:');
+    console.error(`Event: ${eventName}`);
+    console.error(`Data: ${data ? JSON.stringify(data, null, 2) : '^3no data^7'}`);
+    console.error(`Response: ${error.message ?? '^1No details^7'}`);
+    return null;
+  }
 }
