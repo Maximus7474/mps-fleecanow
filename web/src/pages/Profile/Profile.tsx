@@ -119,10 +119,6 @@ const ProfilePage: React.FC = () => {
     return fallback;
   };
 
-  if (!user) {
-    return <Navigate to='/' replace />;
-  }
-
   return (
     <div className='profile-container'>
       <header>
