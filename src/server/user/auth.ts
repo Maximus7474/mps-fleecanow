@@ -1,6 +1,6 @@
 import { oxmysql as MySQL } from '@communityox/oxmysql';
 import { resourceExport } from '@common/export';
-import { LoginResponse, UpdateProfileResponse, User } from '@common/types';
+import type { DeletionResponse, LoginResponse, UpdateProfileResponse, User } from '@common/types';
 import { RegisterServerCallback } from '../utils/callbacks';
 
 interface ServerUser extends User {
@@ -169,6 +169,35 @@ RegisterServerCallback(
     return { success: true, user: connectedUsers[newUser.username] };
   },
 );
+
+RegisterServerCallback('fleecanow:deleteaccount', async (source: number): Promise<DeletionResponse> => {
+  const phone_number = resourceExport('lb-phone', 'GetEquippedPhoneNumber')(source);
+  if (!phone_number) return { success: false, error: 'No phone number found' };
+
+  const usernameResult: { username: string } | null = await MySQL.single(
+    'SELECT `username` FROM `phone_logged_in_accounts` WHERE `app` = "FleecaNow" AND `phone_number` = ?',
+    [phone_number],
+  );
+  if (!usernameResult) return { success: false, error: 'User not logged in' };
+
+  const username = usernameResult.username;
+
+  await MySQL.query(
+    'DELETE FROM `phone_fleecanow_accounts` WHERE `username` = ?',
+    [username],
+  );
+
+  await MySQL.query(
+    'DELETE FROM `phone_logged_in_accounts` WHERE `app` = "FleecaNow" AND `phone_number` = ?',
+    [phone_number],
+  );
+
+  delete connectedUsers[username];
+  delete userNameForSource[source];
+  setPlayerStatebag(source, null);
+
+  return { success: true };
+});
 
 onNet('fleecanow:logout', async () => {
   const source = global.source;
