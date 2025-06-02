@@ -110,6 +110,13 @@
   word-break: break-word;
 }
 
+.proximity {
+  padding-top: 0.5em;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  margin: 0.25rem 0;
+}
+
 .profile .profile-edit > div {
   position: relative;
   display: flex;

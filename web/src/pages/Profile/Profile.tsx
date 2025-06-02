@@ -200,6 +200,7 @@ const ProfilePage: React.FC = () => {
               <h2 className='display-name'>{user.displayName || user.username}</h2>
               <p className='username'>@{user.username}</p>
               {user.email && <p className='email'>{user.email}</p>}
+              <p className='proximity'>{user.proximitySharing ? 'Sharing username via proximity' : 'Not sharing username via proximity' }</p>
             </>
           )}
         </div>
