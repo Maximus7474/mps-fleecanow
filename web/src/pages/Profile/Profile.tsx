@@ -184,15 +184,15 @@ const ProfilePage: React.FC = () => {
                 />
                 <p className='error'>{errors.email}</p>
               </div>
-              <div className="proximity-sharing">
+              <div className='proximity-sharing'>
                 <input
-                  type="checkbox"
-                  id="proximitySharing"
-                  name="proximitySharing"
+                  type='checkbox'
+                  id='proximitySharing'
+                  name='proximitySharing'
                   checked={proximitySharing}
                   onChange={(e) => setProximitySharing(e.target.checked)}
                 />
-                <label htmlFor="proximitySharing">Accept Proximity transfers</label>
+                <label htmlFor='proximitySharing'>Accept Proximity transfers</label>
               </div>
             </div>
           ) : (
@@ -200,7 +200,9 @@ const ProfilePage: React.FC = () => {
               <h2 className='display-name'>{user.displayName || user.username}</h2>
               <p className='username'>@{user.username}</p>
               {user.email && <p className='email'>{user.email}</p>}
-              <p className='proximity'>{user.proximitySharing ? 'Sharing username via proximity' : 'Not sharing username via proximity' }</p>
+              <p className='proximity'>
+                {user.proximitySharing ? 'Sharing username via proximity' : 'Not sharing username via proximity'}
+              </p>
             </>
           )}
         </div>
