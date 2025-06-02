@@ -18,7 +18,7 @@ import { devMode } from './utils';
  *
  * @return returnData - A promise for the data sent back by the NuiCallbacks CB argument
  */
-export async function fetchNui<T = unknown>(eventName: string, data?: unknown, mockData?: T): Promise<T | null> {
+export async function fetchNui<T = unknown>(eventName: string, data?: unknown, mockData?: T): Promise<T> {
   const options = {
     method: 'post',
     headers: {
@@ -44,6 +44,6 @@ export async function fetchNui<T = unknown>(eventName: string, data?: unknown, m
     console.error(`Event: ${eventName}`);
     console.error(`Data: ${data ? JSON.stringify(data, null, 2) : '^3no data^7'}`);
     console.error(`Response: ${error.message ?? '^1No details^7'}`);
-    return null;
+    throw Error('Unable to fetch !');
   }
 }
