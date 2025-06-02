@@ -40,10 +40,10 @@ export async function fetchNui<T = unknown>(eventName: string, data?: unknown, m
 
     return respFormatted;
   } catch (error: any) {
-    console.error('Unable to fetch from NUI, details:');
-    console.error(`Event: ${eventName}`);
-    console.error(`Data: ${data ? JSON.stringify(data, null, 2) : '^3no data^7'}`);
-    console.error(`Response: ${error.message ?? '^1No details^7'}`);
+    console.error('^1Unable to fetch from NUI^7, details:');
+    console.error(`- ^4Event^7: ${eventName}`);
+    console.error(`- ^4Data^7: ${data ? JSON.stringify(data, null, 2) : '^3no data^7'}`);
+    console.error(`- ^4Response^7: ${error.message ?? '^1No details^7'}`);
     throw Error('Unable to fetch !');
   }
 }
