@@ -80,7 +80,7 @@ const ProfilePage: React.FC = () => {
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    console.log(email, emailRegex.test(avatar))
+
     if (email.length > 10 && emailRegex.test(avatar)) {
       newData.email = email;
     } else if (email.length !== 0) {
