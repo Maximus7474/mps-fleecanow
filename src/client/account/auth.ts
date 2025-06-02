@@ -1,5 +1,5 @@
 import { LoginResponse, User } from '@common/types';
-import { awaitCallback } from '../utils/callbacks';
+import { triggerServerCallback } from '@communityox/ox_lib/client';
 
 let currentUser: User | null;
 
@@ -8,7 +8,8 @@ export const getCurrentUser = () => {
 };
 
 RegisterNuiCallback('fleecanow:getconnectedaccount', async (_: null, cb: (data: User | null) => void) => {
-  const user: User | null = await awaitCallback('fleecanow:getconnectedaccount');
+  const user = await triggerServerCallback<User | null>('fleecanow:getconnectedaccount', null);
+  if (!user) return cb(null);
   currentUser = user;
   cb(user);
 });
@@ -16,7 +17,8 @@ RegisterNuiCallback('fleecanow:getconnectedaccount', async (_: null, cb: (data: 
 RegisterNuiCallback(
   'fleecanow:login',
   async (data: { username: string; password: string }, cb: (response: LoginResponse) => void) => {
-    const response: LoginResponse = await awaitCallback('fleecanow:login', data);
+    const response = await triggerServerCallback<LoginResponse>('fleecanow:login', null, data);
+    if (!response) return cb({ success: false, error: 'Unable to login' });
     if (response.success) currentUser = response.user;
     cb(response);
   },
@@ -25,7 +27,8 @@ RegisterNuiCallback(
 RegisterNuiCallback(
   'fleecanow:register',
   async (data: { username: string; password: string }, cb: (response: LoginResponse) => void) => {
-    const response: LoginResponse = await awaitCallback('fleecanow:register', data);
+    const response = await triggerServerCallback<LoginResponse>('fleecanow:register', null, data);
+    if (!response) return cb({ success: false, error: 'Unable to register' });
     if (response.success) currentUser = response.user;
     cb(response);
   },
