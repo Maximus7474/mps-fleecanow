@@ -33,7 +33,7 @@ RegisterServerCallback('fleecanow:getconnectedaccount', async (source: number): 
   const phone_number = resourceExport('lb-phone', 'GetEquippedPhoneNumber')(source);
   if (!phone_number) return null;
 
-  const username: string | null = await MySQL.single(
+  const username: { username: string } | null = await MySQL.single(
     'SELECT `username` FROM `phone_logged_in_accounts` WHERE `app` = "FleecaNow" AND `phone_number` = ?',
     [phone_number],
   );
@@ -41,7 +41,7 @@ RegisterServerCallback('fleecanow:getconnectedaccount', async (source: number): 
 
   const rawUser: RawUser | null = await MySQL.single(
     'SELECT `username`, `display_name`, `email`, `avatar` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
-    [username],
+    [username.username],
   );
   if (!rawUser) return null;
 
