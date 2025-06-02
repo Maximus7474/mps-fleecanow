@@ -21,7 +21,12 @@ const ProfilePage: React.FC = () => {
   const [email, setEmail] = useState<string>(user?.email || '');
   const [username, setUsername] = useState<string>(user?.username || '');
   const [avatar, setAvatar] = useState<string>(user?.avatar || '');
+  const [proximitySharing, setProximitySharing] = useState<boolean>(user?.proximitySharing || false);
   const [errors, setErrors] = useState<editProfileError>({});
+
+  if (!user) {
+    return <Navigate to='/' replace />;
+  }
 
   const handleDelete = () => {
     if (devMode) {
@@ -101,6 +106,7 @@ const ProfilePage: React.FC = () => {
       displayName,
       email,
       username,
+      proximitySharing: user.proximitySharing,
     }).then((r) => {
       if (r) {
         setIsEditing(false);
@@ -177,6 +183,16 @@ const ProfilePage: React.FC = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <p className='error'>{errors.email}</p>
+              </div>
+              <div className="proximity-sharing">
+                <input
+                  type="checkbox"
+                  id="proximitySharing"
+                  name="proximitySharing"
+                  checked={proximitySharing}
+                  onChange={(e) => setProximitySharing(e.target.checked)}
+                />
+                <label htmlFor="proximitySharing">Accept Proximity transfers</label>
               </div>
             </div>
           ) : (
