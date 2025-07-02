@@ -20,7 +20,13 @@ let connectedUsers: { [key: string]: ServerUser } = {};
 let userNameForSource: { [key: number]: string } = {};
 
 const setPlayerStatebag = (src: number, user: User | null) => {
-  Player(src).state.set('fleecanow-username', user && user.proximitySharing ? user.username : null, true);
+  const publicUser = {
+    username: user.username,
+    avatar: user.avatar,
+    displayName: user.displayName,
+  };
+  
+  Player(src).state.set('fleecanow-user', user && user.proximitySharing ? publicUser : null, true);
 };
 
 const setLoggedInAccount = async (phoneNumber: string, username: string) => {
