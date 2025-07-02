@@ -1,0 +1,8 @@
+.actions > button {
+  box-shadow: 0 4px 8px var(--secondary-shadow);
+  transition: all ease-in-out 0.1s;
+}
+
+.actions > button:hover {
+  transform: scale(1.05);
+}
