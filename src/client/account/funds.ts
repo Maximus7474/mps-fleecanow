@@ -1,13 +1,10 @@
 import { GetBalanceResponse } from '@common/types';
 import { triggerServerCallback } from '../utils/callbacks';
 
-RegisterNuiCallback(
-  'fleecanow:getBalance',
-  async (_: null, cb: (data: GetBalanceResponse) => void) => {
-    const response: GetBalanceResponse = await triggerServerCallback('fleecanow:getBalance');
-    cb(response);
-  },
-);
+RegisterNuiCallback('fleecanow:getBalance', async (_: null, cb: (data: GetBalanceResponse) => void) => {
+  const response: GetBalanceResponse = await triggerServerCallback('fleecanow:getBalance');
+  cb(response);
+});
 
 RegisterNuiCallback(
   'fleecanow:handleFunds',

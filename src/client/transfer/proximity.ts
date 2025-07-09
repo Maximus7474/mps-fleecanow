@@ -1,6 +1,6 @@
-import { ProximityShareProfile } from "@common/types";
+import { ProximityShareProfile } from '@common/types';
 import Config from '@common/config';
-import { GetPlayersInDistance } from "../utils/closestPlayer";
+import { GetPlayersInDistance } from '../utils/closestPlayer';
 
 let intervalCheck: null | NodeJS.Timeout = null;
 const maxDistance = typeof Config.MaxDistanceForProximity === 'number' ? Config.MaxDistanceForProximity : 5.0;
@@ -13,7 +13,7 @@ function getPlayerFleecaNowData(idx: number, distance: number): ProximitySharePr
   return {
     ...accountData,
     distance,
-  }
+  };
 }
 
 RegisterNuiCallback('fleecanow:getcloseplayers', async (_: null, cb: Function) => {
@@ -22,9 +22,7 @@ RegisterNuiCallback('fleecanow:getcloseplayers', async (_: null, cb: Function) =
   const rawPlayers = GetPlayersInDistance(maxDistance);
 
   for (const { idx, distance } of rawPlayers) {
-    players.push(
-      getPlayerFleecaNowData(idx, distance)
-    );
+    players.push(getPlayerFleecaNowData(idx, distance));
   }
 
   intervalCheck = setInterval(() => {
@@ -33,9 +31,7 @@ RegisterNuiCallback('fleecanow:getcloseplayers', async (_: null, cb: Function) =
     const rawPlayers = GetPlayersInDistance(maxDistance);
 
     for (const { idx, distance } of rawPlayers) {
-      players.push(
-        getPlayerFleecaNowData(idx, distance)
-      );
+      players.push(getPlayerFleecaNowData(idx, distance));
     }
 
     SendNUIMessage({

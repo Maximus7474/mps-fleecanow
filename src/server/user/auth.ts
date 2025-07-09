@@ -59,7 +59,7 @@ RegisterServerCallback(
     connectedUsers[rawUser.username] = userClass;
     userNameForSource[source] = rawUser.username;
     userClass.setPlayerStatebag();
-    
+
     setLoggedInAccount(phone_number, rawUser.username);
 
     return { success: true, user: userClass.getPrivateData() };
@@ -97,7 +97,7 @@ RegisterServerCallback(
     connectedUsers[rawUser.username] = userClass;
     userNameForSource[source] = rawUser.username;
     userClass.setPlayerStatebag();
-    
+
     setLoggedInAccount(phone_number, rawUser.username);
 
     return { success: true, user: userClass.getPrivateData() };
@@ -141,7 +141,7 @@ RegisterServerCallback(
       ],
     );
 
-    currentUser.updateData({...newUser, email});
+    currentUser.updateData({ ...newUser, email });
 
     connectedUsers[userName] = currentUser;
     userNameForSource[source] = newUser.username;
@@ -180,9 +180,9 @@ RegisterServerCallback('fleecanow:deleteaccount', async (source: number): Promis
 
 onNet('fleecanow:logout', async () => {
   const source = global.source;
-  const username = userNameForSource[source]
+  const username = userNameForSource[source];
   const user = connectedUsers[username];
-  
+
   await MySQL.update(
     'DELETE FROM `phone_logged_in_accounts` WHERE `app` = "FleecaNow" AND `username` = ? AND `phone_number` = ?',
     [username, user.get('phone_number')],
