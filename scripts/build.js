@@ -49,7 +49,7 @@ createBuilder(
       metadata: {
         lua54: 'yes',
         ui_page: 'dist/web/index.html',
-        // node_version: '22'
+        node_version: '22'
       },
     });
 
