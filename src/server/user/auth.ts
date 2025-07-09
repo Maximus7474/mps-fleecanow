@@ -4,9 +4,6 @@ import type { DeletionResponse, LoginResponse, RawUser, UpdateProfileResponse, U
 import { RegisterServerCallback } from '../utils/callbacks';
 import { FleecaNowUser } from './class';
 
-let connectedUsers: { [key: string]: FleecaNowUser } = {};
-let userNameForSource: { [key: number]: string } = {};
-
 const setLoggedInAccount = async (phoneNumber: string, username: string) => {
   await MySQL.rawExecute(
     'INSERT INTO phone_logged_in_accounts (app, phone_number, username) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE username = VALUES(username)',
@@ -32,8 +29,6 @@ RegisterServerCallback('fleecanow:getconnectedaccount', async (source: number): 
 
   const userClass = new FleecaNowUser(rawUser, source, phone_number);
 
-  connectedUsers[rawUser.username] = userClass;
-  userNameForSource[source] = rawUser.username;
   userClass.setPlayerStatebag();
 
   return userClass.getPrivateData();
@@ -56,8 +51,6 @@ RegisterServerCallback(
 
     const userClass = new FleecaNowUser(rawUser, source, phone_number);
 
-    connectedUsers[rawUser.username] = userClass;
-    userNameForSource[source] = rawUser.username;
     userClass.setPlayerStatebag();
 
     setLoggedInAccount(phone_number, rawUser.username);
@@ -92,8 +85,6 @@ RegisterServerCallback(
 
     const userClass = new FleecaNowUser(rawUser, source, phone_number);
 
-    connectedUsers[rawUser.username] = userClass;
-    userNameForSource[source] = rawUser.username;
     userClass.setPlayerStatebag();
 
     setLoggedInAccount(phone_number, rawUser.username);
@@ -105,7 +96,7 @@ RegisterServerCallback(
 RegisterServerCallback(
   'fleecanow:updateProfile',
   async (source: number, newUser: User): Promise<UpdateProfileResponse> => {
-    const currentUser = connectedUsers[userNameForSource[source]];
+    const currentUser = FleecaNowUser.getUserBySource(source);
     if (!currentUser) {
       return { success: false, error: 'User not connected' };
     }
@@ -128,9 +119,6 @@ RegisterServerCallback(
     const email = newUser.email && isValidEmail(newUser.email) ? newUser.email : null;
 
     currentUser.updateData({ ...newUser, email });
-
-    connectedUsers[userName] = currentUser;
-    userNameForSource[source] = newUser.username;
 
     currentUser.setPlayerStatebag();
 
@@ -156,33 +144,34 @@ RegisterServerCallback('fleecanow:deleteaccount', async (source: number): Promis
     phone_number,
   ]);
 
-  connectedUsers[username].setPlayerStatebag(true);
-
-  delete connectedUsers[username];
-  delete userNameForSource[source];
+  FleecaNowUser.removeUser(username);
 
   return { success: true };
 });
 
 onNet('fleecanow:logout', async () => {
   const source = global.source;
-  const username = userNameForSource[source];
-  const user = connectedUsers[username];
+  const user = FleecaNowUser.getUserBySource(source);
+
+  if (!user) return;
+
+  const username = user.get('username') as string;
+  const phone_number = user.get('phone_number');
 
   await MySQL.update(
     'DELETE FROM `phone_logged_in_accounts` WHERE `app` = "FleecaNow" AND `username` = ? AND `phone_number` = ?',
-    [username, user.get('phone_number')],
+    [username, phone_number],
   );
 
-  connectedUsers[username].setPlayerStatebag(true);
-
-  delete connectedUsers[username];
-  delete userNameForSource[source];
+  FleecaNowUser.removeUser(username);
 });
 
 on('playerDropped', () => {
   const source = global.source;
-  const username = userNameForSource[source];
-  delete connectedUsers[username];
-  delete userNameForSource[source];
+  const user = FleecaNowUser.getUserBySource(source);
+
+  if (!user) return;
+
+  const username = user.get('username') as string;
+  FleecaNowUser.removeUser(username);
 });
