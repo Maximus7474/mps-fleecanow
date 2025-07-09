@@ -64,4 +64,8 @@ export class FleecaNowUser {
       ],
     );
   };
+
+  cleanup = () => {
+    this.setPlayerStatebag(true);
+  };
 }
