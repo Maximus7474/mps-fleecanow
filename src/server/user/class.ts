@@ -1,3 +1,4 @@
+import { oxmysql as MySQL } from '@communityox/oxmysql';
 import { RawUser } from '@common/types';
 
 export class FleecaNowUser {
@@ -44,11 +45,23 @@ export class FleecaNowUser {
     };
   };
 
-  updateData = (data: Partial<RawUser>) => {
+  updateData = async (data: Partial<RawUser>) => {
     if (data.username) this.user.username = data.username;
     if (data.email) this.user.email = data.email;
     if (data.display_name) this.user.display_name = data.display_name;
     if (data.proximity_sharing) this.user.proximity_sharing = data.proximity_sharing;
     if (data.avatar) this.user.avatar = data.avatar;
+
+    await MySQL.query(
+      'UPDATE `phone_fleecanow_accounts` SET `username` = ?, `display_name` = ?, `email` = ?, `avatar` = ?, `proximity_sharing` = ? WHERE `username` = ?',
+      [
+        this.user.username,
+        this.user.display_name,
+        this.user.email,
+        this.user.avatar,
+        this.user.proximity_sharing ? 1 : 0,
+        this.user.username,
+      ],
+    );
   };
 }

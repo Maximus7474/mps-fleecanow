@@ -73,8 +73,6 @@ RegisterServerCallback(
       data.username,
     ]);
 
-    console.log(data, exists);
-
     if (exists) return { success: false, error: 'Username is taken' };
 
     const hashedPassword = GetPasswordHash(data.password);
@@ -128,18 +126,6 @@ RegisterServerCallback(
     const isValidEmail = (email: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     const email = newUser.email && isValidEmail(newUser.email) ? newUser.email : null;
-
-    await MySQL.query(
-      'UPDATE `phone_fleecanow_accounts` SET `username` = ?, `display_name` = ?, `email` = ?, `avatar` = ?, `proximity_sharing` = ? WHERE `username` = ?',
-      [
-        newUser.username,
-        newUser.displayName,
-        email,
-        newUser.avatar,
-        newUser.proximitySharing ? 1 : 0,
-        currentUser.get('username'),
-      ],
-    );
 
     currentUser.updateData({ ...newUser, email });
 
