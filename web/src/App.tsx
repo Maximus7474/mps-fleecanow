@@ -13,6 +13,7 @@ import ProfilePage from './pages/Profile/Profile';
 import Registration from './pages/Registration/Registration';
 import Transfer from './pages/Transfer/Transfer';
 import ConfirmTransfer from './pages/Transfer/subpages/ConfirmTransfer';
+import Balance from './pages/Balance/Balance';
 
 import './App.css';
 
@@ -46,6 +47,7 @@ const App = () => {
                 </Route>
                 <Route path='feed' element={'<Feed />'} />
                 <Route path='contacts' element={'<Contacts />'} />
+                <Route path='balance' element={<Balance />} />
               </>
             )}
 
