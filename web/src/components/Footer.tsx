@@ -1,4 +1,4 @@
-import { /* BookUser, */ Home, /* MessageSquareMore, */ Send, UserPen } from 'lucide-react';
+import { /* BookUser, */ Home, PiggyBank, /* MessageSquareMore, */ Send, UserPen } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import type { NavItem } from '../types';
@@ -30,6 +30,12 @@ const routes: NavItem[] = [
   //   tooltip: 'Contacts',
   //   requiresAuth: true,
   // },
+  {
+    icon: <PiggyBank />,
+    path: '/balance',
+    tooltip: 'Blance',
+    requiresAuth: true,
+  },
   {
     icon: <UserPen />,
     path: '/profile',
