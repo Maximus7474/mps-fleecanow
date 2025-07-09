@@ -2,6 +2,27 @@ import { oxmysql as MySQL } from '@communityox/oxmysql';
 import { RawUser } from '@common/types';
 
 export class FleecaNowUser {
+  private static users: { [key: string]: FleecaNowUser } = {};
+
+  static getUser = (username: string) => {
+    return this.users[username];
+  }
+
+  static getUserBySource = (source: number) => {
+    const user = Object.values(this.users).find(user => user.source === source);
+    return user;
+  }
+
+  static removeUser = (username: string) => {
+    const user = this.getUser(username);
+
+    if (!user) return;
+
+    user.cleanup();
+
+    delete this.users[username];
+  }
+
   private user: RawUser;
   private source: number;
   private phone_number: string;
@@ -10,6 +31,8 @@ export class FleecaNowUser {
     this.user = user;
     this.source = source;
     this.phone_number = phone_number;
+
+    FleecaNowUser.users[this.user.username] = this; 
   }
 
   setPlayerStatebag = (clear: boolean = false): void => {
