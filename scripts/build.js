@@ -47,6 +47,7 @@ createBuilder(
       files: ['locales/*.json', ...files],
       dependencies: ['/server:13068', '/onesync'],
       metadata: {
+        lua54: 'yes',
         ui_page: 'dist/web/index.html',
         // node_version: '22'
       },
