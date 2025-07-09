@@ -13,6 +13,10 @@ end
 local function GetBankBalance(src)
     local xPlayer = ESX.GetPlayerFromId(src)
 
+    if not xPlayer then
+        return 0
+    end
+
     return xPlayer.getAccount("bank")?.money or 0
 end
 
