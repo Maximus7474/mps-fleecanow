@@ -1,33 +1,11 @@
 import { oxmysql as MySQL } from '@communityox/oxmysql';
 import { resourceExport } from '@common/export';
-import type { DeletionResponse, LoginResponse, UpdateProfileResponse, User } from '@common/types';
+import type { DeletionResponse, LoginResponse, RawUser, UpdateProfileResponse, User } from '@common/types';
 import { RegisterServerCallback } from '../utils/callbacks';
+import { FleecaNowUser } from './class';
 
-interface ServerUser extends User {
-  source: number;
-  phone_number: string;
-}
-
-interface RawUser {
-  username: string;
-  display_name?: string;
-  email?: string;
-  avatar?: string;
-  proximity_sharing: number;
-}
-
-let connectedUsers: { [key: string]: ServerUser } = {};
+let connectedUsers: { [key: string]: FleecaNowUser } = {};
 let userNameForSource: { [key: number]: string } = {};
-
-const setPlayerStatebag = (src: number, user: User | null) => {
-  const publicUser = {
-    username: user.username,
-    avatar: user.avatar,
-    displayName: user.displayName,
-  };
-  
-  Player(src).state.set('fleecanow-user', user && user.proximitySharing ? publicUser : null, true);
-};
 
 const setLoggedInAccount = async (phoneNumber: string, username: string) => {
   await MySQL.rawExecute(
@@ -52,19 +30,13 @@ RegisterServerCallback('fleecanow:getconnectedaccount', async (source: number): 
   );
   if (!rawUser) return null;
 
-  const user: User = {
-    username: rawUser.username,
-    email: rawUser.email,
-    displayName: rawUser.display_name,
-    avatar: rawUser.avatar,
-    proximitySharing: rawUser.proximity_sharing === 1,
-  };
+  const userClass = new FleecaNowUser(rawUser, source, phone_number);
 
-  connectedUsers[user.username] = { ...user, source, phone_number };
-  userNameForSource[source] = user.username;
-  setPlayerStatebag(source, user);
+  connectedUsers[rawUser.username] = userClass;
+  userNameForSource[source] = rawUser.username;
+  userClass.setPlayerStatebag();
 
-  return user;
+  return userClass.getPrivateData();
 });
 
 RegisterServerCallback(
@@ -82,21 +54,15 @@ RegisterServerCallback(
 
     const phone_number = resourceExport('lb-phone', 'GetEquippedPhoneNumber')(source);
 
-    const user: User = {
-      username: rawUser.username,
-      email: rawUser.email,
-      displayName: rawUser.display_name,
-      avatar: rawUser.avatar,
-      proximitySharing: rawUser.proximity_sharing === 1,
-    };
+    const userClass = new FleecaNowUser(rawUser, source, phone_number);
 
-    connectedUsers[user.username] = { ...user, source, phone_number };
-    userNameForSource[source] = user.username;
+    connectedUsers[rawUser.username] = userClass;
+    userNameForSource[source] = rawUser.username;
+    userClass.setPlayerStatebag();
+    
+    setLoggedInAccount(phone_number, rawUser.username);
 
-    setPlayerStatebag(source, user);
-    setLoggedInAccount(phone_number, user.username);
-
-    return { success: true, user };
+    return { success: true, user: userClass.getPrivateData() };
   },
 );
 
@@ -106,6 +72,8 @@ RegisterServerCallback(
     const exists = await MySQL.single('SELECT 1 FROM `phone_fleecanow_accounts` WHERE `username` = ? LIMIT 1', [
       data.username,
     ]);
+
+    console.log(data, exists);
 
     if (exists) return { success: false, error: 'Username is taken' };
 
@@ -124,21 +92,15 @@ RegisterServerCallback(
       [data.username],
     );
 
-    const user: User = {
-      username: rawUser.username,
-      email: rawUser.email,
-      displayName: rawUser.display_name,
-      avatar: rawUser.avatar,
-      proximitySharing: rawUser.proximity_sharing === 1,
-    };
+    const userClass = new FleecaNowUser(rawUser, source, phone_number);
 
-    connectedUsers[user.username] = { ...user, source, phone_number };
-    userNameForSource[source] = user.username;
+    connectedUsers[rawUser.username] = userClass;
+    userNameForSource[source] = rawUser.username;
+    userClass.setPlayerStatebag();
+    
+    setLoggedInAccount(phone_number, rawUser.username);
 
-    setPlayerStatebag(source, user);
-    setLoggedInAccount(phone_number, user.username);
-
-    return { success: true, user };
+    return { success: true, user: userClass.getPrivateData() };
   },
 );
 
@@ -150,7 +112,9 @@ RegisterServerCallback(
       return { success: false, error: 'User not connected' };
     }
 
-    if (currentUser.username !== newUser.username) {
+    const userName = currentUser.get('username') as string;
+
+    if (userName !== newUser.username) {
       const existingUser: RawUser | null = await MySQL.single(
         'SELECT `username` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
         [newUser.username],
@@ -173,19 +137,18 @@ RegisterServerCallback(
         email,
         newUser.avatar,
         newUser.proximitySharing ? 1 : 0,
-        currentUser.username,
+        currentUser.get('username'),
       ],
     );
 
-    connectedUsers[newUser.username] = {
-      ...currentUser,
-      ...newUser,
-    };
+    currentUser.updateData({...newUser, email});
+
+    connectedUsers[userName] = currentUser;
     userNameForSource[source] = newUser.username;
 
-    setPlayerStatebag(source, connectedUsers[newUser.username]);
+    currentUser.setPlayerStatebag();
 
-    return { success: true, user: connectedUsers[newUser.username] };
+    return { success: true, user: currentUser.getPrivateData() };
   },
 );
 
@@ -207,24 +170,28 @@ RegisterServerCallback('fleecanow:deleteaccount', async (source: number): Promis
     phone_number,
   ]);
 
+  connectedUsers[username].setPlayerStatebag(true);
+
   delete connectedUsers[username];
   delete userNameForSource[source];
-  setPlayerStatebag(source, null);
 
   return { success: true };
 });
 
 onNet('fleecanow:logout', async () => {
   const source = global.source;
-  const user = connectedUsers[userNameForSource[source]];
+  const username = userNameForSource[source]
+  const user = connectedUsers[username];
+  
   await MySQL.update(
     'DELETE FROM `phone_logged_in_accounts` WHERE `app` = "FleecaNow" AND `username` = ? AND `phone_number` = ?',
-    [user.username, user.phone_number],
+    [username, user.get('phone_number')],
   );
 
-  delete connectedUsers[user.username];
+  connectedUsers[username].setPlayerStatebag(true);
+
+  delete connectedUsers[username];
   delete userNameForSource[source];
-  setPlayerStatebag(source, null);
 });
 
 on('playerDropped', () => {
