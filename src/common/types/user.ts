@@ -17,6 +17,14 @@ export interface UserSharedProfile {
   avatar?: string;
 }
 
+export interface RawUser {
+  username: string;
+  display_name?: string;
+  email?: string;
+  avatar?: string;
+  proximity_sharing: number;
+}
+
 export type DeletionResponse = { success: true } | { success: false; error: string };
 
 export type LoginResponse = { success: true; user: User } | { success: false; error: string };
