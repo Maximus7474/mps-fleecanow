@@ -23,6 +23,7 @@ export interface RawUser {
   email?: string;
   avatar?: string;
   proximity_sharing: number;
+  balance: number;
 }
 
 export type DeletionResponse = { success: true } | { success: false; error: string };
