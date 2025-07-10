@@ -19,6 +19,10 @@ RegisterServerCallback(
   'fleecanow:handleFunds',
   async (source: number, data: { action: 'withdraw' | 'add'; amount: number }): Promise<GetBalanceResponse> => {
     console.log('fleecanow:handleFunds', source, data);
-    return { success: true, amount: 69 };
+    const user: FleecaNowUser = FleecaNowUser.getUserBySource(source);
+
+    if (!user) return { success: false, error: 'Unable to fetch balance' };
+
+    return user.updateFunds(data.action, data.amount);
   },
 );
