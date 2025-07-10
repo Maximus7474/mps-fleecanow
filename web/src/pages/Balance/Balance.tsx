@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Balance.css';
 import { BanknoteArrowDown, BanknoteArrowUp, Loader } from 'lucide-react';
 import { fetchNui } from '../../utils/fetchNui';
@@ -8,15 +8,20 @@ const Balance: React.FC = () => {
   const [balance, setBalance] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
 
-  fetchNui<GetBalanceResponse>('fleecanow:getBalance', {}, { success: true, amount: 42900 })
-    .then((r) => {
-      if (r.success) {
-        setBalance(r.amount);
-      }
-    })
-    .finally(() => {
-      setLoading(false);
-    });
+  useEffect(() => {
+    fetchNui<GetBalanceResponse>('fleecanow:getBalance', {}, { success: true, amount: 42900 })
+      .then((r) => {
+        if (r.success) {
+          setBalance(r.amount);
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to fetch balance:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   const formatBalanceValue = (value: number) => {
     if (value > 1000000) {
