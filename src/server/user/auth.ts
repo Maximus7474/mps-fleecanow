@@ -136,6 +136,10 @@ RegisterServerCallback('fleecanow:deleteaccount', async (source: number): Promis
   );
   if (!usernameResult) return { success: false, error: 'User not logged in' };
 
+  const balance: number = await MySQL.single('SELECT `balance` FROM `phone_fleecanow_accounts` WHERE `username` = ?');
+
+  if (balance !== 0) return { success: false, error: 'You still have funds in your account' };
+
   const username = usernameResult.username;
 
   await MySQL.query('DELETE FROM `phone_fleecanow_accounts` WHERE `username` = ?', [username]);
