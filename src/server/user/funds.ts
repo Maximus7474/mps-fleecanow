@@ -1,14 +1,16 @@
 import { GetBalanceResponse } from '@common/types';
 import { RegisterServerCallback } from '../utils/callbacks';
-import { resourceExport } from '@common/export';
+import { FleecaNowUser } from './class';
 
 RegisterServerCallback('fleecanow:getBalance', async (source: number): Promise<GetBalanceResponse> => {
   try {
-    const result: number = resourceExport('mps-lb-fleecanow', 'GetBankBalance')(source);
+    const user: FleecaNowUser = FleecaNowUser.getUserBySource(source);
 
-    return { success: true, amount: result };
+    if (!user) return { success: false, error: 'Unable to fetch balance' };
+
+    return { success: true, amount: user.get('balance') as number };
   } catch (err) {
-    console.error(err);
+    console.error(`Unable to get player (svid: ${source}) balance`, err);
     return { success: false, error: 'Unable to fetch balance' };
   }
 });
