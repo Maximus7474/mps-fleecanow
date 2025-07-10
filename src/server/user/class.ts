@@ -25,6 +25,14 @@ export class FleecaNowUser {
     delete this.users[username];
   }
 
+  static save = () => {
+    const userList = Object.values(this.users);
+
+    for (const user of userList) {
+      user.save();
+    }
+  }
+
   private user: ServerUser;
   private source: number;
   private balance: number;
