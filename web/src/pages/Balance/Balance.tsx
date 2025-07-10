@@ -3,6 +3,7 @@ import './Balance.css';
 import { BanknoteArrowDown, BanknoteArrowUp, Loader } from 'lucide-react';
 import { fetchNui } from '../../utils/fetchNui';
 import type { GetBalanceResponse } from '@common/types';
+import { devMode } from '../../utils/utils';
 
 const Balance: React.FC = () => {
   const [balance, setBalance] = useState<number>(0);
@@ -33,6 +34,12 @@ const Balance: React.FC = () => {
   };
 
   const handleButtonPress = (Withdraw: boolean) => {
+
+    if (devMode) {
+      setBalance(prev => prev + (Withdraw ? -1 : 1) * 1000);
+      return;
+    }
+
     let amount = 0;
     components.setPopUp({
       title: `${Withdraw ? 'Withdraw' : 'Add'} funds`,
@@ -54,7 +61,6 @@ const Balance: React.FC = () => {
             fetchNui<GetBalanceResponse>(
               'fleecanow:handleFunds',
               { action: Withdraw ? 'withdraw' : 'add', amount },
-              { success: true, amount: balance + amount },
             )
               .then((r) => {
                 if (r.success) {
