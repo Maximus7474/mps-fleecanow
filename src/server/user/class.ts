@@ -1,6 +1,8 @@
 import { oxmysql as MySQL } from '@communityox/oxmysql';
 import { RawUser } from '@common/types';
 
+interface ServerUser extends Omit<RawUser, 'balance'> {};
+
 export class FleecaNowUser {
   private static users: { [key: string]: FleecaNowUser } = {};
 
@@ -23,14 +25,21 @@ export class FleecaNowUser {
     delete this.users[username];
   }
 
-  private user: RawUser;
+  private user: ServerUser;
   private source: number;
+  private balance: number;
   private phone_number: string;
 
   constructor(user: RawUser, source: number, phone_number: string) {
-    this.user = user;
+    const { balance, ...userWithoutBalance } = user;
+    this.user = userWithoutBalance;
+    this.balance = balance;
+
     this.source = source;
     this.phone_number = phone_number;
+    
+    delete user.balance;
+    this.user = user;
 
     FleecaNowUser.users[this.user.username] = this; 
   }
@@ -41,10 +50,11 @@ export class FleecaNowUser {
     Player(this.source).state.set('fleecanow-user', data, true);
   };
 
-  get = (key?: keyof RawUser | 'phone_number') => {
+  get = (key?: keyof ServerUser | 'phone_number' | 'balance') => {
     if (!key) return { ...this.user, phone_number: this.phone_number };
 
     if (key === 'phone_number') return this.phone_number;
+    else if (key === 'balance') return this.balance;
     else {
       return this.user[key];
     }
@@ -68,7 +78,7 @@ export class FleecaNowUser {
     };
   };
 
-  updateData = async (data: Partial<RawUser>) => {
+  updateData = async (data: Partial<ServerUser>) => {
     if (data.username) this.user.username = data.username;
     if (data.email) this.user.email = data.email;
     if (data.display_name) this.user.display_name = data.display_name;
@@ -88,7 +98,15 @@ export class FleecaNowUser {
     );
   };
 
-  cleanup = () => {
+  cleanup = async () => {
     this.setPlayerStatebag(true);
+
+    await MySQL.query(
+      'UPDATE `phone_fleecanow_accounts` SET `balance` = ? WHERE `username` = ?',
+      [
+        this.balance,
+        this.user.username,
+      ],
+    );
   };
 }
