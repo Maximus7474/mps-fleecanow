@@ -31,7 +31,7 @@ local function RemoveMoney(src, amount)
         return false
     end
 
-    xPlayer.addAccountMoney("bank", amount)
+    xPlayer.removeAccountMoney("bank", amount)
 
     return true
 end
