@@ -1,5 +1,6 @@
 import { oxmysql as MySQL } from '@communityox/oxmysql';
-import { RawUser } from '@common/types';
+import { GetBalanceResponse, RawUser } from '@common/types';
+import { resourceExport } from '@common/export';
 
 interface ServerUser extends Omit<RawUser, 'balance'> {};
 
