@@ -98,9 +98,27 @@ export class FleecaNowUser {
     );
   };
 
-  cleanup = async () => {
-    this.setPlayerStatebag(true);
+  updateFunds = (action: 'add'|'withdraw', amount: number): GetBalanceResponse => {
+    if (action === 'add') {
+      const result: boolean = resourceExport('mps-lb-fleecanow', 'RemoveMoney')(this.source, amount);
 
+      if (!result) return { success: false, error: 'Unable to retrieve funds from bank account' };
+
+      this.balance += amount;
+
+      return { success: true, amount: this.balance };
+    } else if (action === 'withdraw') {
+      const result: boolean = resourceExport('mps-lb-fleecanow', 'AddMoney')(this.source, amount);
+
+      if (!result) return { success: false, error: 'Unable to add funds to bank account' };
+
+      this.balance -= amount;
+
+      return { success: true, amount: this.balance };
+    }
+  };
+
+  save = async () => {
     await MySQL.query(
       'UPDATE `phone_fleecanow_accounts` SET `balance` = ? WHERE `username` = ?',
       [
@@ -108,5 +126,10 @@ export class FleecaNowUser {
         this.user.username,
       ],
     );
+  }
+
+  cleanup = async () => {
+    this.setPlayerStatebag(true);
+    this.save();
   };
 }
