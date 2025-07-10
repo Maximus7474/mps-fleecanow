@@ -43,7 +43,7 @@ const Balance: React.FC = () => {
     let amount = 0;
     components.setPopUp({
       title: `${Withdraw ? 'Withdraw' : 'Add'} funds`,
-      description: `How much do you want to ${Withdraw ? 'withdraw' : 'add'} to your account ?`,
+      description: `How much do you want to ${Withdraw ? 'withdraw from' : 'add to'} your account ?`,
       input: {
         type: 'number',
         min: '0',
