@@ -9,4 +9,4 @@ on('onResourceStop', (resource: string) => {
   if (resource === 'mps-lb-fleecanow') {
     FleecaNowUser.save();
   }
-})
+});

@@ -17,7 +17,7 @@ const Balance: React.FC = () => {
         }
       })
       .catch((error) => {
-        console.error("Failed to fetch balance:", error);
+        console.error('Failed to fetch balance:', error);
       })
       .finally(() => {
         setLoading(false);
@@ -34,9 +34,8 @@ const Balance: React.FC = () => {
   };
 
   const handleButtonPress = (Withdraw: boolean) => {
-
     if (devMode) {
-      setBalance(prev => prev + (Withdraw ? -1 : 1) * 1000);
+      setBalance((prev) => prev + (Withdraw ? -1 : 1) * 1000);
       return;
     }
 
@@ -58,10 +57,7 @@ const Balance: React.FC = () => {
           color: 'blue',
           cb: () => {
             setLoading(true);
-            fetchNui<GetBalanceResponse>(
-              'fleecanow:handleFunds',
-              { action: Withdraw ? 'withdraw' : 'add', amount },
-            )
+            fetchNui<GetBalanceResponse>('fleecanow:handleFunds', { action: Withdraw ? 'withdraw' : 'add', amount })
               .then((r) => {
                 if (r.success) {
                   setBalance(r.amount);

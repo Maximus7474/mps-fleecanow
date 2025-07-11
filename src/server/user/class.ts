@@ -2,19 +2,19 @@ import { oxmysql as MySQL } from '@communityox/oxmysql';
 import { GetBalanceResponse, RawUser } from '@common/types';
 import { resourceExport } from '@common/export';
 
-interface ServerUser extends Omit<RawUser, 'balance'> {};
+interface ServerUser extends Omit<RawUser, 'balance'> {}
 
 export class FleecaNowUser {
   private static users: { [key: string]: FleecaNowUser } = {};
 
   static getUser = (username: string): FleecaNowUser | undefined => {
     return this.users[username];
-  }
+  };
 
   static getUserBySource = (source: number): FleecaNowUser | undefined => {
-    const user = Object.values(this.users).find(user => user.source === source);
+    const user = Object.values(this.users).find((user) => user.source === source);
     return user;
-  }
+  };
 
   static removeUser = (username: string) => {
     const user = this.getUser(username);
@@ -24,7 +24,7 @@ export class FleecaNowUser {
     user.cleanup();
 
     delete this.users[username];
-  }
+  };
 
   static save = () => {
     const userList = Object.values(this.users);
@@ -32,7 +32,7 @@ export class FleecaNowUser {
     for (const user of userList) {
       user.save();
     }
-  }
+  };
 
   private user: ServerUser;
   private source: number;
@@ -46,11 +46,11 @@ export class FleecaNowUser {
 
     this.source = source;
     this.phone_number = phone_number;
-    
+
     delete user.balance;
     this.user = user;
 
-    FleecaNowUser.users[this.user.username] = this; 
+    FleecaNowUser.users[this.user.username] = this;
   }
 
   setPlayerStatebag = (clear: boolean = false): void => {
@@ -107,7 +107,7 @@ export class FleecaNowUser {
     );
   };
 
-  updateFunds = (action: 'add'|'withdraw', amount: number): GetBalanceResponse => {
+  updateFunds = (action: 'add' | 'withdraw', amount: number): GetBalanceResponse => {
     if (action === 'add') {
       const result: boolean = resourceExport('mps-lb-fleecanow', 'RemoveMoney')(this.source, amount);
 
@@ -128,14 +128,11 @@ export class FleecaNowUser {
   };
 
   save = async () => {
-    await MySQL.query(
-      'UPDATE `phone_fleecanow_accounts` SET `balance` = ? WHERE `username` = ?',
-      [
-        this.balance,
-        this.user.username,
-      ],
-    );
-  }
+    await MySQL.query('UPDATE `phone_fleecanow_accounts` SET `balance` = ? WHERE `username` = ?', [
+      this.balance,
+      this.user.username,
+    ]);
+  };
 
   cleanup = async () => {
     this.setPlayerStatebag(true);
