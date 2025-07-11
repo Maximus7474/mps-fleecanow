@@ -7,11 +7,11 @@ interface ServerUser extends Omit<RawUser, 'balance'> {};
 export class FleecaNowUser {
   private static users: { [key: string]: FleecaNowUser } = {};
 
-  static getUser = (username: string) => {
+  static getUser = (username: string): FleecaNowUser | undefined => {
     return this.users[username];
   }
 
-  static getUserBySource = (source: number) => {
+  static getUserBySource = (source: number): FleecaNowUser | undefined => {
     const user = Object.values(this.users).find(user => user.source === source);
     return user;
   }
