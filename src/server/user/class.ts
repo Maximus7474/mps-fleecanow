@@ -127,6 +127,20 @@ export class FleecaNowUser {
     }
   };
 
+  transferMoney = (amount: number, receiver: string): boolean => {
+    if (amount > this.balance) return false;
+
+    this.balance -= amount;
+
+    return true;
+  };
+
+  receiveMoney = (amount: number, sender: string) => {
+    this.balance += amount;
+
+    return true;
+  };
+
   save = async () => {
     await MySQL.query('UPDATE `phone_fleecanow_accounts` SET `balance` = ? WHERE `username` = ?', [
       this.balance,
