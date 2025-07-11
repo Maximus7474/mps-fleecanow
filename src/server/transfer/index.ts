@@ -1,0 +1,64 @@
+import { BasicResponse, RawUser, UserSharedProfile } from '@common/types';
+import { oxmysql as MySQL } from '@communityox/oxmysql';
+import { RegisterServerCallback } from '../utils/callbacks';
+import { FleecaNowUser } from '../user/class';
+import { send } from 'process';
+
+RegisterServerCallback('fleecanow:isusernamevalid', async (_, data: string): Promise<BasicResponse> => {
+  const exists = await MySQL.single('SELECT 1 FROM `phone_fleecanow_accounts` WHERE `username` = ?', [data]);
+
+  if (exists) return { success: true };
+  else return { success: false, message: 'Username was not found' };
+});
+
+RegisterServerCallback('fleecanow:getuserprofile', async (_, data: string): Promise<UserSharedProfile | null> => {
+  const account: Partial<RawUser> = await MySQL.single(
+    'SELECT `username`, `display_name`, `avatar` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
+    [data],
+  );
+
+  if (!account) return null;
+
+  return {
+    username: account.username,
+    displayName: account.display_name,
+    avatar: account.avatar,
+  };
+});
+
+RegisterServerCallback(
+  'fleecanow:sendtransfer',
+  async (source, data: { destination: string; amount: number; public: boolean }): Promise<BasicResponse> => {
+    const sender = FleecaNowUser.getUserBySource(source);
+    const receiver = FleecaNowUser.getUser(data.destination);
+
+    if (!sender) {
+      return { success: false, message: 'No logged in account' };
+    }
+
+    const senderBalance = sender.get('balance') as number;
+
+    if (senderBalance < data.amount) return { success: false, message: 'Insufficient funds' };
+
+    if (receiver) {
+      receiver.receiveMoney(data.amount, data.destination);
+    } else {
+      const balance = await MySQL.single('SELECT `balance` FROM `phone_fleecanow_accounts` WHERE `username` = ?', [
+        data.destination,
+      ]);
+
+      if (typeof balance !== 'number') return { success: false, message: 'Unknown account' };
+
+      const result = await MySQL.update('UPDATE `balance` = ? FROM `phone_fleecanow_accounts` WHERE `username` = ?', [
+        balance + data.amount,
+        data.destination,
+      ]);
+
+      if (result === 0) return { success: false, message: 'Unable to transfer' };
+    }
+
+    sender.transferMoney(data.amount, data.destination);
+
+    return { success: true };
+  },
+);
