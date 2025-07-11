@@ -169,13 +169,3 @@ onNet('fleecanow:logout', async () => {
 
   FleecaNowUser.removeUser(username);
 });
-
-on('playerDropped', () => {
-  const source = global.source;
-  const user = FleecaNowUser.getUserBySource(source);
-
-  if (!user) return;
-
-  const username = user.get('username') as string;
-  FleecaNowUser.removeUser(username);
-});
