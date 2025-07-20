@@ -3,7 +3,7 @@ import './Balance.css';
 import { BanknoteArrowDown, BanknoteArrowUp, Loader } from 'lucide-react';
 import { fetchNui } from '../../utils/fetchNui';
 import type { GetBalanceResponse } from '@common/types';
-import { devMode } from '../../utils/utils';
+import { devMode, formatBalanceValue } from '../../utils/utils';
 
 const Balance: React.FC = () => {
   const [balance, setBalance] = useState<number>(0);
@@ -23,15 +23,6 @@ const Balance: React.FC = () => {
         setLoading(false);
       });
   }, []);
-
-  const formatBalanceValue = (value: number) => {
-    if (value > 1000000) {
-      return `${parseFloat((value / 1000000).toFixed(1))}M `;
-    } else if (value > 1000) {
-      return `${parseFloat((value / 1000).toFixed(1))}k `;
-    }
-    return `${value}`;
-  };
 
   const handleButtonPress = (Withdraw: boolean) => {
     if (devMode) {
