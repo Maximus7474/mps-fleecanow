@@ -1,32 +1,31 @@
 # 💸 Fleeca Now
 
-A lightweight app inspired by **Venmo**, designed for FiveM servers to allow players to send and receive money in various ways.
+A lightweight and intuitive money transfer application, inspired by **Venmo**, built specifically for **FiveM servers** using React and TypeScript. Fleeca Now seamlessly integrates with LB Phone, empowering your players to send and receive money with ease, enhancing in-game financial interactions.
 
 ---
 
-## 📥 Contributions
+## ✨ Features
 
-Before submitting changes, please read the [Contributing Guidelines](CONTRIBUTING.md).
-Pull Requests that do not follow these guidelines will not be considered.
-
----
-
-## 🙌 Credits
-
-* 🎨 **UI Template**: [lb-scripts](https://github.com/lbphone/lb-phone-app-template)
-* ⚙️ **TypeScript Boilerplate**: [Overextended](https://github.com/overextended/fivem-typescript-boilerplate)
+* **Seamless Transfers:** Effortlessly send and receive money between players anonymously.
+* **Intuitive UI:** A clean and user-friendly interface powered by React.
+* **Robust & Reliable:** Built with TypeScript for enhanced stability and maintainability.
+* **LB Phone Integration:** Designed to work flawlessly with the LB Phone resource.
 
 ---
 
-## 🙌 Special Mentions
+## 🚀 Installation Guide
 
-This project is built from **Overextended's boilerplate**, created by a team of highly dedicated open source developers in the Cfx community.
+**Important:** This resource **requires LB Phone** to function correctly.
 
-* 🌐 [Overextended GitHub Organization](https://github.com/overextended)
-* ⚙️ [TypeScript Boilerplate](https://github.com/overextended/fivem-typescript-boilerplate)
+1.  **Dependencies:** Ensure you have `LB-Phone` installed and running on your server.
+2.  **Database Setup:** Execute the provided SQL file: `sql/tables.sql`
+    * *Note:* If you encounter errors during table creation, please verify that you are using an up-to-date MariaDB version (v10.11.\* or newer is recommended).
+3.  **Resource Deployment:**
+    * Add the `mps-lb-fleecanow` resource folder to your FiveM server's `resources` directory.
+    * Add `ensure mps-lb-fleecanow` to your `server.cfg`.
+---
 
-As of **April 2025**, Overextended has ceased development on FiveM projects. Continued community-driven contributions are now available via:
+## 🙏 Credits
 
-* 🤝 [CommunityOx GitHub](https://github.com/CommunityOx)
-
-> Open source is the backbone of many FiveM servers. Without the contributions of these developers, the platform would not be what it is today.
+* 🎨 **UI Template:** [lb-scripts / lb-phone-app-template](https://github.com/lbphone/lb-phone-app-template)
+* ⚙️ **TypeScript Boilerplate:** [Overextended / fivem-typescript-boilerplate](https://github.com/overextended/fivem-typescript-boilerplate)
