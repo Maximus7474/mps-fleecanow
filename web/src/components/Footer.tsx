@@ -1,4 +1,4 @@
-import { /* BookUser, */ Home, PiggyBank, /* MessageSquareMore, */ Send, UserPen } from 'lucide-react';
+import { Home, Logs, PiggyBank, Send, UserPen } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import type { NavItem } from '../types';
@@ -12,28 +12,22 @@ const routes: NavItem[] = [
     tooltip: 'Transfer Money',
     requiresAuth: true,
   },
-  // {
-  //   icon: <MessageSquareMore />,
-  //   path: '/feed',
-  //   tooltip: 'Feed',
-  //   requiresAuth: true,
-  // },
+  {
+    icon: <PiggyBank />,
+    path: '/balance',
+    tooltip: 'Blance',
+    requiresAuth: true,
+  },
   {
     icon: <Home />,
     path: '/',
     tooltip: 'Home Screen',
     requiresAuth: false,
   },
-  // {
-  //   icon: <BookUser />,
-  //   path: '/contacts',
-  //   tooltip: 'Contacts',
-  //   requiresAuth: true,
-  // },
   {
-    icon: <PiggyBank />,
-    path: '/balance',
-    tooltip: 'Blance',
+    icon: <Logs />,
+    path: '/history',
+    tooltip: 'History',
     requiresAuth: true,
   },
   {
