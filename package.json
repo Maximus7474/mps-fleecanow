@@ -1,7 +1,7 @@
 {
 	"name": "mps-lb-fleecanow",
 	"author": "Maximus7474",
-	"version": "0.0.0",
+	"version": "0.1.1",
 	"license": "Proprietary",
 	"description": "A lightweight app inspired by Venmo for FiveM servers using LB-Phone",
 	"type": "module",
