@@ -2,6 +2,7 @@ import { BasicResponse, RawUser, UserSharedProfile } from '@common/types';
 import { oxmysql as MySQL } from '@communityox/oxmysql';
 import { RegisterServerCallback } from '../utils/callbacks';
 import { FleecaNowUser } from '../user/class';
+import { LogAccountAction } from '../utils/log_account_action';
 
 RegisterServerCallback('fleecanow:isusernamevalid', async (_, data: string): Promise<BasicResponse> => {
   const exists = await MySQL.single('SELECT 1 FROM `phone_fleecanow_accounts` WHERE `username` = ?', [data]);
@@ -40,23 +41,30 @@ RegisterServerCallback(
     if (senderBalance < data.amount) return { success: false, message: 'Insufficient funds' };
 
     if (receiver) {
-      receiver.receiveMoney(data.amount, data.destination);
+      receiver.receiveMoney(data.amount, sender.get('id') as number);
     } else {
-      const balance = await MySQL.single('SELECT `balance` FROM `phone_fleecanow_accounts` WHERE `username` = ?', [
+      const receiver: {balance: number; id: number} = await MySQL.single('SELECT `id`, `balance` FROM `phone_fleecanow_accounts` WHERE `username` = ?', [
         data.destination,
       ]);
 
-      if (typeof balance !== 'number') return { success: false, message: 'Unknown account' };
+      if (typeof receiver?.balance !== 'number') return { success: false, message: 'Unknown account' };
 
       const result = await MySQL.update('UPDATE `balance` = ? FROM `phone_fleecanow_accounts` WHERE `username` = ?', [
-        balance + data.amount,
+        receiver.balance + data.amount,
         data.destination,
       ]);
+
+      LogAccountAction({
+        account: receiver.id,
+        action: 'transfer',
+        amount: data.amount,
+        related_account: sender.get('id') as number,
+      });
 
       if (result === 0) return { success: false, message: 'Unable to transfer' };
     }
 
-    sender.transferMoney(data.amount, data.destination);
+    sender.transferMoney(data.amount, receiver.get('id') as number);
 
     return { success: true };
   },
