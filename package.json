@@ -1,9 +1,9 @@
 {
-	"name": "fivem-typescript-boilerplate",
-	"author": "Overextended",
+	"name": "mps-lb-fleecanow",
+	"author": "Maximus7474",
 	"version": "0.0.0",
-	"license": "",
-	"description": "",
+	"license": "Proprietary",
+	"description": "A lightweight app inspired by Venmo for FiveM servers using LB-Phone",
 	"type": "module",
 	"scripts": {
 		"web:dev": "cd web && vite dev",
@@ -15,11 +15,6 @@
 	"keywords": [
 		"fivem"
 	],
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/overextended/fivem-typescript-boilerplate.git"
-	},
-	"bugs": "https://github.com/overextended/fivem-typescript-boilerplate/issues",
 	"devDependencies": {
 		"@citizenfx/client": "latest",
 		"@citizenfx/server": "latest",
