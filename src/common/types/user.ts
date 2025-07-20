@@ -27,6 +27,15 @@ export interface RawUser {
   balance: number;
 }
 
+export interface AccountHistory {
+  action: 'transfer' | 'withdraw' | 'deposit';
+  amount: number;
+  related_account: string | null;
+  timestamp: number;
+}
+
+export type HistoryResponse = { success: true; history: AccountHistory[] } | { success: false; error: string };
+
 export type DeletionResponse = { success: true } | { success: false; error: string };
 
 export type LoginResponse = { success: true; user: User } | { success: false; error: string };
