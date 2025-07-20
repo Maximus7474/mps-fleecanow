@@ -18,6 +18,7 @@ export interface UserSharedProfile {
 }
 
 export interface RawUser {
+  id: number;
   username: string;
   display_name?: string;
   email?: string;
