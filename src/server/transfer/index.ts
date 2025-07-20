@@ -43,9 +43,10 @@ RegisterServerCallback(
     if (receiver) {
       receiver.receiveMoney(data.amount, sender.get('id') as number);
     } else {
-      const receiver: {balance: number; id: number} = await MySQL.single('SELECT `id`, `balance` FROM `phone_fleecanow_accounts` WHERE `username` = ?', [
-        data.destination,
-      ]);
+      const receiver: { balance: number; id: number } = await MySQL.single(
+        'SELECT `id`, `balance` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
+        [data.destination],
+      );
 
       if (typeof receiver?.balance !== 'number') return { success: false, message: 'Unknown account' };
 
