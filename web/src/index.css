@@ -8,6 +8,40 @@ body {
   user-select: none;
 }
 
+/* For Webkit-based browsers (Chrome, Safari, OperaGX, new Edge, Brave, etc.) */
+html::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+html::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: var(--background-highlight);
+  border-radius: 10px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background-color: var(--secondary-shadow);
+}
+
+html::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* For Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-secondary) transparent;
+}
+
+/* For Internet Explorer and older Edge (non-Chromium) */
+html {
+  -ms-overflow-style: none;
+}
+
 /* Animations */
 
 @keyframes spin {
