@@ -1,6 +1,7 @@
 import { oxmysql as MySQL } from '@communityox/oxmysql';
 import { GetBalanceResponse, RawUser } from '@common/types';
 import { resourceExport } from '@common/export';
+import { LogAccountAction } from '../utils/log_account_action';
 
 interface ServerUser extends Omit<RawUser, 'balance'> {}
 
@@ -127,16 +128,30 @@ export class FleecaNowUser {
     }
   };
 
-  transferMoney = (amount: number, receiver: string): boolean => {
+  transferMoney = (amount: number, receiver: number): boolean => {
     if (amount > this.balance) return false;
 
     this.balance -= amount;
 
+    LogAccountAction({
+      account: this.user.id,
+      action: 'transfer',
+      amount: -amount,
+      related_account: receiver,
+    });
+
     return true;
   };
 
-  receiveMoney = (amount: number, sender: string) => {
+  receiveMoney = (amount: number, sender: number) => {
     this.balance += amount;
+
+    LogAccountAction({
+      account: this.user.id,
+      action: 'transfer',
+      amount: amount,
+      related_account: sender,
+    });
 
     return true;
   };
