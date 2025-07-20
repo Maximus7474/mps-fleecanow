@@ -22,7 +22,7 @@ RegisterServerCallback('fleecanow:getconnectedaccount', async (source: number): 
   if (!username) return null;
 
   const rawUser: RawUser | null = await MySQL.single(
-    'SELECT `username`, `display_name`, `email`, `avatar`, `proximity_sharing`, `balance` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
+    'SELECT `id`, `username`, `display_name`, `email`, `avatar`, `proximity_sharing`, `balance` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
     [username.username],
   );
   if (!rawUser) return null;
@@ -38,7 +38,7 @@ RegisterServerCallback(
   'fleecanow:login',
   async (source: number, data: { username: string; password: string }): Promise<LoginResponse> => {
     const rawUser: (RawUser & { password: string }) | null = await MySQL.single(
-      'SELECT `username`, `display_name`, `email`, `avatar`, `password`, `proximity_sharing`, `balance` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
+      'SELECT `id`, `username`, `display_name`, `email`, `avatar`, `password`, `proximity_sharing`, `balance` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
       [data.username],
     );
 
@@ -79,7 +79,7 @@ RegisterServerCallback(
     const phone_number = resourceExport('lb-phone', 'GetEquippedPhoneNumber')(source);
 
     const rawUser: RawUser | null = await MySQL.single(
-      'SELECT `username`, `display_name`, `email`, `avatar`, `balance` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
+      'SELECT `id`, `username`, `display_name`, `email`, `avatar`, `balance` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
       [data.username],
     );
 
@@ -104,7 +104,7 @@ RegisterServerCallback(
     const userName = currentUser.get('username') as string;
 
     if (userName !== newUser.username) {
-      const existingUser: RawUser | null = await MySQL.single(
+      const existingUser: { username: string } | null = await MySQL.single(
         'SELECT `username` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
         [newUser.username],
       );
