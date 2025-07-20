@@ -1,4 +1,4 @@
-import type { AccountHistory } from "@common/types";
+import type { AccountHistory } from '@common/types';
 
 export const devAccountHistory = [
   {
