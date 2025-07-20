@@ -116,6 +116,13 @@ export class FleecaNowUser {
 
       this.balance += amount;
 
+      LogAccountAction({
+        account: this.user.id,
+        action: 'deposit',
+        amount,
+        related_account: null,
+      });
+
       return { success: true, amount: this.balance };
     } else if (action === 'withdraw') {
       const result: boolean = resourceExport('mps-lb-fleecanow', 'AddMoney')(this.source, amount);
@@ -123,6 +130,13 @@ export class FleecaNowUser {
       if (!result) return { success: false, error: 'Unable to add funds to bank account' };
 
       this.balance -= amount;
+
+      LogAccountAction({
+        account: this.user.id,
+        action: 'withdraw',
+        amount,
+        related_account: null,
+      });
 
       return { success: true, amount: this.balance };
     }
