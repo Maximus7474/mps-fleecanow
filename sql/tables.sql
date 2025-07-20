@@ -23,6 +23,6 @@ CREATE TABLE IF NOT EXISTS `phone_fleecanow_transfers` (
   `timestamp`         DATETIME            NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   KEY `id` (`id`),
-  FOREIGN KEY (`recepient`) REFERENCES phone_fleecanow_accounts(`id`) ON UPDATE CASCADE ON DELETE SET NULL,
+  FOREIGN KEY (`related_account`) REFERENCES phone_fleecanow_accounts(`id`) ON UPDATE CASCADE ON DELETE SET NULL,
   FOREIGN KEY (`account`) REFERENCES phone_fleecanow_accounts(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 );
