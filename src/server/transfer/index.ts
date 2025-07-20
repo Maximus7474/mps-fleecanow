@@ -2,7 +2,6 @@ import { BasicResponse, RawUser, UserSharedProfile } from '@common/types';
 import { oxmysql as MySQL } from '@communityox/oxmysql';
 import { RegisterServerCallback } from '../utils/callbacks';
 import { FleecaNowUser } from '../user/class';
-import { send } from 'process';
 
 RegisterServerCallback('fleecanow:isusernamevalid', async (_, data: string): Promise<BasicResponse> => {
   const exists = await MySQL.single('SELECT 1 FROM `phone_fleecanow_accounts` WHERE `username` = ?', [data]);
