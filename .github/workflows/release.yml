@@ -12,7 +12,6 @@ jobs:
     permissions:
       contents: write
       pull-requests: read
-      releases: write
 
     steps:
       - name: Install archive tools
