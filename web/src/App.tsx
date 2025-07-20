@@ -14,6 +14,7 @@ import Registration from './pages/Registration/Registration';
 import Transfer from './pages/Transfer/Transfer';
 import ConfirmTransfer from './pages/Transfer/subpages/ConfirmTransfer';
 import Balance from './pages/Balance/Balance';
+import History from './pages/History/History';
 
 import './App.css';
 
@@ -45,8 +46,7 @@ const App = () => {
                   <Route index element={<Transfer />} />
                   <Route path='confirm' element={<ConfirmTransfer />} />
                 </Route>
-                <Route path='feed' element={'<Feed />'} />
-                <Route path='contacts' element={'<Contacts />'} />
+                <Route path='history' element={<History />} />
                 <Route path='balance' element={<Balance />} />
               </>
             )}
