@@ -11,3 +11,18 @@ CREATE TABLE IF NOT EXISTS `phone_fleecanow_accounts` (
   PRIMARY KEY (`username`),
   KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS `phone_fleecanow_transfers` (
+  `id`                int(11)       NOT NULL AUTO_INCREMENT,
+  `account`           int(11)       NOT NULL,
+
+  `action`            ENUM('transfer', 'withdraw', 'deposit') NOT NULL,
+  `amount`            int(11)       NOT NULL DEFAULT 0,
+  `recepient`         int(11)       DEFAULT NULL,
+
+  `timestamp`         DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+  KEY `id` (`id`),
+  FOREIGN KEY (`recepient`) REFERENCES phone_fleecanow_accounts(`id`) ON UPDATE CASCADE ON DELETE SET NULL,
+  FOREIGN KEY (`account`) REFERENCES phone_fleecanow_accounts(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+);
