@@ -20,7 +20,7 @@ export async function VersionCheck() {
       repo_version = responseText.replace(/\n/g, '');
     }
   } catch (error) {
-    console.error(`^1Failed to get repository version for fleecanow:^7`, error);
+    console.error(`^1Failed to get latest version:^7`, error);
     repo_version = '0.0.0';
   }
 
