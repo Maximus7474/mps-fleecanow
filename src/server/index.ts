@@ -2,6 +2,9 @@ import './user/auth';
 import './user/funds';
 import './user/history';
 import { FleecaNowUser } from './user/class';
+import { VersionCheck } from './utils/version_check';
+
+VersionCheck();
 
 // Save all players balance every 5 minutes
 setInterval(FleecaNowUser.save, 5 * 60_000);
