@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS `phone_fleecanow_transfers` (
   `action`            ENUM('transfer', 'withdraw', 'deposit') NOT NULL,
   `amount`            int(11)             NOT NULL DEFAULT 0,
   `related_account`   int(11) unsigned    DEFAULT NULL,
+  `message`           varchar(255)        DEFAULT NULL,
 
   `timestamp`         DATETIME            NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
