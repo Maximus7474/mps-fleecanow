@@ -31,6 +31,7 @@ export interface AccountHistory {
   action: 'transfer' | 'withdraw' | 'deposit';
   amount: number;
   related_account: string | null;
+  message: string | null;
   timestamp: number;
 }
 
