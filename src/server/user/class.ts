@@ -93,6 +93,7 @@ export class FleecaNowUser {
       `SELECT
         T.action,
         T.amount,
+        T.message,
         A.username AS related_account,
         T.timestamp
       FROM
