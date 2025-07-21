@@ -12,6 +12,7 @@ export const devAccountHistory = [
     amount: 120,
     related_account: null,
     timestamp: Math.floor(new Date('2025-07-20T14:30:00Z').getTime() / 1000),
+    message: 'Thanks for the help with the lab'
   },
   {
     action: 'withdraw',
