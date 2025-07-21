@@ -38,8 +38,10 @@ export const appConfig: AppConfig = {
   size: 59812,
 
   images: [
-    `https://cfx-nui-${GetCurrentResourceName()}/dist/web/screenshot-light.png`,
-    `https://cfx-nui-${GetCurrentResourceName()}/dist/web/screenshot-dark.png`,
+    `https://cfx-nui-${GetCurrentResourceName()}/dist/web/1.png`,
+    `https://cfx-nui-${GetCurrentResourceName()}/dist/web/2.png`,
+    `https://cfx-nui-${GetCurrentResourceName()}/dist/web/3.png`,
+    `https://cfx-nui-${GetCurrentResourceName()}/dist/web/4.png`,
   ],
 
   ui: url.includes('http') ? url : `${GetCurrentResourceName()}/${url}`,
@@ -48,8 +50,4 @@ export const appConfig: AppConfig = {
     : `https://cfx-nui-${GetCurrentResourceName()}/dist/web/icon.png`,
 
   fixBlur: true,
-
-  onClose: () => {
-    exports['lb-phone'].DisableWalkableCam();
-  },
 };
