@@ -1,4 +1,4 @@
-import { BasicResponse, RawUser, UserSharedProfile } from '@common/types';
+import { BasicResponse, RawUser, TransferData, UserSharedProfile } from '@common/types';
 import { oxmysql as MySQL } from '@communityox/oxmysql';
 import { RegisterServerCallback } from '../utils/callbacks';
 import { FleecaNowUser } from '../user/class';
@@ -28,7 +28,7 @@ RegisterServerCallback('fleecanow:getuserprofile', async (_, data: string): Prom
 
 RegisterServerCallback(
   'fleecanow:sendtransfer',
-  async (source, data: { destination: string; amount: number; public: boolean }): Promise<BasicResponse> => {
+  async (source, data: TransferData): Promise<BasicResponse> => {
     const sender = FleecaNowUser.getUserBySource(source);
     const receiver = FleecaNowUser.getUser(data.destination);
 
