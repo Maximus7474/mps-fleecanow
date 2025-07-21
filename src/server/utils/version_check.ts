@@ -1,4 +1,8 @@
+import Config from '@common/config';
+
 export async function VersionCheck() {
+  if (Config.VersionCheck !== false) return;
+
   let repo_version: string = '0.0.0';
   const current_version: string = GetResourceMetadata(GetCurrentResourceName(), 'version', 0);
 
