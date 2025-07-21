@@ -20,7 +20,10 @@ A lightweight and intuitive money transfer application, inspired by **Venmo**, b
 1.  **Dependencies:** Ensure you have `LB-Phone` installed and running on your server.
 2.  **Database Setup:** Execute the provided SQL file: `sql/tables.sql`
     * *Note:* If you encounter errors during table creation, please verify that you are using an up-to-date MariaDB version (v10.11.\* or newer is recommended).
-3.  **Resource Deployment:**
+3.  **Resource Configuration:**
+    * To adapt the configuration on the fly, you can do so by altering the `json` files in the `static/` directory.
+    * To adapt/add locales, you can do so by working on the `json` files in the `locales/` directory.
+4.  **Resource Deployment:**
     * Add the `mps-lb-fleecanow` resource folder to your FiveM server's `resources` directory.
     * Add `ensure mps-lb-fleecanow` to your `server.cfg`.
 ---
