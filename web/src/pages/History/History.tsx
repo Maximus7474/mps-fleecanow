@@ -16,7 +16,7 @@ const getIconForAction = (action: 'transfer' | 'withdraw' | 'deposit', amount: n
 };
 
 const formatDate = (timestamp: number): string => {
-  const date = new Date(timestamp * 1000);
+  const date = new Date(timestamp);
   return date.toLocaleString();
 };
 
