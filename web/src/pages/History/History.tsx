@@ -61,11 +61,11 @@ const History: React.FC = () => {
                 'Withdrawal'
               ) : item.action === 'deposit' ? (
                 'Deposit'
-              ) : item.related_account ? (
+              ) : (
                 <p>
-                  {item.amount > 0 ? 'From' : 'To'} {item.related_account}
+                  {item.amount > 0 ? 'From' : 'To'} {item.related_account ?? 'Deleted user'}
                 </p>
-              ) : null}
+              )}
               <p className='username'>{formatDate(item.timestamp)}</p>
             </div>
             <div>

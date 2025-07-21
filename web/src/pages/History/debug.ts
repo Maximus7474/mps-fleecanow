@@ -10,7 +10,7 @@ export const devAccountHistory = [
   {
     action: 'transfer',
     amount: 120,
-    related_account: 'user_xyz123',
+    related_account: null,
     timestamp: Math.floor(new Date('2025-07-20T14:30:00Z').getTime() / 1000),
   },
   {
