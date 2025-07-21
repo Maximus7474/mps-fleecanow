@@ -132,6 +132,7 @@ const ConfirmTransfer: React.FC = () => {
           <input
             type='text'
             value={transferData.message ?? ''}
+            maxLength={255}
             onChange={(e) =>
               setTransferData((prev) => ({
                 ...prev,
