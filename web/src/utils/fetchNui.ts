@@ -29,7 +29,7 @@ export async function fetchNui<T = unknown>(eventName: string, data?: unknown, m
 
   if (devMode && mockData) return mockData;
 
-  const resourceName = (window as any).resourceName ?? 'mps-lb-fleecanow';
+  const resourceName = (window as any).resourceName ?? 'mps-fleecanow';
 
   try {
     const resp = await fetch(`https://${resourceName}/${eventName}`, options);
