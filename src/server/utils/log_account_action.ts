@@ -12,7 +12,7 @@ export async function LogAccountAction(data: {
     : null;
 
   const message = data.message && data.action === 'transfer' && data.message.length > 0
-    ? data.message
+    ? (data.message.length > 255 ? `${data.message.slice(0, 252)}...` : data.message)
     : null;
 
   await MySQL.insert(
