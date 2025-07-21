@@ -106,11 +106,11 @@ export class FleecaNowUser {
       ORDER BY
         T.timestamp ASC
       LIMIT 25;`,
-      [ this.user.id ],
+      [this.user.id],
     );
 
     return raw as AccountHistory[];
-  }
+  };
 
   updateData = async (data: Partial<ServerUser>) => {
     if (data.username) this.user.username = data.username;
