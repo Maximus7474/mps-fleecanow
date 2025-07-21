@@ -37,6 +37,12 @@
   background-color: var(--background-primary);
   color: var(--text-primary);
   text-decoration: none;
+  min-height: 5rem;
+}
+
+.history > .recap > .card.expanded {
+  align-items: center;
+  padding: 0.75rem 0;
 }
 
 .history > .recap > .card:hover {
@@ -55,18 +61,24 @@
   flex-direction: column;
   gap: 0.0125em;
   justify-content: center;
+  height: auto;
 } 
 
 .history > .recap > .card > div:first-of-type {
   width: 50%;
 }
 
+.history > .recap > .card.expanded > div > .message {
+  font-weight: 200;
+  font-style: italic;
+  padding-left: 0.5rem;
+  border-left: 0.125rem gray solid;
+}
+
 .history > .recap > .card > div:last-of-type {
   width: 5em;
   height: 5em;
-  background-color: var(--background-highlight);
   color: color-mix(in srgb, var(--text-primary) 50%, var(--text-secondary) 50%);
   border-radius: 50%;
   text-align: center;
-  font-style: italic;
 }
