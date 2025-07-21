@@ -23,6 +23,7 @@ const formatDate = (timestamp: number): string => {
 const History: React.FC = () => {
   const [history, setHistory] = useState<AccountHistory[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
 
   useEffect(() => {
     fetchNui<HistoryResponse>('fleecanow:getHistory', {}, { success: true, history: devAccountHistory })
@@ -54,7 +55,9 @@ const History: React.FC = () => {
 
       <div className='recap'>
         {history.map((item, idx) => (
-          <div key={idx} className='card'>
+          <div key={idx} className={expandedIdx === idx ? 'card expanded' : 'card'} onClick={() => {
+            if (item.message) setExpandedIdx(prev => prev === idx ? null : idx);
+          }}>
             {getIconForAction(item.action, item.amount)}
             <div>
               {item.action === 'withdraw' ? (
@@ -65,6 +68,9 @@ const History: React.FC = () => {
                 <p>
                   {item.amount > 0 ? 'From' : 'To'} {item.related_account ?? 'Deleted user'}
                 </p>
+              )}
+              {(expandedIdx === idx && item.message) && (
+                <p className='message'>{item.message}</p>
               )}
               <p className='username'>{formatDate(item.timestamp)}</p>
             </div>
