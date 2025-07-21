@@ -41,7 +41,7 @@ RegisterServerCallback(
     if (senderBalance < data.amount) return { success: false, message: 'Insufficient funds' };
 
     if (receiver) {
-      receiver.receiveMoney(data.amount, sender.get('id') as number);
+      receiver.receiveMoney(data.amount, sender.get('id') as number, data?.message);
     } else {
       const receiver: { balance: number; id: number } = await MySQL.single(
         'SELECT `id`, `balance` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
@@ -60,12 +60,13 @@ RegisterServerCallback(
         action: 'transfer',
         amount: data.amount,
         related_account: sender.get('id') as number,
+        message: data.message,
       });
 
       if (result === 0) return { success: false, message: 'Unable to transfer' };
     }
 
-    sender.transferMoney(data.amount, receiver.get('id') as number);
+    sender.transferMoney(data.amount, receiver.get('id') as number, data?.message);
 
     return { success: true };
   },

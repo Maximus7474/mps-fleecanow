@@ -145,6 +145,7 @@ export class FleecaNowUser {
         action: 'deposit',
         amount,
         related_account: null,
+        message: null,
       });
 
       return { success: true, amount: this.balance };
@@ -160,13 +161,14 @@ export class FleecaNowUser {
         action: 'withdraw',
         amount,
         related_account: null,
+        message: null,
       });
 
       return { success: true, amount: this.balance };
     }
   };
 
-  transferMoney = (amount: number, receiver: number): boolean => {
+  transferMoney = (amount: number, receiver: number, message: string | null): boolean => {
     if (amount > this.balance) return false;
 
     this.balance -= amount;
@@ -176,12 +178,13 @@ export class FleecaNowUser {
       action: 'transfer',
       amount: -amount,
       related_account: receiver,
+      message: message,
     });
 
     return true;
   };
 
-  receiveMoney = (amount: number, sender: number) => {
+  receiveMoney = (amount: number, sender: number, message: string | null) => {
     this.balance += amount;
 
     LogAccountAction({
@@ -189,6 +192,7 @@ export class FleecaNowUser {
       action: 'transfer',
       amount: amount,
       related_account: sender,
+      message: message,
     });
 
     return true;
