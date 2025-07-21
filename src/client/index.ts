@@ -1,5 +1,3 @@
 import './add_application';
-import './account/account';
-import './account/funds';
-import './account/history';
+import './account';
 import './transfer';
