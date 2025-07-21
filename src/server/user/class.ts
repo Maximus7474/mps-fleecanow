@@ -1,5 +1,5 @@
 import { oxmysql as MySQL } from '@communityox/oxmysql';
-import { GetBalanceResponse, RawUser } from '@common/types';
+import { AccountHistory, GetBalanceResponse, RawUser } from '@common/types';
 import { resourceExport } from '@common/export';
 import { LogAccountAction } from '../utils/log_account_action';
 
@@ -87,6 +87,30 @@ export class FleecaNowUser {
       proximitySharing: this.user.proximity_sharing === 1,
     };
   };
+
+  getHistory = async (): Promise<AccountHistory[]> => {
+    const raw = await MySQL.query(
+      `SELECT
+        T.action,
+        T.amount,
+        A.username AS related_account,
+        T.timestamp
+      FROM
+        phone_fleecanow_transfers AS T
+      LEFT JOIN
+        phone_fleecanow_accounts AS A
+      ON
+        T.related_account = A.id
+      WHERE
+        T.account = ?
+      ORDER BY
+        T.timestamp ASC
+      LIMIT 25;`,
+      [ this.user.id ],
+    );
+
+    return raw as AccountHistory[];
+  }
 
   updateData = async (data: Partial<ServerUser>) => {
     if (data.username) this.user.username = data.username;
