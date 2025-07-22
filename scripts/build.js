@@ -6,6 +6,7 @@ import { createBuilder, createFxmanifest } from '@communityox/fx-utils';
 const watch = process.argv.includes('--watch');
 const web = await exists('./web');
 const dropLabels = ['$BROWSER'];
+const minify = !watch;
 
 if (!watch) dropLabels.push('$DEV');
 
@@ -26,6 +27,7 @@ createBuilder(
         format: 'cjs',
         dropLabels: [...dropLabels, '$CLIENT'],
         external: ['shared'],
+        minify,
       },
     },
     {
@@ -36,6 +38,7 @@ createBuilder(
         format: 'iife',
         dropLabels: [...dropLabels, '$SERVER'],
         external: ['shared'],
+        minify,
       },
     },
   ],
