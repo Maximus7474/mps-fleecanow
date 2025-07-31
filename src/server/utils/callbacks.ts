@@ -23,10 +23,10 @@ onNet('fleecanow:server:triggerCallback', async (name: string, requestId: string
       data: result,
     });
   } catch (err) {
-    console.error('Error in server callback:', name, data, err.message);
+    console.error('Error in server callback:', name, data, err);
     emitNet('fleecanow:client:callbackResponse', src, requestId, {
       success: false,
-      error: (err as Error).message,
+      error: 'An error occured on the server.',
     });
   }
 });
