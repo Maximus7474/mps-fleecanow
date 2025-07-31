@@ -2,7 +2,7 @@ import { HistoryResponse } from '@common/types';
 import { FleecaNowUser } from './class';
 import { RegisterServerCallback } from '../utils/callbacks';
 
-RegisterServerCallback('fleecanow:getBalance', async (source: number): Promise<HistoryResponse> => {
+RegisterServerCallback('fleecanow:getHistory', async (source: number): Promise<HistoryResponse> => {
   try {
     const user: FleecaNowUser = FleecaNowUser.getUserBySource(source);
 
