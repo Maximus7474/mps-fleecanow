@@ -43,7 +43,7 @@ export class FleecaNowUser {
   constructor(user: RawUser, source: number, phone_number: string) {
     const { balance, ...userWithoutBalance } = user;
     this.user = userWithoutBalance;
-    this.balance = balance;
+    this.balance = balance ?? 0;
 
     this.source = source;
     this.phone_number = phone_number;
