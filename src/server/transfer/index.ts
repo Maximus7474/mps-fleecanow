@@ -38,7 +38,9 @@ RegisterServerCallback('fleecanow:sendtransfer', async (source, data: TransferDa
 
   if (senderBalance < data.amount) return { success: false, message: 'Insufficient funds' };
 
+  let receiverId;
   if (receiver) {
+    receiverId = receiver.get('id');
     receiver.receiveMoney(data.amount, sender.get('id') as number, data?.message);
   } else {
     const receiver: { balance: number; id: number } = await MySQL.single(
@@ -47,6 +49,8 @@ RegisterServerCallback('fleecanow:sendtransfer', async (source, data: TransferDa
     );
 
     if (typeof receiver?.balance !== 'number') return { success: false, message: 'Unknown account' };
+
+    receiverId = receiver.id;
 
     const result = await MySQL.update('UPDATE `phone_fleecanow_accounts` SET `balance` = ? WHERE `username` = ?', [
       receiver.balance + data.amount,
@@ -64,7 +68,7 @@ RegisterServerCallback('fleecanow:sendtransfer', async (source, data: TransferDa
     if (result === 0) return { success: false, message: 'Unable to transfer' };
   }
 
-  sender.transferMoney(data.amount, receiver.get('id') as number, data?.message);
+  sender.transferMoney(data.amount, receiverId as number, data?.message);
 
   return { success: true };
 });
