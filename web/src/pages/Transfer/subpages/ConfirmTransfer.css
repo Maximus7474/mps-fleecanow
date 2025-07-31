@@ -8,6 +8,9 @@
   align-items: center;
   justify-content: center;
   height: 90vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .confirm-transfer-page>div,
