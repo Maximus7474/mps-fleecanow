@@ -31,6 +31,12 @@ local function RemoveMoney(src, amount)
         return false
     end
 
+    local balance = GetBankBalance(src)
+
+    if (balance < amount) then
+        return false
+    end
+
     xPlayer.removeAccountMoney("bank", amount, "Funds added to FleecaNow")
 
     return true
@@ -44,12 +50,6 @@ local function AddMoney(src, amount)
     local xPlayer = ESX.GetPlayerFromId(src)
 
     if not xPlayer or amount < 0 then
-        return false
-    end
-
-    local balance = GetBankBalance(src)
-
-    if (balance < amount) then
         return false
     end
 
