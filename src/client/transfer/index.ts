@@ -1,1 +1,2 @@
 import './proximity';
+import './transfer';
