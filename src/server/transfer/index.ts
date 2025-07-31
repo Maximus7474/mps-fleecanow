@@ -48,7 +48,7 @@ RegisterServerCallback('fleecanow:sendtransfer', async (source, data: TransferDa
 
     if (typeof receiver?.balance !== 'number') return { success: false, message: 'Unknown account' };
 
-    const result = await MySQL.update('UPDATE `balance` = ? FROM `phone_fleecanow_accounts` WHERE `username` = ?', [
+    const result = await MySQL.update('UPDATE `phone_fleecanow_accounts` SET `balance` = ? WHERE `username` = ?', [
       receiver.balance + data.amount,
       data.destination,
     ]);
