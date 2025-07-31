@@ -29,6 +29,7 @@ const ConfirmTransfer: React.FC = () => {
       fetchNui<UserSharedProfile | null>('fleecanow:getuserprofile', { username })
         .then((user) => {
           setTargetUser(user);
+          setTransferData((prev) => ({ ...prev, destination: username! }))
         })
         .finally(() => {
           setLoading(false);
