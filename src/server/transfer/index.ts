@@ -1,14 +1,14 @@
-import { BasicResponse, RawUser, TransferData, UserSharedProfile } from '@common/types';
+import { BasicResponse, RawUser, TransferData, UsernameValidationResponse, UserSharedProfile } from '@common/types';
 import { oxmysql as MySQL } from '@communityox/oxmysql';
 import { RegisterServerCallback } from '../utils/callbacks';
 import { FleecaNowUser } from '../user/class';
 import { LogAccountAction } from '../utils/log_account_action';
 
-RegisterServerCallback('fleecanow:isusernamevalid', async (_, data: string): Promise<BasicResponse> => {
+RegisterServerCallback('fleecanow:isusernamevalid', async (_, data: string): Promise<UsernameValidationResponse> => {
   const exists = await MySQL.single('SELECT 1 FROM `phone_fleecanow_accounts` WHERE `username` = ?', [data]);
 
-  if (exists) return { success: true };
-  else return { success: false, message: 'Username was not found' };
+  if (exists) return { success: true, username: data };
+  else return { success: false, error: 'Username was not found' };
 });
 
 RegisterServerCallback('fleecanow:getuserprofile', async (_, data: string): Promise<UserSharedProfile | null> => {
