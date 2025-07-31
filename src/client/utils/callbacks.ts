@@ -16,11 +16,11 @@ export const triggerServerCallback = <T = any>(name: string, data?: any): Promis
       else reject(res.error);
     });
 
-    emitNet('myResource:server:triggerCallback', name, id, data);
+    emitNet('fleecanow:server:triggerCallback', name, id, data);
   });
 };
 
-onNet('myResource:client:callbackResponse', (requestId: string, response: CallbackResponse) => {
+onNet('fleecanow:client:callbackResponse', (requestId: string, response: CallbackResponse) => {
   const cb = pendingCallbacks.get(requestId);
 
   if (cb) {
