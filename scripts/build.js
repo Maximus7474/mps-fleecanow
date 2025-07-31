@@ -51,7 +51,7 @@ createBuilder(
   async (outfiles) => {
     const files = await getFiles('dist/web', 'static');
     await createFxmanifest({
-      client_scripts: [outfiles.client, 'bridge/utils.lua', 'bridge/**/client.lua'],
+      client_scripts: [outfiles.client, 'bridge/utils.lua'],
       server_scripts: [outfiles.server, 'bridge/utils.lua', 'bridge/**/server.lua'],
       files: ['locales/*.json', ...files],
       dependencies: ['/server:13068', '/onesync'],
