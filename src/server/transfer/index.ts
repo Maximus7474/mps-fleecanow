@@ -11,10 +11,10 @@ RegisterServerCallback('fleecanow:isusernamevalid', async (_, data: string): Pro
   else return { success: false, error: 'Username was not found' };
 });
 
-RegisterServerCallback('fleecanow:getuserprofile', async (_, data: string): Promise<UserSharedProfile | null> => {
+RegisterServerCallback('fleecanow:getuserprofile', async (_, username: string): Promise<UserSharedProfile | null> => {
   const account: Partial<RawUser> = await MySQL.single(
     'SELECT `username`, `display_name`, `avatar` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
-    [data],
+    [username],
   );
 
   if (!account) return null;
