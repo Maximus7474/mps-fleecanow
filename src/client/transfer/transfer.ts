@@ -17,10 +17,7 @@ RegisterNuiCallback(
   },
 );
 
-RegisterNuiCallback(
-  'fleecanow:sendtransfer',
-  async (data: TransferData, cb: (data: BasicResponse) => void) => {
-    const response: BasicResponse = await triggerServerCallback('fleecanow:sendtransfer', data);
-    cb(response);
-  },
-);
+RegisterNuiCallback('fleecanow:sendtransfer', async (data: TransferData, cb: (data: BasicResponse) => void) => {
+  const response: BasicResponse = await triggerServerCallback('fleecanow:sendtransfer', data);
+  cb(response);
+});

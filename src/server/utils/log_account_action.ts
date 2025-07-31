@@ -7,13 +7,14 @@ export async function LogAccountAction(data: {
   related_account: number | null;
   message: string | null;
 }): Promise<void> {
-  const related_account = data.action === 'transfer'
-    ? data.related_account
-    : null;
+  const related_account = data.action === 'transfer' ? data.related_account : null;
 
-  const message = data.message && data.action === 'transfer' && data.message.length > 0
-    ? (data.message.length > 255 ? `${data.message.slice(0, 252)}...` : data.message)
-    : null;
+  const message =
+    data.message && data.action === 'transfer' && data.message.length > 0
+      ? data.message.length > 255
+        ? `${data.message.slice(0, 252)}...`
+        : data.message
+      : null;
 
   await MySQL.insert(
     'INSERT INTO `phone_fleecanow_transfers` (`account`, `action`, `amount`, `related_account`, `message`) VALUES (?, ?, ?, ?, ?)',
