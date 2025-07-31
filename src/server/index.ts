@@ -1,6 +1,7 @@
 import './user/auth';
 import './user/funds';
 import './user/history';
+import './transfer';
 import { FleecaNowUser } from './user/class';
 import { VersionCheck } from './utils/version_check';
 
