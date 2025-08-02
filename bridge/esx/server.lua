@@ -37,7 +37,7 @@ local function RemoveMoney(src, amount)
         return false
     end
 
-    xPlayer.removeAccountMoney("bank", amount, "Funds added to FleecaNow")
+    xPlayer.removeAccountMoney("bank", amount, Locale("REMOVED_MONEY"))
 
     return true
 end
@@ -53,7 +53,7 @@ local function AddMoney(src, amount)
         return false
     end
 
-    xPlayer.addAccountMoney("bank", amount, "Funds withdrawn from FleecaNow account.")
+    xPlayer.addAccountMoney("bank", amount, Locale("ADDED_MONEY"))
 
     return true
 end

@@ -43,7 +43,7 @@ local function RemoveMoney(src, amount)
 
     return OX:CallAccount(accountId, "removeBalance", {
         amount = amount,
-        message = "Funds added to FleecaNow."
+        message = Locale("REMOVED_MONEY")
     })?.success or false
 end
 
@@ -62,7 +62,7 @@ local function AddMoney(src, amount)
 
     return OX:CallAccount(accountId, "addBalance", {
         amount = amount,
-        message = "Funds withdrawn from FleecaNow account."
+        message = Locale("ADDED_MONEY")
     })?.success or false
 end
 

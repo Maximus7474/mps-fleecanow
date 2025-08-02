@@ -31,7 +31,7 @@ local function RemoveMoney(src, amount)
         return false
     end
 
-    qPlayer.Functions.RemoveMoney("bank", math.floor(amount + 0.5), "Funds added to FleecaNow.")
+    qPlayer.Functions.RemoveMoney("bank", amount, Locale("REMOVED_MONEY"))
 
     local balance = GetBankBalance(src)
 
@@ -53,7 +53,7 @@ local function AddMoney(src, amount)
         return false
     end
 
-    qPlayer.Functions.AddMoney("bank", math.floor(amount + 0.5), "Funds withdrawn from FleecaNow account.")
+    qPlayer.Functions.AddMoney("bank", amount, Locale("ADDED_MONEY"))
 
     return true
 end
