@@ -1,4 +1,6 @@
 {
-  "hello": "hello ${world}",
-  "world": "world"
+  "BRIDGE": {
+    "REMOVED_MONEY": "Funds added to FleecaNow.",
+    "ADDED_MONEY": "Funds withdrawn from FleecaNow account."
+  }
 }
