@@ -3,7 +3,7 @@ if (not IsFrameworkStarted("qb")) then return end
 local QB = exports["qb-core"]:GetCoreObject()
 
 if (not QB) then
-    error('\n > Unable to import QBox shared object, please check why this is occuring.\n > This script WILL NOT work until you resolve this.')
+    error('\n > Unable to import QB core object, please check why this is occuring.\n > This script WILL NOT work until you resolve this.')
     return
 end
 
