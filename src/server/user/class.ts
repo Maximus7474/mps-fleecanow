@@ -135,7 +135,7 @@ export class FleecaNowUser {
 
   updateFunds = (action: 'add' | 'withdraw', amount: number): GetBalanceResponse => {
     if (action === 'add') {
-      const result: boolean = resourceExport('mps-lb-fleecanow', 'RemoveMoney')(this.source, amount);
+      const result: boolean = resourceExport('mps-fleecanow', 'RemoveMoney')(this.source, amount);
 
       if (!result) return { success: false, error: 'Unable to retrieve funds from bank account' };
 
@@ -151,7 +151,7 @@ export class FleecaNowUser {
 
       return { success: true, amount: this.balance };
     } else if (action === 'withdraw') {
-      const result: boolean = resourceExport('mps-lb-fleecanow', 'AddMoney')(this.source, amount);
+      const result: boolean = resourceExport('mps-fleecanow', 'AddMoney')(this.source, amount);
 
       if (!result) return { success: false, error: 'Unable to add funds to bank account' };
 

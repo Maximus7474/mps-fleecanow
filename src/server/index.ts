@@ -21,7 +21,7 @@ on('playerDropped', () => {
 });
 
 on('onResourceStop', (resource: string) => {
-  if (resource === 'mps-lb-fleecanow') {
+  if (resource === 'mps-fleecanow') {
     FleecaNowUser.save();
   }
 });
