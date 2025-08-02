@@ -24,8 +24,8 @@ A lightweight and intuitive money transfer application, inspired by **Venmo**, b
     * To adapt the configuration on the fly, you can do so by altering the `json` files in the `static/` directory.
     * To adapt/add locales, you can do so by working on the `json` files in the `locales/` directory.
 4.  **Resource Deployment:**
-    * Add the `mps-lb-fleecanow` resource folder to your FiveM server's `resources` directory.
-    * Add `ensure mps-lb-fleecanow` to your `server.cfg`.
+    * Add the `mps-fleecanow` resource folder to your FiveM server's `resources` directory.
+    * Add `ensure mps-fleecanow` to your `server.cfg`.
 ---
 
 ## 🙏 Credits
