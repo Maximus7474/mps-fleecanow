@@ -28,3 +28,23 @@ function IsFrameworkStarted(framework)
 
     return false
 end
+
+local localeKey = exports['lb-phone']:GetConfig()?.DefaultLocale or "en"
+
+local jsonLocale = LoadResourceFile('mps-fleecanow', ("%s.json"):format(localeKey))
+
+if (not jsonLocale) then
+    warn(('LB Phones DefaultLocale (%s) is not supported by this script, please integrate it in the following file: "@mps-fleecanow/locales/%s.json"'):format(localeKey, localeKey))
+    warn('The script will default to the English locale.')
+    jsonLocale = LoadResourceFile('mps-fleecanow', "en.json")
+end
+
+local bridgeLocale = json.decode(jsonLocale)
+if (not bridgeLocale) then
+    error('\n > Unable to load locale (%s.json), the file is an invalid json file. Please fix this.')
+end
+
+function Locale(key)
+    local locale = bridgeLocale?.BRIDGE[key]
+    return locale or ("FLEECANOW " .. key)
+end
