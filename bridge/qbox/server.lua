@@ -11,7 +11,7 @@ end
 ---@param src number
 ---@return integer
 local function GetBankBalance(src)
-    local qPlayer = QB.Functions.GetPlayer(tonumber(src))
+    local qPlayer = QBX.Functions.GetPlayer(tonumber(src))
 
     if not qPlayer then
         return 0
@@ -25,7 +25,7 @@ end
 ---@param amount number
 ---@return boolean success
 local function RemoveMoney(src, amount)
-    local qPlayer = QB.Functions.GetPlayer(tonumber(src))
+    local qPlayer = QBX.Functions.GetPlayer(tonumber(src))
 
     if not qPlayer then
         return false
@@ -47,7 +47,7 @@ end
 ---@param amount number
 ---@return boolean success
 local function AddMoney(src, amount)
-    local qPlayer = QB.Functions.GetPlayer(tonumber(src))
+    local qPlayer = QBX.Functions.GetPlayer(tonumber(src))
 
     if not qPlayer or amount < 0 then
         return false
