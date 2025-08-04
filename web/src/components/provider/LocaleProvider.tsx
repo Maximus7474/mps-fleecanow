@@ -3,7 +3,7 @@ import { LocaleContext, type RawLocales } from '../../hooks/useLocale';
 import { fetchNui } from '../../utils/fetchNui';
 import type { LocaleData } from '@common/locale';
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+export function LocaleProvider({ children }: { children: ReactNode }) {
   const [localeData, setLocaleData] = useState<LocaleData>({});
 
   useEffect(() => {
