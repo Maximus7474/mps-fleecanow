@@ -9,6 +9,7 @@ const mockAccount: User = {
   displayName: 'Maximus Prime',
   email: 'maximus.prime@lbscripts.com',
   avatar: 'https://avatars.githubusercontent.com/u/94017712?v=4',
+  proximitySharing: false,
 };
 
 export function AuthProvider({ children }: { children: ReactNode }) {
