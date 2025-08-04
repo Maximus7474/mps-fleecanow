@@ -1,6 +1,7 @@
 import { type ReactNode, useEffect, useRef } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
+import { useLocale } from './hooks/useLocale';
 import { devMode } from './utils/utils';
 
 import Frame from './components/dev/Frame';
@@ -20,6 +21,7 @@ import './App.css';
 
 const App = () => {
   const { user } = useAuth();
+  const { UpdateLocale } = useLocale();
   const appDiv = useRef(null);
 
   useEffect(() => {
@@ -28,6 +30,10 @@ const App = () => {
       document.body.setAttribute('devmode', 'true');
       return;
     }
+
+    onSettingsChange((settings: any) => {
+      UpdateLocale(settings.locale);
+    });
   }, []);
 
   return (
