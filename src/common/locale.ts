@@ -9,7 +9,9 @@ export type FlattenObjectKeys<T extends Record<string, any>, Key = keyof T> = Ke
 
 type RawLocales = FlattenObjectKeys<typeof import('../../locales/en.json')>;
 
-const localeData = LoadFile('locales/en.json');
+export type LocaleData = { [key: string]: LocaleData; };
+
+const localeData: LocaleData = JSON.parse(LoadFile('locales/en.json'));
 
 const Locale = (
   key: RawLocales,
@@ -32,7 +34,7 @@ const Locale = (
     return key;
   }
 
-  let localizedString = currentLocale;
+  let localizedString: string = currentLocale;
 
   for (const argKey in args) {
     if (args.hasOwnProperty(argKey)) {
