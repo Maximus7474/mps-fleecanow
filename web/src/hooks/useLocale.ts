@@ -1,12 +1,12 @@
 import { createContext, useContext } from 'react';
 import { type FlattenObjectKeys } from '@common/locale'
 
+export type RawLocales = FlattenObjectKeys<typeof import('../../../locales/en.json')>;
+
 type LocaleContextType = {
-  T: (key: string, args?: { [key: string]: string|number }) => string;
+  T: (key: RawLocales, args?: { [key: string]: string|number }) => string;
   UpdateLocale: (locale: string) => void;
 };
-
-export type RawLocales = FlattenObjectKeys<typeof import('../../../locales/en.json')>;
 
 export const LocaleContext = createContext<LocaleContextType | undefined>(undefined);
 
