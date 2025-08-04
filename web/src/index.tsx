@@ -6,6 +6,7 @@ import { devMode } from './utils/utils';
 import './colors.css';
 import './index.css';
 import { HashRouter } from 'react-router-dom';
+import { LocaleProvider } from './components/provider/LocaleProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 
@@ -14,7 +15,9 @@ if (window.name === '' || devMode) {
     root.render(
       <HashRouter>
         <AuthProvider>
-          <App />
+          <LocaleProvider>
+            <App />
+          </LocaleProvider>
         </AuthProvider>
       </HashRouter>,
     );
