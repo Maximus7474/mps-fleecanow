@@ -1,6 +1,15 @@
 import { useState, type ReactNode, useEffect } from 'react';
 import { LocaleContext, type RawLocales } from '../../hooks/useLocale';
 import { fetchNui } from '../../utils/fetchNui';
+
+import { UI } from '../../../../locales/en.json';
+
+type UILocale = typeof UI;
+
+type IndexableLocale = {
+  [key: string]: string | IndexableLocale;
+};
+
 const defaultLocaleData: UILocale = {
   GLOBAL: {
     LOADING: "Loading...",
@@ -181,10 +190,10 @@ const defaultLocaleData: UILocale = {
 };
 
 export function LocaleProvider({ children }: { children: ReactNode }) {
-  const [localeData, setLocaleData] = useState<LocaleData>({});
+  const [localeData, setLocaleData] = useState<UILocale>(defaultLocaleData);
 
   useEffect(() => {
-    fetchNui<LocaleData>('fleecanow:getlocale', {})
+    fetchNui<UILocale>('fleecanow:getlocale', {})
     .then((locale) => {
       if (!locale) return;
 
@@ -192,14 +201,14 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
-  const T = (key: RawLocales, args?: { [key: string]: string|number }): string => {
+  const T = (key: RawLocales, args?: { [key: string]: ReactNode }): string => {
     const keyParts = key.split('.');
-    let currentLocale = localeData;
+    let currentLocale: IndexableLocale = localeData as IndexableLocale;
     let found = true;
 
     for (const part of keyParts) {
       if (currentLocale && typeof currentLocale === 'object' && currentLocale.hasOwnProperty(part)) {
-        currentLocale = currentLocale[part];
+        currentLocale = currentLocale[part] as IndexableLocale;
       } else {
         found = false;
         break;
@@ -223,7 +232,7 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
   };
 
   const UpdateLocale = (locale: string): void => {
-    fetchNui<LocaleData>('fleecanow:getLocale', { locale })
+    fetchNui<UILocale>('fleecanow:getLocale', { locale })
     .then((locale) => {
       if (!locale) return;
       setLocaleData(locale);
