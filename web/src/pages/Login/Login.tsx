@@ -60,11 +60,11 @@ const Login: React.FC = () => {
           Login
         </button>
       </form>
-      <div>
+      <div className="no-account">
         <p>
-          Don't have an account ?<br />
-          <Link to='/register'>Register</Link> now !
+          Don't have an account ?
         </p>
+        <Link to='/register'>Register</Link>
       </div>
     </div>
   );

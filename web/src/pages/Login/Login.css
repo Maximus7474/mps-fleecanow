@@ -109,3 +109,24 @@
   color: var(--primary-highlight);
   text-decoration: underline 1.5px;
 }
+
+.no-account {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.no-account a {
+  width: 6rem;
+  border-radius: 0.5em;
+  padding: 0.4em 0.6em;
+  color: var(--text-primary);
+  background-color: var(--background-highlight);
+  transition: all ease 0.2s;
+  text-align: center;
+}
+.no-account a:hover {
+  color: var(--background-primary);
+  background-color: var(--primary);
+}
