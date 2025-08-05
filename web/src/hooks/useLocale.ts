@@ -7,7 +7,7 @@ export type FlattenObjectKeys<T extends Record<string, any>, Key = keyof T> = Ke
   : `${Key}`
   : never;
 
-export type RawLocales = FlattenObjectKeys<typeof import('../../../locales/en.json')>;
+export type RawLocales = FlattenObjectKeys<typeof import('../../../locales/en.json').UI>;
 
 type LocaleContextType = {
   T: (key: RawLocales, args?: { [key: string]: string|number }) => string;
