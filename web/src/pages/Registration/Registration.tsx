@@ -96,11 +96,11 @@ const Registration: React.FC = () => {
           Register
         </button>
       </form>
-      <div>
+      <div className="no-account">
         <p>
-          Already have an account ?<br />
-          <Link to='/login'>Login</Link> here!
+          Already have an account ?
         </p>
+        <Link to='/register'>Login</Link>
       </div>
     </div>
   );
