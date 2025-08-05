@@ -21,15 +21,19 @@ const Home: React.FC = () => {
       {user ? (
         <section className='welcome'>
           <h2>Welcome back, {user.displayName ?? user.username}!</h2>
-          <p>Welcome back !</p>
           <button onClick={logout}>Logout</button>
         </section>
       ) : (
         <section className='connect'>
           <h2>You aren't currently connected</h2>
           <p>
-            Please <Link to='/register'>Register</Link> or <Link to='/login'>Login</Link> to use FleecaNow
+            You need an account to use FleecaNow.
           </p>
+          <div>
+            <Link to='/register'>Register</Link>
+            <p>or</p>
+            <Link to='/login'>Login</Link>
+          </div>
         </section>
       )}
 
