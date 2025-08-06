@@ -3,10 +3,12 @@ import './Login.css';
 import { useAuth } from '../../hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
+import { useLocale } from 'src/hooks/useLocale';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const { login, user } = useAuth();
+  const { T } = useLocale();
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -28,11 +30,11 @@ const Login: React.FC = () => {
 
       <form className='login-form' onSubmit={handleSubmit}>
         <div>
-          <label htmlFor='username'>Username:</label>
+          <label htmlFor='username'>{T('LOGIN.USERNAME.LABEL')}:</label>
           <input
             type='text'
             name='username'
-            placeholder='username'
+            placeholder={T('LOGIN.USERNAME.PLACEHOLDER')}
             required
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -40,12 +42,12 @@ const Login: React.FC = () => {
         </div>
 
         <div>
-          <label htmlFor='password'>Password:</label>
+          <label htmlFor='password'>{T('LOGIN.PASSWORD.LABEL')}:</label>
           <div>
             <input
               type={showPassword ? 'text' : 'password'}
               name='password'
-              placeholder='password'
+              placeholder={T('LOGIN.PASSWORD.PLACEHOLDER')}
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -57,14 +59,14 @@ const Login: React.FC = () => {
         </div>
 
         <button type='submit' className='login-button'>
-          Login
+          {T('LOGIN.LOGIN')}
         </button>
       </form>
       <div className="no-account">
         <p>
-          Don't have an account ?
+          {T('LOGIN.NO_ACCOUNT')}
         </p>
-        <Link to='/register'>Register</Link>
+        <Link to='/register'>{T('LOGIN.REGISTER')}</Link>
       </div>
     </div>
   );
