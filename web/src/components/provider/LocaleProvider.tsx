@@ -15,6 +15,7 @@ const defaultLocaleData: UILocale = {
     LOADING: "Loading...",
     OPTIONAL: 'Optional',
     AMOUNT: 'Amount',
+    CURRENCY: '$',
   },
   BALANCE: {
     BALANCE: "Balance",
