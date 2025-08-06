@@ -56,6 +56,7 @@ const defaultLocaleData: UILocale = {
     LOGOUT: 'Logout',
     LOGIN: 'Login',
     REGISTER: 'Register',
+    OR: 'OR',
 
     ABOUT: {
       HEADING: 'About us',
