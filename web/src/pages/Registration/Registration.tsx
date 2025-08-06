@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react';
 import './Registration.css';
 import { useAuth } from '../../hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
+import { useLocale } from 'src/hooks/useLocale';
 
 type formFields = 'username' | 'password' | 'confirmedPassword';
 
 const Registration: React.FC = () => {
   const navigate = useNavigate();
   const { user, register } = useAuth();
+  const { T } = useLocale();
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmedPassword, setConfirmedPassword] = useState<string>('');
@@ -29,9 +31,9 @@ const Registration: React.FC = () => {
 
   const validateFields = () => {
     const newInvalidFields = new Map<formFields, string>();
-    if (username.length < 6) newInvalidFields.set('username', 'Username is too short');
-    if (password.length < 6) newInvalidFields.set('password', 'Password is too short');
-    else if (password !== confirmedPassword) newInvalidFields.set('confirmedPassword', "Password doesn't match");
+    if (username.length < 6) newInvalidFields.set('username', T('REGISTER.ERRORS.USERNAME_TOO_SHORT'));
+    if (password.length < 6) newInvalidFields.set('password', T('REGISTER.ERRORS.PASSWORD_TOO_SHORT'));
+    else if (password !== confirmedPassword) newInvalidFields.set('confirmedPassword', T('REGISTER.ERRORS.PASSWORD_NOT_MATCH'));
 
     setInvalidFields(newInvalidFields);
 
@@ -50,11 +52,11 @@ const Registration: React.FC = () => {
 
       <form className='register-form' onSubmit={handleSubmit}>
         <div>
-          <label htmlFor='username'>Username:</label>
+          <label htmlFor='username'>{T('REGISTER.USERNAME.LABEL')}:</label>
           <input
             type='text'
             name='username'
-            placeholder='username'
+            placeholder={T('REGISTER.USERNAME.PLACEHOLDER')}
             required
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -63,11 +65,11 @@ const Registration: React.FC = () => {
         </div>
 
         <div>
-          <label htmlFor='password'>Password:</label>
+          <label htmlFor='password'>{T('REGISTER.PASSWORD.LABEL')}:</label>
           <input
             type='password'
             name='password'
-            placeholder='password'
+            placeholder={T('REGISTER.PASSWORD.PLACEHOLDER')}
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -76,11 +78,11 @@ const Registration: React.FC = () => {
         </div>
 
         <div>
-          <label htmlFor='confirmedPassword'>Confirm Password:</label>
+          <label htmlFor='confirmedPassword'>{T('REGISTER.PASSWORD.CONFIRM')}:</label>
           <input
             type='password'
             name='confirmedPassword'
-            placeholder='password'
+            placeholder={T('REGISTER.PASSWORD.PLACEHOLDER')}
             required
             value={confirmedPassword}
             onChange={(e) => setConfirmedPassword(e.target.value)}
@@ -93,14 +95,14 @@ const Registration: React.FC = () => {
         </div>
 
         <button type='submit' className='register-button'>
-          Register
+          {T('REGISTER.REGISTER')}
         </button>
       </form>
       <div className="no-account">
         <p>
-          Already have an account ?
+          {T('REGISTER.HAVE_AN_ACCOUNT')}
         </p>
-        <Link to='/register'>Login</Link>
+        <Link to='/register'>{T('REGISTER.LOGIN')}</Link>
       </div>
     </div>
   );
