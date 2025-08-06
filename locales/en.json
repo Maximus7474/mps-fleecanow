@@ -7,7 +7,8 @@
     "GLOBAL": {
       "LOADING": "Loading...",
       "AMOUNT": "Amount",
-      "OPTIONAL": "Optional"
+      "OPTIONAL": "Optional",
+      "CURRENCY": "$"
     },
     "BALANCE": {
       "BALANCE": "Balance",
