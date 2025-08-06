@@ -39,6 +39,7 @@ const defaultLocaleData: UILocale = {
 
   HISTORY: {
     TITLE: 'Account history',
+    DELETED_USER: 'Deleted user',
     ACTIONS: {
       WITHDRAW: 'Withdrawal',
       DEPOSIT: 'Deposit',
