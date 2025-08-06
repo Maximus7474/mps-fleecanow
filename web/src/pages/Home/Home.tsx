@@ -46,7 +46,7 @@ const Home: React.FC = () => {
         </p>
       </section>
 
-      <details className='news'>
+      {/* <details className='news'>
         <summary>
           <ChevronDown />
           <h3>Latest News</h3>
@@ -56,7 +56,7 @@ const Home: React.FC = () => {
           <li>🔥 April 30: Feature X is now available to all users.</li>
           <li>🔧 April 15: We've fixed several bugs to improve your experience.</li>
         </ul>
-      </details>
+      </details> */}
     </div>
   );
 };
