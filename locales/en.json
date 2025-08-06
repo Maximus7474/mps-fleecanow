@@ -6,6 +6,7 @@
   "UI": {
     "GLOBAL": {
       "LOADING": "Loading...",
+      "AMOUNT": "Amount",
       "OPTIONAL": "Optional"
     },
     "BALANCE": {
@@ -140,7 +141,6 @@
         "NO_USER_FOUND": "No user found !",
         "BACK": "Back to selection",
         "TITLE": "Sending money to",
-        "AMOUNT": "Amount",
         "MESSAGE": "Message",
         "SEND": "Send money",
         "POPUP": {
