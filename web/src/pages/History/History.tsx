@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
-import './History.css';
 import { BanknoteArrowDown, BanknoteArrowUp, Loader } from 'lucide-react';
 import { fetchNui } from '../../utils/fetchNui';
 import type { AccountHistory, HistoryResponse } from '@common/types';
 import { devAccountHistory } from './debug';
 import { formatBalanceValue } from '../../utils/utils';
+
+import './History.css';
+import { useLocale } from 'src/hooks/useLocale';
 
 const getIconForAction = (action: 'transfer' | 'withdraw' | 'deposit', amount: number): React.ReactNode => {
   if (action === 'deposit' || (action === 'transfer' && amount > 0)) {
@@ -21,6 +23,7 @@ const formatDate = (timestamp: number): string => {
 };
 
 const History: React.FC = () => {
+  const { T } = useLocale();
   const [history, setHistory] = useState<AccountHistory[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
@@ -44,14 +47,14 @@ const History: React.FC = () => {
     return (
       <div className='balance'>
         <Loader size={48} className='spinner' />
-        <p>Loading data...</p>
+        <p>{T('GLOBAL.LOADING')}...</p>
       </div>
     );
   }
 
   return (
     <div className='history'>
-      <h2>Account history</h2>
+      <h2>{T('HISTORY.TITLE')}</h2>
 
       <div className='recap'>
         {history.map((item, idx) => (
@@ -65,12 +68,12 @@ const History: React.FC = () => {
             {getIconForAction(item.action, item.amount)}
             <div>
               {item.action === 'withdraw' ? (
-                'Withdrawal'
+                T('HISTORY.ACTIONS.WITHDRAW')
               ) : item.action === 'deposit' ? (
-                'Deposit'
+                T('HISTORY.ACTIONS.DEPOSIT')
               ) : (
                 <p>
-                  {item.amount > 0 ? 'From' : 'To'} {item.related_account ?? 'Deleted user'}
+                  {item.amount > 0 ? T('HISTORY.ACTIONS.RECEIVED') : T('HISTORY.ACTIONS.SENT')} {item.related_account ?? T('HISTORY.DELETED_USER')}
                 </p>
               )}
               {expandedIdx === idx && item.message && <p className='message'>{item.message}</p>}
