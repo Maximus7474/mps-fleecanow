@@ -14,6 +14,7 @@ const defaultLocaleData: UILocale = {
   GLOBAL: {
     LOADING: "Loading...",
     OPTIONAL: 'Optional',
+    AMOUNT: 'Amount',
   },
   BALANCE: {
     BALANCE: "Balance",
@@ -165,7 +166,6 @@ const defaultLocaleData: UILocale = {
       BACK: 'Back to selection',
 
       TITLE: 'Sending money to',
-      AMOUNT: 'Amount',
       MESSAGE: 'Message',
       SEND: 'Send money',
 
