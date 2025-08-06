@@ -81,7 +81,7 @@ const History: React.FC = () => {
             </div>
             <div>
               {item.amount < 0 && '-'}
-              {formatBalanceValue(Math.abs(item.amount))}$
+              {formatBalanceValue(Math.abs(item.amount))}{T('GLOBAL.CURRENCY')}
             </div>
           </div>
         ))}
