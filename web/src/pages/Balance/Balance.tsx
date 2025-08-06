@@ -4,8 +4,10 @@ import { BanknoteArrowDown, BanknoteArrowUp, Loader } from 'lucide-react';
 import { fetchNui } from '../../utils/fetchNui';
 import type { GetBalanceResponse } from '@common/types';
 import { devMode, formatBalanceValue } from '../../utils/utils';
+import { useLocale } from 'src/hooks/useLocale';
 
 const Balance: React.FC = () => {
+  const { T } = useLocale();
   const [balance, setBalance] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -32,19 +34,19 @@ const Balance: React.FC = () => {
 
     let amount = 0;
     components.setPopUp({
-      title: `${Withdraw ? 'Withdraw' : 'Add'} funds`,
-      description: `How much do you want to ${Withdraw ? 'withdraw from' : 'add to'} your account ?`,
+      title: T(`BALANCE.CONFIRMATION_POPUP.TITLE.${Withdraw ? 'ADD' : 'REMOVE'}`),
+      description: T(`BALANCE.CONFIRMATION_POPUP.DESCRIPTION.${Withdraw ? 'ADD' : 'REMOVE'}`),
       input: {
         type: 'number',
         min: '0',
-        placeholder: 'Amount',
+        placeholder: T('GLOBAL.AMOUNT'),
         onChange: (value) => {
           amount = parseInt(value, 0);
         },
       },
       buttons: [
         {
-          title: 'Confirm',
+          title: T('BALANCE.CONFIRMATION_POPUP.CONFIRM'),
           color: 'blue',
           cb: () => {
             setLoading(true);
@@ -60,7 +62,7 @@ const Balance: React.FC = () => {
           },
         },
         {
-          title: 'Cancel',
+          title: T('BALANCE.CONFIRMATION_POPUP.CANCEL'),
           color: 'red',
         },
       ],
@@ -71,7 +73,7 @@ const Balance: React.FC = () => {
     return (
       <div className='balance'>
         <Loader size={48} className='spinner' />
-        <p>Loading data...</p>
+        <p>{T('GLOBAL.LOADING')}...</p>
       </div>
     );
   }
@@ -79,18 +81,18 @@ const Balance: React.FC = () => {
   return (
     <div className='balance'>
       <div className='current-display'>
-        <h3>Balance:</h3>
+        <h3>{T('BALANCE.BALANCE')}:</h3>
         <p>{formatBalanceValue(balance)}$</p>
       </div>
 
       <div className='actions'>
         <button className='success' onClick={() => handleButtonPress(false)}>
           <BanknoteArrowUp />
-          Add funds
+          {T('BALANCE.ADD_FUNDS')}
         </button>
         <button className='danger' onClick={() => handleButtonPress(true)}>
           <BanknoteArrowDown />
-          Withdraw funds
+          {T('BALANCE.REMOVE_FUNDS')}
         </button>
       </div>
     </div>
