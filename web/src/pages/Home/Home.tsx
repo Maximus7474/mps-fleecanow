@@ -2,8 +2,10 @@ import { ChevronDown } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import './Home.css';
 import { Link } from 'react-router-dom';
+import { useLocale } from 'src/hooks/useLocale';
 
 const Home: React.FC = () => {
+  const { T } = useLocale();
   const { user, logout } = useAuth();
 
   /* 
@@ -20,28 +22,27 @@ const Home: React.FC = () => {
 
       {user ? (
         <section className='welcome'>
-          <h2>Welcome back, {user.displayName ?? user.username}!</h2>
-          <button onClick={logout}>Logout</button>
+          <h2>{T('HOME.WELCOME_BACK', { username: user.displayName ?? user.username })}</h2>
+          <button onClick={logout}>{T('HOME.LOGOUT')}</button>
         </section>
       ) : (
         <section className='connect'>
-          <h2>You aren't currently connected</h2>
+          <h2>{T('HOME.NOT_CONNECTED')}</h2>
           <p>
-            You need an account to use FleecaNow.
+            {T('HOME.LOGIN_OR_REGISTER')}
           </p>
           <div>
-            <Link to='/register'>Register</Link>
-            <p>or</p>
-            <Link to='/login'>Login</Link>
+            <Link to='/register'>{T('HOME.REGISTER')}</Link>
+            <p>{T('HOME.OR')}</p>
+            <Link to='/login'>{T('HOME.LOGIN')}</Link>
           </div>
         </section>
       )}
 
       <section className='about'>
-        <h3>About Us</h3>
+        <h3>{T('HOME.ABOUT.HEADING')}</h3>
         <p>
-          Welcome to FleecaNow, an App created by Fleeca Banks©. With us, you can now send money to your familly or
-          friends through your phone!
+          {T('HOME.ABOUT.DESCRIPTION')}
         </p>
       </section>
 
