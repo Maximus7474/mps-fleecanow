@@ -82,7 +82,7 @@ const Balance: React.FC = () => {
     <div className='balance'>
       <div className='current-display'>
         <h3>{T('BALANCE.BALANCE')}:</h3>
-        <p>{formatBalanceValue(balance)}$</p>
+        <p>{formatBalanceValue(balance)}{T('GLOBAL.CURRENCY')}</p>
       </div>
 
       <div className='actions'>
