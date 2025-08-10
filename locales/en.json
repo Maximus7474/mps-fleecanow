@@ -163,5 +163,16 @@
         }
       }
     }
+  },
+  "CORE": {
+    "GLOBAL": {
+      "NOT_AUTHENTICATED": "No logged in account"
+    },
+    "TRANSFER": {
+      "USER_NOT_FOUND": "Username was not found",
+      "INSUFFICIENT_FUNDS": "Insufficient funds",
+      "UNKNOWN_ACCOUNT": "Unknown account",
+      "UNABLE_TO_TRANSFER": "Unable to transfer"
+    }
   }
 }
