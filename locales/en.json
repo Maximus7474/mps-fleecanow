@@ -173,6 +173,12 @@
       "INSUFFICIENT_FUNDS": "Insufficient funds",
       "UNKNOWN_ACCOUNT": "Unknown account",
       "UNABLE_TO_TRANSFER": "Unable to transfer"
+    },
+    "AUTHENTICATION": {
+      "INVALID_CREDENTIALS": "Invalid username or password",
+      "USERNAME_TAKEN": "Username is already taken",
+      "UNABLE_TO_REGISTER": "Unable to register",
+      "FUNDS_STILL_PRESENT": "You still have funds in your account"
     }
   }
 }
