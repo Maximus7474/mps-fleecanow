@@ -1,6 +1,7 @@
 import { useState, type ReactNode, useEffect } from 'react';
-import { LocaleContext, type RawLocales } from '../../hooks/useLocale';
+import { LocaleContext } from '../../hooks/useLocale';
 import { fetchNui } from '../../utils/fetchNui';
+import type { RawLocales } from '@common/types';
 
 import { UI } from '../../../../locales/en.json';
 
