@@ -5,7 +5,7 @@ import { proximityShareProfiles } from '../debug';
 import { useNavigate } from 'react-router-dom';
 import { fetchNui } from '../../../utils/fetchNui';
 
-const UsernameTransfer: React.FC<TransferProps> = ({ setSection }) => {
+const UsernameTransfer: React.FC<TransferProps> = ({ setSection, T }) => {
   const navigate = useNavigate();
   const [searchedUser, setSearchedUser] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
@@ -17,7 +17,7 @@ const UsernameTransfer: React.FC<TransferProps> = ({ setSection }) => {
       if (user) {
         return { success: true, username: user.username };
       } else {
-        return { success: false, error: 'User not found' };
+        return { success: false, error: T('TRANSFER.USERNAME.NOT_FOUND') };
       }
     };
 
@@ -31,7 +31,7 @@ const UsernameTransfer: React.FC<TransferProps> = ({ setSection }) => {
 
           navigate(`/transfer/confirm?${query}`);
         } else {
-          setError(data.error ?? 'User not found');
+          setError(data.error ?? T('TRANSFER.USERNAME.NOT_FOUND'));
         }
       },
     );
@@ -44,16 +44,16 @@ const UsernameTransfer: React.FC<TransferProps> = ({ setSection }) => {
       </button>
 
       <div className='user-search'>
-        <h2>User Search</h2>
-        <p>Please enter the username for the user you wish to send money to.</p>
+        <h2>{T('TRANSFER.USERNAME.HEADING')}</h2>
+        <p>{T('TRANSFER.USERNAME.HELP_TEXT')}</p>
 
         <div className='search-field'>
-          <label htmlFor='username'>Username</label>
+          <label htmlFor='username'>{T('TRANSFER.USERNAME.USERNAME')}</label>
           <input name='username' type='text' value={searchedUser} onChange={(e) => setSearchedUser(e.target.value)} />
 
           <button onClick={handleSearch}>
             <Search />
-            Search
+            {T('TRANSFER.USERNAME.SEARCH')}
           </button>
 
           <p className={error ? 'error show' : 'error'}>{error}</p>
