@@ -19,11 +19,11 @@ const Transfer: React.FC = () => {
       </header>
       <section>
         {currentAction === 'home' ? (
-          <TransferTypeSelection setSection={setAction} />
+          <TransferTypeSelection setSection={setAction} T={T} />
         ) : currentAction === 'username' ? (
-          <UsernameTransfer setSection={setAction} />
+          <UsernameTransfer setSection={setAction} T={T} />
         ) : currentAction === 'proximity' ? (
-          <ProximuityTransfer setSection={setAction} />
+          <ProximuityTransfer setSection={setAction} T={T} />
         ) : (
           <>Invalid</>
         )}
