@@ -104,6 +104,7 @@ const defaultLocaleData: UILocale = {
     AVATAR: {
       LABEL: 'Avatar',
       PLACEHOLDER: 'www.imagehost.com/image.png',
+      INVALID: 'Avatar image URL is invalid',
     },
     USERNAME: {
       LABEL: 'Username',
