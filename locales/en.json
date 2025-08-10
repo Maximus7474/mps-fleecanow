@@ -182,6 +182,9 @@
     },
     "FUNDS": {
       "UNABLE_TO_GET_BALANCE": "Unable to fetch balance"
+    },
+    "HISTORY": {
+      "UNABLE_TO_GET_HISTORY": "Unable to fetch history"
     }
   }
 }
