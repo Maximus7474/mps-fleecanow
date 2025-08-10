@@ -7,9 +7,11 @@ import type { TransferData, UserSharedProfile } from '@common/types';
 import ProfilePicture from '../../../components/ProfilePicture';
 import { Send, TriangleAlert, Undo2 } from 'lucide-react';
 import { fetchNui } from '../../../utils/fetchNui';
+import { useLocale } from 'src/hooks/useLocale';
 
 const ConfirmTransfer: React.FC = () => {
   const navigate = useNavigate();
+  const { T } = useLocale();
   const [searchParams] = useSearchParams();
   const [targetUser, setTargetUser] = useState<UserSharedProfile | null>();
   const [loading, setLoading] = useState<boolean>(true);
@@ -39,11 +41,14 @@ const ConfirmTransfer: React.FC = () => {
 
   const confirmTransfer = () => {
     components.setPopUp({
-      title: 'Send Money',
-      description: `Are you sure you want to send ${transferData.amount}$ to @${transferData.destination} ?`,
+      title: T('TRANSFER.CONFIRM.POPUP.TITLE'),
+      description: T(
+        'TRANSFER.CONFIRM.POPUP.DESCRIPTION',
+        { amount: transferData.amount, user: transferData.destination }
+      ),
       buttons: [
         {
-          title: 'Yes',
+          title: T('TRANSFER.CONFIRM.POPUP.YES'),
           color: 'blue',
           cb: () => {
             fetchNui<{ success: boolean; message?: string }>('fleecanow:sendtransfer', transferData, {
@@ -51,18 +56,21 @@ const ConfirmTransfer: React.FC = () => {
             }).then((resp) => {
               if (resp.success) {
                 sendNotification({
-                  title: 'Money Transfer',
+                  title: T('TRANSFER.CONFIRM.NOTIFICATION.TITLE'),
                   thumbnail: './icon.png',
-                  content: `${transferData.amount}$ was sent to @${transferData.destination}`,
+                  content: T(
+                    'TRANSFER.CONFIRM.NOTIFICATION.CONTENT',
+                    { amount: transferData.amount, user: transferData.destination }
+                  ),
                 });
                 navigate('/transfer');
               } else {
                 components.setPopUp({
-                  title: 'Unable to send',
-                  description: resp.message ?? 'We were unable to send the money',
+                  title: T('TRANSFER.CONFIRM.ERROR.TITLE'),
+                  description: resp.message ??  T('TRANSFER.CONFIRM.ERROR.FALLBACK'),
                   buttons: [
                     {
-                      title: 'Okay',
+                      title:  T('TRANSFER.CONFIRM.ERROR.OK'),
                     },
                   ],
                 });
@@ -75,14 +83,14 @@ const ConfirmTransfer: React.FC = () => {
   };
 
   if (loading) {
-    return <div className='confirm-transfer-page'>Loading</div>;
+    return <div className='confirm-transfer-page'>{T('GLOBAL.LOADING')}</div>;
   }
 
   if (!targetUser) {
     return (
       <div className='confirm-transfer-page'>
         <TriangleAlert size={64} />
-        <h3>No user found !</h3>
+        <h3>{T('TRANSFER.CONFIRM.NO_USER_FOUND')}</h3>
 
         {/* ToDo: add query params to go back to the same selection page */}
         <button
@@ -97,7 +105,7 @@ const ConfirmTransfer: React.FC = () => {
           }}
         >
           <Undo2 />
-          Back to selection
+          {T('TRANSFER.CONFIRM.BACK')}
         </button>
       </div>
     );
@@ -106,14 +114,14 @@ const ConfirmTransfer: React.FC = () => {
   return (
     <div className='confirm-transfer-page'>
       <div className='profile'>
-        <h3>Sending money to</h3>
+        <h3>{T('TRANSFER.CONFIRM.TITLE')}</h3>
         <ProfilePicture src={targetUser.avatar ?? './icon.png'} />
         <div>
           <h2 className='display-name'>{targetUser.displayName || targetUser.username}</h2>
           <p className='username'>@{targetUser.username}</p>
         </div>
         <div>
-          <label htmlFor='amount'>Amount:</label>
+          <label htmlFor='amount'>{T('GLOBAL.AMOUNT')}:</label>
           <input
             type='number'
             value={transferData.amount}
@@ -128,7 +136,7 @@ const ConfirmTransfer: React.FC = () => {
         </div>
         <div>
           <label htmlFor='amount'>
-            Message:<sub style={{ fontStyle: 'italic', fontSize: '12px' }}>(optional)</sub>
+            {T('TRANSFER.CONFIRM.MESSAGE')}:<sub style={{ fontStyle: 'italic', fontSize: '12px' }}>({T('GLOBAL.OPTIONAL')})</sub>
           </label>
           <input
             type='text'
@@ -162,7 +170,7 @@ const ConfirmTransfer: React.FC = () => {
         </div> */}
         <button className='send-money' onClick={confirmTransfer}>
           <Send />
-          Send money
+          {T('TRANSFER.CONFIRM.SEND')}
         </button>
       </div>
     </div>
