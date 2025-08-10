@@ -3,7 +3,7 @@ import './Login.css';
 import { useAuth } from '../../hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
-import { useLocale } from 'src/hooks/useLocale';
+import { useLocale } from '../../hooks/useLocale';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();

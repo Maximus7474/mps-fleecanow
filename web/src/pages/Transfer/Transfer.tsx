@@ -4,9 +4,9 @@ import ProximuityTransfer from './actions/Proximity';
 import UsernameTransfer from './actions/Username';
 import TransferTypeSelection from './actions/Main';
 import type { transferAction } from '@common/types';
+import { useLocale } from '../../hooks/useLocale';
 
 import './Transfer.css';
-import { useLocale } from 'src/hooks/useLocale';
 
 const Transfer: React.FC = () => {
   const { T } = useLocale();

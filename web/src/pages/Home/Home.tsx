@@ -1,8 +1,8 @@
-import { ChevronDown } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
-import './Home.css';
 import { Link } from 'react-router-dom';
-import { useLocale } from 'src/hooks/useLocale';
+import { useLocale } from '../../hooks/useLocale';
+
+import './Home.css';
 
 const Home: React.FC = () => {
   const { T } = useLocale();

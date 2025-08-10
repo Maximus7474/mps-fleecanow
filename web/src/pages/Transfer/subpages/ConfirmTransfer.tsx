@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import './ConfirmTransfer.css';
 import { devMode } from '../../../utils/utils';
 import { proximityShareProfiles } from '../debug';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -7,7 +6,9 @@ import type { TransferData, UserSharedProfile } from '@common/types';
 import ProfilePicture from '../../../components/ProfilePicture';
 import { Send, TriangleAlert, Undo2 } from 'lucide-react';
 import { fetchNui } from '../../../utils/fetchNui';
-import { useLocale } from 'src/hooks/useLocale';
+import { useLocale } from '../../../hooks/useLocale';
+
+import './ConfirmTransfer.css';
 
 const ConfirmTransfer: React.FC = () => {
   const navigate = useNavigate();

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './Registration.css';
 import { useAuth } from '../../hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
-import { useLocale } from 'src/hooks/useLocale';
+import { useLocale } from '../../hooks/useLocale';
 
 type formFields = 'username' | 'password' | 'confirmedPassword';
 

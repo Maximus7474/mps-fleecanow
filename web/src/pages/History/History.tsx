@@ -4,9 +4,9 @@ import { fetchNui } from '../../utils/fetchNui';
 import type { AccountHistory, HistoryResponse } from '@common/types';
 import { devAccountHistory } from './debug';
 import { formatBalanceValue } from '../../utils/utils';
+import { useLocale } from '../../hooks/useLocale';
 
 import './History.css';
-import { useLocale } from 'src/hooks/useLocale';
 
 const getIconForAction = (action: 'transfer' | 'withdraw' | 'deposit', amount: number): React.ReactNode => {
   if (action === 'deposit' || (action === 'transfer' && amount > 0)) {

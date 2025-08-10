@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import './Balance.css';
 import { BanknoteArrowDown, BanknoteArrowUp, Loader } from 'lucide-react';
 import { fetchNui } from '../../utils/fetchNui';
 import type { GetBalanceResponse } from '@common/types';
 import { devMode, formatBalanceValue } from '../../utils/utils';
-import { useLocale } from 'src/hooks/useLocale';
+import { useLocale } from '../../hooks/useLocale';
+
+import './Balance.css';
 
 const Balance: React.FC = () => {
   const { T } = useLocale();
