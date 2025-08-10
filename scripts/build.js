@@ -54,7 +54,7 @@ createBuilder(
       client_scripts: [outfiles.client, 'bridge/utils.lua'],
       server_scripts: [outfiles.server, 'bridge/utils.lua', 'bridge/**/server.lua'],
       files: ['locales/*.json', ...files],
-      dependencies: ['/server:13068', '/onesync'],
+      dependencies: ['/server:13068', '/onesync', 'oxmysql', 'lb-phone'],
       metadata: {
         lua54: 'yes',
         ui_page: 'dist/web/index.html',
