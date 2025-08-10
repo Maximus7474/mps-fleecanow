@@ -179,6 +179,9 @@
       "USERNAME_TAKEN": "Username is already taken",
       "UNABLE_TO_REGISTER": "Unable to register",
       "FUNDS_STILL_PRESENT": "You still have funds in your account"
+    },
+    "FUNDS": {
+      "UNABLE_TO_GET_BALANCE": "Unable to fetch balance"
     }
   }
 }
