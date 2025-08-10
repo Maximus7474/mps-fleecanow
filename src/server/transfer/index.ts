@@ -1,4 +1,5 @@
 import { BasicResponse, RawUser, TransferData, UsernameValidationResponse, UserSharedProfile } from '@common/types';
+import Locale from '@common/locale';
 import { oxmysql as MySQL } from '@communityox/oxmysql';
 import { RegisterServerCallback } from '../utils/callbacks';
 import { FleecaNowUser } from '../user/class';
@@ -8,7 +9,7 @@ RegisterServerCallback('fleecanow:isusernamevalid', async (_, data: string): Pro
   const exists = await MySQL.single('SELECT 1 FROM `phone_fleecanow_accounts` WHERE `username` = ?', [data]);
 
   if (exists) return { success: true, username: data };
-  else return { success: false, error: 'Username was not found' };
+  else return { success: false, error: Locale('CORE.TRANSFER.UNKNOWN_ACCOUNT') };
 });
 
 RegisterServerCallback('fleecanow:getuserprofile', async (_, username: string): Promise<UserSharedProfile | null> => {
@@ -31,12 +32,12 @@ RegisterServerCallback('fleecanow:sendtransfer', async (source, data: TransferDa
   const receiver = FleecaNowUser.getUser(data.destination);
 
   if (!sender) {
-    return { success: false, message: 'No logged in account' };
+    return { success: false, message: Locale('CORE.GLOBAL.NOT_AUTHENTICATED') };
   }
 
   const senderBalance = sender.get('balance') as number;
 
-  if (senderBalance < data.amount) return { success: false, message: 'Insufficient funds' };
+  if (senderBalance < data.amount) return { success: false, message: Locale('CORE.TRANSFER.INSUFFICIENT_FUNDS') };
 
   let receiverId;
   if (receiver) {
@@ -48,7 +49,7 @@ RegisterServerCallback('fleecanow:sendtransfer', async (source, data: TransferDa
       [data.destination],
     );
 
-    if (typeof receiver?.balance !== 'number') return { success: false, message: 'Unknown account' };
+    if (typeof receiver?.balance !== 'number') return { success: false, message: Locale('CORE.TRANSFER.UNKNOWN_ACCOUNT') };
 
     receiverId = receiver.id;
 
@@ -65,7 +66,7 @@ RegisterServerCallback('fleecanow:sendtransfer', async (source, data: TransferDa
       message: data.message,
     });
 
-    if (result === 0) return { success: false, message: 'Unable to transfer' };
+    if (result === 0) return { success: false, message: Locale('CORE.TRANSFER.UNABLE_TO_TRANSFER') };
   }
 
   sender.transferMoney(data.amount, receiverId as number, data?.message);
