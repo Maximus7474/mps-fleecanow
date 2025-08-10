@@ -6,14 +6,16 @@ import TransferTypeSelection from './actions/Main';
 import type { transferAction } from '@common/types';
 
 import './Transfer.css';
+import { useLocale } from 'src/hooks/useLocale';
 
 const Transfer: React.FC = () => {
+  const { T } = useLocale();
   const [currentAction, setAction] = useState<transferAction>('home');
 
   return (
     <div className='transfer-page'>
       <header>
-        <h2>Transfer Money</h2>
+        <h2>{T('TRANSFER.TITLE')}</h2>
       </header>
       <section>
         {currentAction === 'home' ? (
