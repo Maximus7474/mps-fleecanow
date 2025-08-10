@@ -3,6 +3,7 @@ import { resourceExport } from '@common/export';
 import type { DeletionResponse, LoginResponse, RawUser, UpdateProfileResponse, User } from '@common/types';
 import { RegisterServerCallback } from '../utils/callbacks';
 import { FleecaNowUser } from './class';
+import Locale from '@common/locale';
 
 const setLoggedInAccount = async (phoneNumber: string, username: string) => {
   await MySQL.rawExecute(
@@ -41,11 +42,11 @@ RegisterServerCallback(
       'SELECT `id`, `username`, `display_name`, `email`, `avatar`, `password`, `proximity_sharing`, `balance` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
       [data.username],
     );
-
-    if (!rawUser) return { success: false, error: 'Invalid username or password' };
+    
+    if (!rawUser) return { success: false, error: Locale('CORE.AUTHENTICATION.INVALID_CREDENTIALS') };
 
     const passwordValid = VerifyPasswordHash(data.password, rawUser.password);
-    if (!passwordValid) return { success: false, error: 'Invalid username or password' };
+    if (!passwordValid) return { success: false, error: Locale('CORE.AUTHENTICATION.INVALID_CREDENTIALS') };
 
     const phone_number = resourceExport('lb-phone', 'GetEquippedPhoneNumber')(source);
 
@@ -66,7 +67,7 @@ RegisterServerCallback(
       data.username,
     ]);
 
-    if (exists) return { success: false, error: 'Username is taken' };
+    if (exists) return { success: false, error: Locale('CORE.AUTHENTICATION.USERNAME_TAKEN') };
 
     const hashedPassword = GetPasswordHash(data.password);
     const id = await MySQL.insert('INSERT INTO `phone_fleecanow_accounts` (username, password) VALUES (?, ?)', [
@@ -74,7 +75,7 @@ RegisterServerCallback(
       hashedPassword,
     ]);
 
-    if (!id) return { success: false, error: 'Unable to register account' };
+    if (!id) return { success: false, error: Locale('CORE.AUTHENTICATION.UNABLE_TO_REGISTER') };
 
     const phone_number = resourceExport('lb-phone', 'GetEquippedPhoneNumber')(source);
 
@@ -98,7 +99,7 @@ RegisterServerCallback(
   async (source: number, newUser: User): Promise<UpdateProfileResponse> => {
     const currentUser = FleecaNowUser.getUserBySource(source);
     if (!currentUser) {
-      return { success: false, error: 'User not connected' };
+      return { success: false, error: Locale('CORE.GLOBAL.NOT_AUTHENTICATED') };
     }
 
     const userName = currentUser.get('username') as string;
@@ -110,7 +111,7 @@ RegisterServerCallback(
       );
 
       if (existingUser) {
-        return { success: false, error: 'Username already taken' };
+        return { success: false, error: Locale('CORE.AUTHENTICATION.USERNAME_TAKEN') };
       }
     }
 
@@ -134,11 +135,11 @@ RegisterServerCallback('fleecanow:deleteaccount', async (source: number): Promis
     'SELECT `username` FROM `phone_logged_in_accounts` WHERE `app` = "FleecaNow" AND `phone_number` = ?',
     [phone_number],
   );
-  if (!usernameResult) return { success: false, error: 'User not logged in' };
+  if (!usernameResult) return { success: false, error: Locale('CORE.GLOBAL.NOT_AUTHENTICATED') };
 
   const balance: number = await MySQL.single('SELECT `balance` FROM `phone_fleecanow_accounts` WHERE `username` = ?');
 
-  if (balance !== 0) return { success: false, error: 'You still have funds in your account' };
+  if (balance !== 0) return { success: false, error: Locale('CORE.AUTHENTICATION.FUNDS_STILL_PRESENT') };
 
   const username = usernameResult.username;
 
