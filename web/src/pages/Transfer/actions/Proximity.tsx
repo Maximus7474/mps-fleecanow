@@ -7,7 +7,7 @@ import { proximityShareProfiles } from '../debug';
 import ProfilePicture from '../../../components/ProfilePicture';
 import { useNuiEvent } from '../../../hooks/useNuiEvent';
 
-const ProximuityTransfer: React.FC<TransferProps> = ({ setSection }) => {
+const ProximuityTransfer: React.FC<TransferProps> = ({ setSection, T }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [proximityUsers, setProximityUsers] = useState<ProximityShareProfile[]>([]);
 
@@ -37,7 +37,7 @@ const ProximuityTransfer: React.FC<TransferProps> = ({ setSection }) => {
         <button onClick={() => setSection('home')} className='return'>
           <Undo2 />
         </button>
-        <h3 className='no-users'>Loading users</h3>
+        <h3 className='no-users'>{T('GLOBAL.LOADING')}</h3>
       </div>
     );
   }
@@ -48,7 +48,7 @@ const ProximuityTransfer: React.FC<TransferProps> = ({ setSection }) => {
         <button onClick={() => setSection('home')} className='return'>
           <Undo2 />
         </button>
-        <h3>No users found</h3>
+        <h3>{T('TRANSFER.PROXIMITY.NO_USERS')}</h3>
       </div>
     );
   }
@@ -59,7 +59,7 @@ const ProximuityTransfer: React.FC<TransferProps> = ({ setSection }) => {
         <Undo2 />
       </button>
       <div className='closeby-users'>
-        <p>Select a user to send money to</p>
+        <p>{T('TRANSFER.PROXIMITY.HELP_TEXT')}</p>
         <div>
           {proximityUsers.map((user, i) => {
             const query = new URLSearchParams({
@@ -74,7 +74,7 @@ const ProximuityTransfer: React.FC<TransferProps> = ({ setSection }) => {
                   <p>{user.displayName ?? user.username}</p>
                   <p className='username'>@{user.username}</p>
                 </div>
-                <div>{user.distance}m</div>
+                <div>{user.distance}{T('TRANSFER.PROXIMITY.DISTANCE_UNIT')}</div>
               </Link>
             );
           })}
