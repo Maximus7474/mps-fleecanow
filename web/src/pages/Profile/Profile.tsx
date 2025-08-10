@@ -1,12 +1,15 @@
 import { LogOut, PenLine, Save, Trash } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
-import './Profile.css';
+import { useLocale } from '../../hooks/useLocale';
 import { devMode } from '../../utils/utils';
 import { Navigate } from 'react-router-dom';
 import ProfilePicture from '../../components/ProfilePicture';
 import { useState } from 'react';
 import { fetchNui } from '../../utils/fetchNui';
 import type { DeletionResponse } from '@common/types';
+
+import './Profile.css';
+
 interface editProfileError {
   avatar?: string;
   displayName?: string;
@@ -15,6 +18,7 @@ interface editProfileError {
 }
 
 const ProfilePage: React.FC = () => {
+  const { T } = useLocale();
   const { user, logout, updateUser } = useAuth();
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [displayName, setDisplayName] = useState<string>(user?.displayName || '');
@@ -36,25 +40,24 @@ const ProfilePage: React.FC = () => {
     }
 
     components.setPopUp({
-      title: 'Account Deletion',
-      description:
-        'This action is irreversible, all information, money and contacts linked to this account will be lost!',
+      title: T('PROFILE.DELETE_POPUP.TITLE'),
+      description: T('PROFILE.DELETE_POPUP.DESCRIPTION'),
       buttons: [
         {
-          title: 'Cancel',
+          title: T('PROFILE.DELETE_POPUP.CANCEL'),
         },
         {
-          title: 'Confirm',
+          title: T('PROFILE.DELETE_POPUP.CONFIRM'),
           color: 'red',
           cb: () => {
             fetchNui<DeletionResponse>('fleecanow:deleteaccount', {}).then((res) => {
               if (!res.success) {
                 components.setPopUp({
-                  title: 'Unable to delete account',
+                  title: T('PROFILE.DELETE_POPUP.FAILED.TITLE'),
                   description: res.error,
                   buttons: [
                     {
-                      title: 'Close',
+                      title: T('PROFILE.DELETE_POPUP.FAILED.CLOSE'),
                     },
                   ],
                 });
@@ -80,7 +83,7 @@ const ProfilePage: React.FC = () => {
       newData.avatar = avatar;
     } else {
       invalidData = true;
-      errors.avatar = 'Avatar image URL is invalid';
+      errors.avatar = T('PROFILE.AVATAR.INVALID');
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -89,7 +92,7 @@ const ProfilePage: React.FC = () => {
       newData.email = email;
     } else if (email.length !== 0) {
       invalidData = true;
-      errors.email = 'Email address is invalid';
+      errors.email = T('PROFILE.EMAIL.INVALID');
     }
 
     setErrors(errors);
@@ -128,7 +131,7 @@ const ProfilePage: React.FC = () => {
   return (
     <div className='profile-container'>
       <header>
-        <h2>Your profile</h2>
+        <h2>{T('PROFILE.TITLE')}</h2>
       </header>
       <div className='profile-card'>
         <div className='profile'>
@@ -141,45 +144,45 @@ const ProfilePage: React.FC = () => {
           {isEditing ? (
             <div className='profile-edit'>
               <div>
-                <label htmlFor='avatar'>Avatar</label>
+                <label htmlFor='avatar'>{T('PROFILE.AVATAR.LABEL')}</label>
                 <input
                   type='url'
                   name='avatar'
                   value={avatar ?? ''}
-                  placeholder='www.imagehost.com/image.png'
+                  placeholder={T('PROFILE.AVATAR.PLACEHOLDER')}
                   onChange={(e) => setAvatar(e.target.value)}
                 />
                 <p className='error'>{errors.username}</p>
               </div>
               <div>
-                <label htmlFor='username'>Username</label>
+                <label htmlFor='username'>{T('PROFILE.USERNAME.LABEL')}</label>
                 <input
                   type='text'
                   name='username'
                   value={username}
-                  placeholder='Display name'
+                  placeholder={T('PROFILE.USERNAME.PLACEHOLDER')}
                   onChange={(e) => setUsername(e.target.value)}
                 />
                 <p className='error'>{errors.username}</p>
               </div>
               <div>
-                <label htmlFor='displayname'>Display Name</label>
+                <label htmlFor='displayname'>{T('PROFILE.DISPLAY_NAME.LABEL')}</label>
                 <input
                   type='text'
                   name='displayname'
                   value={displayName}
-                  placeholder='Display name'
+                  placeholder={T('PROFILE.DISPLAY_NAME.PLACEHOLDER')}
                   onChange={(e) => setDisplayName(e.target.value)}
                 />
                 <p className='error'>{errors.displayName}</p>
               </div>
               <div>
-                <label htmlFor='email'>Email</label>
+                <label htmlFor='email'>{T('PROFILE.EMAIL.LABEL')}</label>
                 <input
                   type='email'
                   name='email'
                   value={email}
-                  placeholder='Email (optional)'
+                  placeholder={T('PROFILE.EMAIL.PLACEHOLDER')}
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <p className='error'>{errors.email}</p>
@@ -192,7 +195,7 @@ const ProfilePage: React.FC = () => {
                   checked={proximitySharing}
                   onChange={(e) => setProximitySharing(e.target.checked)}
                 />
-                <label htmlFor='proximitySharing'>Accept Proximity transfers</label>
+                <label htmlFor='proximitySharing'>{T('PROFILE.PROXIMITY.LABEL')}</label>
               </div>
             </div>
           ) : (
@@ -201,7 +204,7 @@ const ProfilePage: React.FC = () => {
               <p className='username'>@{user.username}</p>
               {user.email && <p className='email'>{user.email}</p>}
               <p className='proximity'>
-                {user.proximitySharing ? 'Sharing username via proximity' : 'Not sharing username via proximity'}
+                {user.proximitySharing ? T('PROFILE.PROXIMITY.ACTIVE') : T('PROFILE.PROXIMITY.INACTIVE')}
               </p>
             </>
           )}
@@ -210,21 +213,21 @@ const ProfilePage: React.FC = () => {
           {isEditing ? (
             <button onClick={handleSave} className='edit'>
               <Save />
-              <p>Save</p>
+              <p>{T('PROFILE.SAVE')}</p>
             </button>
           ) : (
             <>
               <button onClick={logout} className='destructive'>
                 <LogOut />
-                <p>Log Out</p>
+                <p>{T('PROFILE.LOGOUT')}</p>
               </button>
               <button onClick={() => setIsEditing(true)} className='edit'>
                 <PenLine />
-                <p>Edit Profile</p>
+                <p>{T('PROFILE.EDIT')}</p>
               </button>
               <button onClick={handleDelete} className='destructive'>
                 <Trash />
-                <p>Delete Profile</p>
+                <p>{T('PROFILE.DELETE')}</p>
               </button>
             </>
           )}
