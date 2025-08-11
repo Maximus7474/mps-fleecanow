@@ -39,11 +39,13 @@ if (not jsonLocale) then
     jsonLocale = LoadResourceFile('mps-fleecanow', "locales/en.json")
 end
 
-local bridgeLocale = json.decode(jsonLocale)
+local bridgeLocale = json.decode(jsonLocale) --[[ @as table|nil ]]
 if (not bridgeLocale) then
     error('\n > Unable to load locale (en.json), the file is an invalid json file. Please fix this.')
 end
 
+---@param key string
+---@return string
 function Locale(key)
     local locale = bridgeLocale?.BRIDGE[key]
     return locale or ("FLEECANOW " .. key)
