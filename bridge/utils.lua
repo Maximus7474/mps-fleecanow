@@ -29,6 +29,28 @@ function IsFrameworkStarted(framework)
     return false
 end
 
+exports('GetBankBalance', function (...)
+    if GetBankBalance then
+        GetBankBalance(...)
+    else
+        error('No "GetBankBalance(...)" function found !\n- Please check your framework file !')
+    end
+end)
+exports('RemoveMoney', function (...)
+    if RemoveMoney then
+        RemoveMoney(...)
+    else
+        error('No "RemoveMoney(...)" function found !\n- Please check your framework file !')
+    end
+end)
+exports('AddMoney', function (...)
+    if AddMoney then
+        AddMoney(...)
+    else
+        error('No "AddMoney(...)" function found !\n- Please check your framework file !')
+    end
+end)
+
 local localeKey = exports['lb-phone']:GetConfig()?.DefaultLocale or "en"
 
 local jsonLocale = LoadResourceFile('mps-fleecanow', ("locales/%s.json"):format(localeKey))
