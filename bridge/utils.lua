@@ -1,16 +1,7 @@
--- If using a custom framework other then the current supported ones,
--- Set it here, once the bridge folder has been created
-local frameworkOveride = false --[[ @as false|string ]]
-
 ---Check if the framework is on the server
----@param framework "esx"|"qb"|"qbx"|"standalone"
+---@param framework "esx"|"qb"|"qbx"|"custom"
 ---@return boolean isStarted
 function IsFrameworkStarted(framework)
-
-    if (framework == frameworkOveride) then
-        return true
-    end
-
     if (framework == "esx") then
         local state = GetResourceState('es_extended')
         return state == "starting" or state == "started"
@@ -20,7 +11,7 @@ function IsFrameworkStarted(framework)
     elseif (framework == "qbx") then
         local state = GetResourceState('qbx-core')
         return state == "starting" or state == "started"
-    elseif (framework == "standalone") then
+    elseif (framework == "custom") then
         return true
     end
 
