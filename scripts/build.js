@@ -52,7 +52,7 @@ createBuilder(
     const files = await getFiles('dist/web', 'static');
     await createFxmanifest({
       client_scripts: [outfiles.client, 'bridge/utils.lua'],
-      server_scripts: [outfiles.server, 'bridge/utils.lua', 'bridge/**/server.lua'],
+      server_scripts: [outfiles.server, 'bridge/utils.lua', 'bridge/**/*.lua'],
       files: ['locales/*.json', ...files],
       dependencies: ['/server:13068', '/onesync', 'oxmysql', 'lb-phone'],
       metadata: {
