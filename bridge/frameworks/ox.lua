@@ -1,4 +1,4 @@
-if (not IsFrameworkStarted("qbx")) then return end
+if (not IsFrameworkStarted("ox")) then return end
 
 local OX = exports["ox_core"]
 
