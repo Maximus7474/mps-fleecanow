@@ -10,7 +10,7 @@ end
 ---Get the player's current bank account balance
 ---@param src number
 ---@return integer
-local function GetBankBalance(src)
+function GetBankBalance(src)
     local xPlayer = ESX.GetPlayerFromId(src)
 
     if not xPlayer then
@@ -24,7 +24,7 @@ end
 ---@param src number
 ---@param amount number
 ---@return boolean success
-local function RemoveMoney(src, amount)
+function RemoveMoney(src, amount)
     local xPlayer = ESX.GetPlayerFromId(src)
 
     if not xPlayer or amount < 0 then
@@ -46,7 +46,7 @@ end
 ---@param src number
 ---@param amount number
 ---@return boolean success
-local function AddMoney(src, amount)
+function AddMoney(src, amount)
     local xPlayer = ESX.GetPlayerFromId(src)
 
     if not xPlayer or amount < 0 then
@@ -57,7 +57,3 @@ local function AddMoney(src, amount)
 
     return true
 end
-
-exports('GetBankBalance', GetBankBalance)
-exports('RemoveMoney', RemoveMoney)
-exports('AddMoney', AddMoney)

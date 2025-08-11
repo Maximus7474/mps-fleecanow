@@ -16,7 +16,7 @@ end
 ---Get the player's current bank account balance
 ---@param src number
 ---@return integer
-local function GetBankBalance(src)
+function GetBankBalance(src)
     local identifier = GetIdentifier(src)
 
     if not identifier then
@@ -32,7 +32,7 @@ end
 ---@param src number
 ---@param amount number
 ---@return boolean success
-local function RemoveMoney(src, amount)
+function RemoveMoney(src, amount)
     local identifier = GetIdentifier(src)
 
     if not identifier then
@@ -51,7 +51,7 @@ end
 ---@param src number
 ---@param amount number
 ---@return boolean success
-local function AddMoney(src, amount)
+function AddMoney(src, amount)
     local identifier = GetIdentifier(src)
 
     if not identifier then

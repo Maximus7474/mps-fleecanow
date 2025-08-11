@@ -10,7 +10,7 @@ end
 ---Get the player's current bank account balance
 ---@param src number
 ---@return integer
-local function GetBankBalance(src)
+function GetBankBalance(src)
     local qPlayer = QBX.Functions.GetPlayer(tonumber(src))
 
     if not qPlayer then
@@ -24,7 +24,7 @@ end
 ---@param src number
 ---@param amount number
 ---@return boolean success
-local function RemoveMoney(src, amount)
+function RemoveMoney(src, amount)
     local qPlayer = QBX.Functions.GetPlayer(tonumber(src))
 
     if not qPlayer then
@@ -46,7 +46,7 @@ end
 ---@param src number
 ---@param amount number
 ---@return boolean success
-local function AddMoney(src, amount)
+function AddMoney(src, amount)
     local qPlayer = QBX.Functions.GetPlayer(tonumber(src))
 
     if not qPlayer or amount < 0 then
