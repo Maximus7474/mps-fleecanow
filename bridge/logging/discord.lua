@@ -104,6 +104,3 @@ function Log(level, title, fields, source, target)
         end
     end)
 end
-
--- Don't touch this if you don't know what it's use is
-exports('Log', Log)

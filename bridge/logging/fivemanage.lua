@@ -71,5 +71,3 @@ AddEventHandler('onResourceStart', function (resource)
         canLog = true
     end
 end)
-
-exports('Log', Log)

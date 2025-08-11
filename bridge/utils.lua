@@ -66,3 +66,9 @@ function GetLoggingMethod()
 
     return false
 end
+
+exports('Log', function (...)
+    if not Log then return end
+
+    Log(...)
+end)
