@@ -1,8 +1,11 @@
 ---Check if the framework is on the server
----@param framework "esx"|"qb"|"qbx"|"custom"
+---@param framework "ox"|"esx"|"qb"|"qbx"|"custom"
 ---@return boolean isStarted
 function IsFrameworkStarted(framework)
-    if (framework == "esx") then
+    if (framework == "ox") then
+        local state = GetResourceState('ox_core')
+        return state == "starting" or state == "started"
+    elseif (framework == "esx") then
         local state = GetResourceState('es_extended')
         return state == "starting" or state == "started"
     elseif (framework == "qb") then
