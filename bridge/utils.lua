@@ -50,3 +50,19 @@ function Locale(key)
     local locale = bridgeLocale?.BRIDGE[key]
     return locale or ("FLEECANOW " .. key)
 end
+
+---Return the current setup logging method
+---@return string|false
+function GetLoggingMethod()
+    local raw = GetConvar('fleecanow:logging', 'none')
+
+    if (raw == 'fivemanage' or raw == 'fmsdk') then
+        return 'fivemanage'
+    elseif (raw == 'discord') then
+        return 'discord'
+    elseif (raw == 'custom') then
+        return 'custom'
+    end
+
+    return false
+end
