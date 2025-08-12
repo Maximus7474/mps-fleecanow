@@ -1,6 +1,6 @@
 export function Log(
   level: 'info' | 'error' | 'success',
-  action: 'deposit_funds' | 'withdraw_funds' | 'transfer',
+  action: 'deposit_funds' | 'withdraw_funds' | 'transfer' | 'edit_account' | 'deleted_account' | 'created_account',
   title: string,
   fields: Record<string, any> | null,
   source: string | null,
