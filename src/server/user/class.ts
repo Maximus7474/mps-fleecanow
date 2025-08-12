@@ -2,6 +2,7 @@ import { oxmysql as MySQL } from '@communityox/oxmysql';
 import { AccountHistory, GetBalanceResponse, RawUser } from '@common/types';
 import { resourceExport } from '@common/export';
 import { LogAccountAction } from '../utils/log_account_action';
+import { Log } from '../utils/logging_wrapper';
 
 interface ServerUser extends Omit<RawUser, 'balance'> {}
 
@@ -149,6 +150,17 @@ export class FleecaNowUser {
         message: null,
       });
 
+      Log(
+        'info',
+        'deposit_funds',
+        `${amount}$ was added to the account ${this.user.username}`,
+        {
+          newBalance: this.balance,
+        },
+        String(this.source),
+        null,
+      );
+
       return { success: true, amount: this.balance };
     } else if (action === 'withdraw') {
       const result: boolean = resourceExport('mps-fleecanow', 'AddMoney')(this.source, amount);
@@ -164,6 +176,17 @@ export class FleecaNowUser {
         related_account: null,
         message: null,
       });
+
+      Log(
+        'info',
+        'withdraw_funds',
+        `${amount}$ was removed from the account ${this.user.username}`,
+        {
+          newBalance: this.balance,
+        },
+        String(this.source),
+        null,
+      );
 
       return { success: true, amount: this.balance };
     }
