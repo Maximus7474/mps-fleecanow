@@ -3,20 +3,17 @@ import { LoadFile } from './utils';
 // https://www.raygesualdo.com/posts/flattening-object-keys-with-typescript-types/
 export type FlattenObjectKeys<T extends Record<string, any>, Key = keyof T> = Key extends string
   ? T[Key] extends Record<string, unknown>
-  ? `${Key}.${FlattenObjectKeys<T[Key]>}`
-  : `${Key}`
+    ? `${Key}.${FlattenObjectKeys<T[Key]>}`
+    : `${Key}`
   : never;
 
 type RawLocales = FlattenObjectKeys<typeof import('../../locales/en.json')>;
 
-export type LocaleData = { [key: string]: LocaleData; };
+export type LocaleData = { [key: string]: LocaleData };
 
 const localeData: LocaleData = JSON.parse(LoadFile('locales/en.json'));
 
-const Locale = (
-  key: RawLocales,
-  args: {[key: string]: string | number} = {}
-) => {
+const Locale = (key: RawLocales, args: { [key: string]: string | number } = {}) => {
   const keyParts = key.split('.');
   let currentLocale = localeData;
   let found = true;
@@ -44,6 +41,6 @@ const Locale = (
   }
 
   return localizedString;
-}
+};
 
 export default Locale;
