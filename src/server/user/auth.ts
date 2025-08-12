@@ -42,7 +42,7 @@ RegisterServerCallback(
       'SELECT `id`, `username`, `display_name`, `email`, `avatar`, `password`, `proximity_sharing`, `balance` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
       [data.username],
     );
-    
+
     if (!rawUser) return { success: false, error: Locale('CORE.AUTHENTICATION.INVALID_CREDENTIALS') };
 
     const passwordValid = VerifyPasswordHash(data.password, rawUser.password);

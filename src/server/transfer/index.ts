@@ -49,7 +49,8 @@ RegisterServerCallback('fleecanow:sendtransfer', async (source, data: TransferDa
       [data.destination],
     );
 
-    if (typeof receiver?.balance !== 'number') return { success: false, message: Locale('CORE.TRANSFER.UNKNOWN_ACCOUNT') };
+    if (typeof receiver?.balance !== 'number')
+      return { success: false, message: Locale('CORE.TRANSFER.UNKNOWN_ACCOUNT') };
 
     receiverId = receiver.id;
 

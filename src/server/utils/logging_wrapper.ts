@@ -4,7 +4,7 @@ export function Log(
   title: string,
   fields: Record<string, any> | null,
   source: string | null,
-  target: string | null
+  target: string | null,
 ): void {
-  exports['mps-fleecanow'].Log(level, action, title, fields, source, target)
+  exports['mps-fleecanow'].Log(level, action, title, fields, source, target);
 }
