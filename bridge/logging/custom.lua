@@ -2,11 +2,12 @@ if GetLoggingMethod() ~= 'custom' then return end
 
 ---log an action to an external service
 ---@param level 'info'|'error'|'success'
+---@param action 'deposit_funds'|'withdraw_funds'|'transfer'
 ---@param title string
 ---@param fields table<string|any> | nil
 ---@param source string | nil Player originating the the action
 ---@param target string | nil Player receiving the action
-function Log(level, title, fields, source, target)
+function Log(level, action, title, fields, source, target)
     -- Example code that can be reused
     -- if level ~= 'info' and level ~= 'error' and level ~= 'success' then
     --     warn(('Invalid "level" parameter (%s) passed to Log function, defaulting to info.'):format(level))

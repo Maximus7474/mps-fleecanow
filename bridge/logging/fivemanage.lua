@@ -17,11 +17,12 @@ local dataset = "default"
 
 ---log an action to an external service
 ---@param level 'info'|'error'|'success'
+---@param action 'deposit_funds'|'withdraw_funds'|'transfer'
 ---@param title string
 ---@param fields table<string|any> | nil
 ---@param source string | nil Player originating the the action
 ---@param target string | nil Player receiving the action
-function Log(level, title, fields, source, target)
+function Log(level, action, title, fields, source, target)
     if (not canLog) then
         warn('Logging has been set to fivemanage, but the sdk resource is unavailable.')
         warn('Make sure the resource is present and started, you can download it here:\n- https://github.com/fivemanage/sdk/releases')

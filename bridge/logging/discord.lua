@@ -21,11 +21,12 @@ end
 
 ---log an action to an external service
 ---@param level 'info'|'error'|'success'
+---@param action 'deposit_funds'|'withdraw_funds'|'transfer'
 ---@param title string
 ---@param fields table<string|any> | nil
 ---@param source string | nil Player originating the the action
 ---@param target string | nil Player receiving the action
-function Log(level, title, fields, source, target)
+function Log(level, action, title, fields, source, target)
     if (not canLog()) then
         error('Impossible to log action\n- The logging method has been set to discord but no webhook was provided.')
         return
