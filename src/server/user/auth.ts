@@ -4,6 +4,7 @@ import type { DeletionResponse, LoginResponse, RawUser, UpdateProfileResponse, U
 import { RegisterServerCallback } from '../utils/callbacks';
 import { FleecaNowUser } from './class';
 import Locale from '@common/locale';
+import { Log } from '../utils/logging_wrapper';
 
 const setLoggedInAccount = async (phoneNumber: string, username: string) => {
   await MySQL.rawExecute(
@@ -90,6 +91,15 @@ RegisterServerCallback(
 
     setLoggedInAccount(phone_number, rawUser.username);
 
+    Log(
+      'info',
+      'deleted_account',
+      `Account @${rawUser.username} was created by ${GetPlayerName(String(source))}`,
+      null,
+      String(source),
+      null,
+    );
+
     return { success: true, user: userClass.getPrivateData() };
   },
 );
@@ -150,6 +160,8 @@ RegisterServerCallback('fleecanow:deleteaccount', async (source: number): Promis
   ]);
 
   FleecaNowUser.removeUser(username);
+
+  Log('info', 'deleted_account', `Account @${username} was deleted`, null, String(source), null);
 
   return { success: true };
 });
