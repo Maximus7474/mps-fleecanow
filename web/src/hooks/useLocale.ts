@@ -2,7 +2,7 @@ import type { RawLocales } from '@common/types';
 import { createContext, useContext } from 'react';
 
 type LocaleContextType = {
-  T: (key: RawLocales, args?: { [key: string]: string|number }) => string;
+  T: (key: RawLocales, args?: { [key: string]: string | number }) => string;
   UpdateLocale: (locale: string) => void;
 };
 

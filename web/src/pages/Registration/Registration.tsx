@@ -33,7 +33,8 @@ const Registration: React.FC = () => {
     const newInvalidFields = new Map<formFields, string>();
     if (username.length < 6) newInvalidFields.set('username', T('REGISTER.ERRORS.USERNAME_TOO_SHORT'));
     if (password.length < 6) newInvalidFields.set('password', T('REGISTER.ERRORS.PASSWORD_TOO_SHORT'));
-    else if (password !== confirmedPassword) newInvalidFields.set('confirmedPassword', T('REGISTER.ERRORS.PASSWORD_NOT_MATCH'));
+    else if (password !== confirmedPassword)
+      newInvalidFields.set('confirmedPassword', T('REGISTER.ERRORS.PASSWORD_NOT_MATCH'));
 
     setInvalidFields(newInvalidFields);
 
@@ -98,10 +99,8 @@ const Registration: React.FC = () => {
           {T('REGISTER.REGISTER')}
         </button>
       </form>
-      <div className="no-account">
-        <p>
-          {T('REGISTER.HAVE_AN_ACCOUNT')}
-        </p>
+      <div className='no-account'>
+        <p>{T('REGISTER.HAVE_AN_ACCOUNT')}</p>
         <Link to='/register'>{T('REGISTER.LOGIN')}</Link>
       </div>
     </div>

@@ -74,7 +74,10 @@ const ProximuityTransfer: React.FC<TransferProps> = ({ setSection, T }) => {
                   <p>{user.displayName ?? user.username}</p>
                   <p className='username'>@{user.username}</p>
                 </div>
-                <div>{user.distance}{T('TRANSFER.PROXIMITY.DISTANCE_UNIT')}</div>
+                <div>
+                  {user.distance}
+                  {T('TRANSFER.PROXIMITY.DISTANCE_UNIT')}
+                </div>
               </Link>
             );
           })}

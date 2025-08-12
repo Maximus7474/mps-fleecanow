@@ -73,7 +73,8 @@ const History: React.FC = () => {
                 T('HISTORY.ACTIONS.DEPOSIT')
               ) : (
                 <p>
-                  {item.amount > 0 ? T('HISTORY.ACTIONS.RECEIVED') : T('HISTORY.ACTIONS.SENT')} {item.related_account ?? T('HISTORY.DELETED_USER')}
+                  {item.amount > 0 ? T('HISTORY.ACTIONS.RECEIVED') : T('HISTORY.ACTIONS.SENT')}{' '}
+                  {item.related_account ?? T('HISTORY.DELETED_USER')}
                 </p>
               )}
               {expandedIdx === idx && item.message && <p className='message'>{item.message}</p>}
@@ -81,7 +82,8 @@ const History: React.FC = () => {
             </div>
             <div>
               {item.amount < 0 && '-'}
-              {formatBalanceValue(Math.abs(item.amount))}{T('GLOBAL.CURRENCY')}
+              {formatBalanceValue(Math.abs(item.amount))}
+              {T('GLOBAL.CURRENCY')}
             </div>
           </div>
         ))}

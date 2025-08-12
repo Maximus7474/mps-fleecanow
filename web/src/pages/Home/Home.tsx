@@ -28,9 +28,7 @@ const Home: React.FC = () => {
       ) : (
         <section className='connect'>
           <h2>{T('HOME.NOT_CONNECTED')}</h2>
-          <p>
-            {T('HOME.LOGIN_OR_REGISTER')}
-          </p>
+          <p>{T('HOME.LOGIN_OR_REGISTER')}</p>
           <div>
             <Link to='/register'>{T('HOME.REGISTER')}</Link>
             <p>{T('HOME.OR')}</p>
@@ -41,9 +39,7 @@ const Home: React.FC = () => {
 
       <section className='about'>
         <h3>{T('HOME.ABOUT.HEADING')}</h3>
-        <p>
-          {T('HOME.ABOUT.DESCRIPTION')}
-        </p>
+        <p>{T('HOME.ABOUT.DESCRIPTION')}</p>
       </section>
 
       {/* <details className='news'>

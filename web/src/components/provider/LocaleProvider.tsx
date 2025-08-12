@@ -13,15 +13,15 @@ type IndexableLocale = {
 
 const defaultLocaleData: UILocale = {
   GLOBAL: {
-    LOADING: "Loading...",
+    LOADING: 'Loading...',
     OPTIONAL: 'Optional',
     AMOUNT: 'Amount',
     CURRENCY: '$',
   },
   BALANCE: {
-    BALANCE: "Balance",
-    ADD_FUNDS: "Add funds",
-    REMOVE_FUNDS: "Withdraw funds",
+    BALANCE: 'Balance',
+    ADD_FUNDS: 'Add funds',
+    REMOVE_FUNDS: 'Withdraw funds',
 
     CONFIRMATION_POPUP: {
       TITLE: {
@@ -36,7 +36,7 @@ const defaultLocaleData: UILocale = {
 
       CONFIRM: 'Confirm',
       CANCEL: 'Cancel',
-    }
+    },
   },
 
   HISTORY: {
@@ -47,12 +47,12 @@ const defaultLocaleData: UILocale = {
       DEPOSIT: 'Deposit',
       RECEIVED: 'From {user}',
       SENT: 'To {user}',
-    }
+    },
   },
 
   HOME: {
     WELCOME_BACK: 'Welcome back, {username}!',
-    NOT_CONNECTED: 'You aren\'t currently connected.',
+    NOT_CONNECTED: "You aren't currently connected.",
     LOGIN_OR_REGISTER: 'You need an account to use FleecaNow.',
     LOGOUT: 'Logout',
     LOGIN: 'Login',
@@ -61,8 +61,9 @@ const defaultLocaleData: UILocale = {
 
     ABOUT: {
       HEADING: 'About us',
-      DESCRIPTION: 'Welcome to FleecaNow, an App created by Fleeca Banks©. With us, you can now send money to your familly or friends through your phone!',
-    }
+      DESCRIPTION:
+        'Welcome to FleecaNow, an App created by Fleeca Banks©. With us, you can now send money to your familly or friends through your phone!',
+    },
   },
 
   LOGIN: {
@@ -75,7 +76,7 @@ const defaultLocaleData: UILocale = {
       PLACEHOLDER: 'password',
     },
     LOGIN: 'Login',
-    NO_ACCOUNT: 'Don\'t have an account ?',
+    NO_ACCOUNT: "Don't have an account ?",
     REGISTER: 'Register',
   },
 
@@ -92,7 +93,7 @@ const defaultLocaleData: UILocale = {
     ERRORS: {
       USERNAME_TOO_SHORT: 'Username is too short',
       PASSWORD_TOO_SHORT: 'Password is too short',
-      PASSWORD_NOT_MATCH: 'Password doesn\'t match',
+      PASSWORD_NOT_MATCH: "Password doesn't match",
     },
     REGISTER: 'Register',
     HAVE_AN_ACCOUNT: 'Already have an account ?',
@@ -101,7 +102,7 @@ const defaultLocaleData: UILocale = {
 
   PROFILE: {
     TITLE: 'Your profile',
-    
+
     AVATAR: {
       LABEL: 'Avatar',
       PLACEHOLDER: 'www.imagehost.com/image.png',
@@ -129,14 +130,15 @@ const defaultLocaleData: UILocale = {
 
     DELETE_POPUP: {
       TITLE: 'Account Deletion',
-      DESCRIPTION: 'This action is irreversible, all information, money and contacts linked to this account will be lost!',
+      DESCRIPTION:
+        'This action is irreversible, all information, money and contacts linked to this account will be lost!',
       CANCEL: 'Cancel',
       CONFIRM: 'Confirm',
 
       FAILED: {
         TITLE: 'Unable to delete account',
         CLOSE: 'Close',
-      }
+      },
     },
 
     SAVE: 'Save',
@@ -182,24 +184,23 @@ const defaultLocaleData: UILocale = {
 
       NOTIFICATION: {
         TITLE: 'Money Transfer',
-        CONTENT: '{amount}$ was sent to @{user}'
+        CONTENT: '{amount}$ was sent to @{user}',
       },
 
       ERROR: {
         TITLE: 'Unable to send',
         FALLBACK: 'We were unable to send the money',
         OK: 'Ok',
-      }
-    }
-  }
+      },
+    },
+  },
 };
 
 export function LocaleProvider({ children }: { children: ReactNode }) {
   const [localeData, setLocaleData] = useState<UILocale>(defaultLocaleData);
 
   useEffect(() => {
-    fetchNui<UILocale>('fleecanow:getlocale', {})
-    .then((locale) => {
+    fetchNui<UILocale>('fleecanow:getlocale', {}).then((locale) => {
       if (!locale) return;
 
       setLocaleData(locale);
@@ -238,16 +239,12 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
 
   const UpdateLocale = (locale: string): void => {
     fetchNui<UILocale>('fleecanow:getLocale', { locale })
-    .then((locale) => {
-      if (!locale) return;
-      setLocaleData(locale);
-    })
-    .catch(err => console.error(`Unable to fetch new locale (${locale}) data:`, err.message));
+      .then((locale) => {
+        if (!locale) return;
+        setLocaleData(locale);
+      })
+      .catch((err) => console.error(`Unable to fetch new locale (${locale}) data:`, err.message));
   };
 
-  return (
-    <LocaleContext.Provider value={{ T, UpdateLocale }}>
-      {children}
-    </LocaleContext.Provider>
-  );
+  return <LocaleContext.Provider value={{ T, UpdateLocale }}>{children}</LocaleContext.Provider>;
 }

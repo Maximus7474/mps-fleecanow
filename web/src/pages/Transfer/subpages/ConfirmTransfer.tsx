@@ -32,7 +32,7 @@ const ConfirmTransfer: React.FC = () => {
       fetchNui<UserSharedProfile | null>('fleecanow:getuserprofile', { username })
         .then((user) => {
           setTargetUser(user);
-          setTransferData((prev) => ({ ...prev, destination: username! }))
+          setTransferData((prev) => ({ ...prev, destination: username! }));
         })
         .finally(() => {
           setLoading(false);
@@ -43,10 +43,10 @@ const ConfirmTransfer: React.FC = () => {
   const confirmTransfer = () => {
     components.setPopUp({
       title: T('TRANSFER.CONFIRM.POPUP.TITLE'),
-      description: T(
-        'TRANSFER.CONFIRM.POPUP.DESCRIPTION',
-        { amount: transferData.amount, user: transferData.destination }
-      ),
+      description: T('TRANSFER.CONFIRM.POPUP.DESCRIPTION', {
+        amount: transferData.amount,
+        user: transferData.destination,
+      }),
       buttons: [
         {
           title: T('TRANSFER.CONFIRM.POPUP.YES'),
@@ -59,19 +59,19 @@ const ConfirmTransfer: React.FC = () => {
                 sendNotification({
                   title: T('TRANSFER.CONFIRM.NOTIFICATION.TITLE'),
                   thumbnail: './icon.png',
-                  content: T(
-                    'TRANSFER.CONFIRM.NOTIFICATION.CONTENT',
-                    { amount: transferData.amount, user: transferData.destination }
-                  ),
+                  content: T('TRANSFER.CONFIRM.NOTIFICATION.CONTENT', {
+                    amount: transferData.amount,
+                    user: transferData.destination,
+                  }),
                 });
                 navigate('/transfer');
               } else {
                 components.setPopUp({
                   title: T('TRANSFER.CONFIRM.ERROR.TITLE'),
-                  description: resp.message ??  T('TRANSFER.CONFIRM.ERROR.FALLBACK'),
+                  description: resp.message ?? T('TRANSFER.CONFIRM.ERROR.FALLBACK'),
                   buttons: [
                     {
-                      title:  T('TRANSFER.CONFIRM.ERROR.OK'),
+                      title: T('TRANSFER.CONFIRM.ERROR.OK'),
                     },
                   ],
                 });
@@ -137,7 +137,8 @@ const ConfirmTransfer: React.FC = () => {
         </div>
         <div>
           <label htmlFor='amount'>
-            {T('TRANSFER.CONFIRM.MESSAGE')}:<sub style={{ fontStyle: 'italic', fontSize: '12px' }}>({T('GLOBAL.OPTIONAL')})</sub>
+            {T('TRANSFER.CONFIRM.MESSAGE')}:
+            <sub style={{ fontStyle: 'italic', fontSize: '12px' }}>({T('GLOBAL.OPTIONAL')})</sub>
           </label>
           <input
             type='text'

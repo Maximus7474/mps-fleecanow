@@ -62,10 +62,8 @@ const Login: React.FC = () => {
           {T('LOGIN.LOGIN')}
         </button>
       </form>
-      <div className="no-account">
-        <p>
-          {T('LOGIN.NO_ACCOUNT')}
-        </p>
+      <div className='no-account'>
+        <p>{T('LOGIN.NO_ACCOUNT')}</p>
         <Link to='/register'>{T('LOGIN.REGISTER')}</Link>
       </div>
     </div>
