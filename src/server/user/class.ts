@@ -115,11 +115,38 @@ export class FleecaNowUser {
   };
 
   updateData = async (data: Partial<ServerUser>) => {
-    if (data.username) this.user.username = data.username;
-    if (data.email) this.user.email = data.email;
-    if (data.display_name) this.user.display_name = data.display_name;
-    if (data.proximity_sharing) this.user.proximity_sharing = data.proximity_sharing;
-    if (data.avatar) this.user.avatar = data.avatar;
+    const initialUsername: string = this.user.username;
+    const updatedFields: Record<string, any> = {};
+
+    if (data.username) {
+      updatedFields.newUsername = data.username;
+      this.user.username = data.username;
+    }
+    if (data.email) {
+      updatedFields.newEmail = data.email;
+      this.user.email = data.email;
+    }
+    if (data.display_name) {
+      updatedFields.newDisplayName = data.display_name;
+      this.user.display_name = data.display_name;
+    }
+    if (data.proximity_sharing) {
+      updatedFields.newProximitySharing = data.proximity_sharing === 1;
+      this.user.proximity_sharing = data.proximity_sharing;
+    }
+    if (data.avatar) {
+      updatedFields.newAvatar = data.avatar;
+      this.user.avatar = data.avatar;
+    }
+
+    Log(
+      'info',
+      'edit_account',
+      `Account: ${initialUsername} (id: ${this.user.id}) has been edited`,
+      updatedFields,
+      String(this.source),
+      null,
+    );
 
     await MySQL.query(
       'UPDATE `phone_fleecanow_accounts` SET `username` = ?, `display_name` = ?, `email` = ?, `avatar` = ?, `proximity_sharing` = ? WHERE `username` = ?',
