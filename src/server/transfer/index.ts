@@ -4,6 +4,7 @@ import { oxmysql as MySQL } from '@communityox/oxmysql';
 import { RegisterServerCallback } from '../utils/callbacks';
 import { FleecaNowUser } from '../user/class';
 import { LogAccountAction } from '../utils/log_account_action';
+import { Log } from '../utils/logging_wrapper';
 
 RegisterServerCallback('fleecanow:isusernamevalid', async (_, data: string): Promise<UsernameValidationResponse> => {
   const exists = await MySQL.single('SELECT 1 FROM `phone_fleecanow_accounts` WHERE `username` = ?', [data]);
@@ -69,6 +70,15 @@ RegisterServerCallback('fleecanow:sendtransfer', async (source, data: TransferDa
 
     if (result === 0) return { success: false, message: Locale('CORE.TRANSFER.UNABLE_TO_TRANSFER') };
   }
+
+  Log(
+    'info',
+    'transfer',
+    `${data.amount}$ was transfered from @${sender.get('username')} to @${data.destination}`,
+    null,
+    String(source),
+    null,
+  );
 
   sender.transferMoney(data.amount, receiverId as number, data?.message);
 
