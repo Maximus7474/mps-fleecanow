@@ -1,8 +1,8 @@
 if GetLoggingMethod() ~= 'custom' then return end
 
 ---log an action to an external service
----@param level 'info'|'error'|'success'
----@param action 'deposit_funds'|'withdraw_funds'|'transfer'
+---@param level 'info' | 'error' | 'success'
+---@param action 'deposit_funds' | 'withdraw_funds' | 'transfer' | 'edit_account' | 'deleted_account' | 'created_account'
 ---@param title string
 ---@param fields table<string|any> | nil
 ---@param source string | nil Player originating the the action
