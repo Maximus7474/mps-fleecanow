@@ -6,5 +6,6 @@
   "AppDeveloper": "Fleeca Banks",
 
   "MaxDistanceForProximity": 10.0,
-  "VersionCheck": true
+  "VersionCheck": true,
+  "LoggingMethod": "none"
 }
