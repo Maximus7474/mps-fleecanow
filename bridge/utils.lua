@@ -1,3 +1,29 @@
+--[[ Utility functions ]]
+
+---parse a json file
+---@param filePath string
+---@param suppressError boolean | nil
+---@return table | nil
+local function loadJsonFile(filePath, suppressError)
+    local content = LoadResourceFile('mps-fleecanow', filePath)
+    if not content then
+        if not suppressError then
+            error(('\n> Unable to load file: ^5%s^7'):format(filePath))
+        end
+        return nil
+    end
+
+    local parsedContent = json.decode(content)
+    if not parsedContent and not suppressError then
+        error(('\n> Unable to parse content of json file: ^5%s^7'):format(filePath))
+        return nil
+    end
+
+    return parsedContent
+end
+
+--[[ Framework functions ]]
+
 ---Check if the framework is on the server
 ---@param framework "ox"|"esx"|"qb"|"qbx"|"custom"
 ---@return boolean isStarted
@@ -45,17 +71,17 @@ exports('AddMoney', function (...)
     end
 end)
 
+--[[ Locale functions ]]
+
 local localeKey = exports['lb-phone']:GetConfig()?.DefaultLocale or "en"
+local bridgeLocaleFile = ("locales/%s.json"):format(localeKey)
+local bridgeLocale = loadJsonFile(bridgeLocaleFile, true)
 
-local jsonLocale = LoadResourceFile('mps-fleecanow', ("locales/%s.json"):format(localeKey))
-
-if (not jsonLocale) then
+if not bridgeLocale then
     warn(('LB Phones DefaultLocale (%s) is not supported by this script, please integrate it in the following file: "@mps-fleecanow/locales/%s.json"'):format(localeKey, localeKey))
     warn('The script will default to the English locale.')
-    jsonLocale = LoadResourceFile('mps-fleecanow', "locales/en.json")
+    bridgeLocale = loadJsonFile("locales/en.json")
 end
-
-local bridgeLocale = json.decode(jsonLocale) --[[ @as table|nil ]]
 if (not bridgeLocale) then
     error('\n > Unable to load locale (en.json), the file is an invalid json file. Please fix this.')
 end
@@ -66,6 +92,8 @@ function Locale(key)
     local locale = bridgeLocale?.BRIDGE[key]
     return locale or ("FLEECANOW " .. key)
 end
+
+--[[ Logging functions ]]
 
 ---Return the current setup logging method
 ---@return string|false
