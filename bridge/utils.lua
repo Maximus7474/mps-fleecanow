@@ -22,6 +22,8 @@ local function loadJsonFile(filePath, suppressError)
     return parsedContent
 end
 
+local scriptConfig = loadJsonFile('static/config.json')
+
 --[[ Framework functions ]]
 
 ---Check if the framework is on the server
@@ -98,7 +100,7 @@ end
 ---Return the current setup logging method
 ---@return string|false
 function GetLoggingMethod()
-    local raw = GetConvar('fleecanow:logging', 'none')
+    local raw = scriptConfig?.LoggingMethod or "none"
 
     if (raw == 'fivemanage' or raw == 'fmsdk') then
         return 'fivemanage'
