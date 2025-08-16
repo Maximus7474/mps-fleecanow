@@ -73,8 +73,9 @@ const History: React.FC = () => {
                 T('HISTORY.ACTIONS.DEPOSIT')
               ) : (
                 <p>
-                  {item.amount > 0 ? T('HISTORY.ACTIONS.RECEIVED') : T('HISTORY.ACTIONS.SENT')}{' '}
-                  {item.related_account ?? T('HISTORY.DELETED_USER')}
+                  {T(`HISTORY.ACTIONS.${item.amount > 0 ? 'RECEIVED' : 'SENT'}`, {
+                    user: item.related_account ?? T('HISTORY.DELETED_USER'),
+                  })}
                 </p>
               )}
               {expandedIdx === idx && item.message && <p className='message'>{item.message}</p>}
