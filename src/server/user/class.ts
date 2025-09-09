@@ -106,7 +106,7 @@ export class FleecaNowUser {
       WHERE                              \
         T.account = ?                    \
       ORDER BY                           \
-        T.timestamp ASC                  \
+        T.timestamp DESC                 \
       LIMIT 25;",
       [this.user.id],
     );
