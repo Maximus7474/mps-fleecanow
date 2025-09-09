@@ -200,7 +200,7 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
   const [localeData, setLocaleData] = useState<UILocale>(defaultLocaleData);
 
   useEffect(() => {
-    fetchNui<UILocale>('fleecanow:getlocale', {}).then((locale) => {
+    fetchNui<UILocale>('fleecanow:getlocale', {}, defaultLocaleData).then((locale) => {
       if (!locale) return;
 
       setLocaleData(locale);
