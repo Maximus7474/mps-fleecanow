@@ -111,7 +111,7 @@ const ProfilePage: React.FC = () => {
       displayName,
       email,
       username,
-      proximitySharing: user.proximitySharing,
+      proximitySharing,
     }).then((r) => {
       if (r) {
         setIsEditing(false);
