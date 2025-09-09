@@ -91,23 +91,23 @@ export class FleecaNowUser {
 
   getHistory = async (): Promise<AccountHistory[]> => {
     const raw = await MySQL.query(
-      `SELECT
-        T.action,
-        T.amount,
-        T.message,
-        A.username AS related_account,
-        T.timestamp
-      FROM
-        phone_fleecanow_transfers AS T
-      LEFT JOIN
-        phone_fleecanow_accounts AS A
-      ON
-        T.related_account = A.id
-      WHERE
-        T.account = ?
-      ORDER BY
-        T.timestamp ASC
-      LIMIT 25;`,
+      "SELECT                            \
+        T.action,                        \
+        T.amount,                        \
+        T.message,                       \
+        A.username AS related_account,   \
+        T.timestamp                      \
+      FROM                               \
+        phone_fleecanow_transfers AS T   \
+      LEFT JOIN                          \
+        phone_fleecanow_accounts AS A    \
+      ON                                 \
+        T.related_account = A.id         \
+      WHERE                              \
+        T.account = ?                    \
+      ORDER BY                           \
+        T.timestamp ASC                  \
+      LIMIT 25;",
       [this.user.id],
     );
 
