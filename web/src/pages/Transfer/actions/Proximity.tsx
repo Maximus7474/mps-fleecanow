@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { fetchNui } from '../../../utils/fetchNui';
 import { proximityShareProfiles } from '../debug';
 import ProfilePicture from '../../../components/ProfilePicture';
-import { useNuiEvent } from '../../../hooks/useNuiEvent';
 
 const ProximuityTransfer: React.FC<TransferProps> = ({ setSection, T }) => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -13,23 +12,30 @@ const ProximuityTransfer: React.FC<TransferProps> = ({ setSection, T }) => {
 
   useEffect(() => {
     let isMounted = true;
+    let intervalId: NodeJS.Timeout | null = null;
 
     fetchNui<ProximityShareProfile[]>('fleecanow:getcloseplayers', {}, proximityShareProfiles).then((resp) => {
       if (isMounted) {
         setProximityUsers(resp);
         setLoading(false);
       }
+
+      if (!intervalId) {
+        intervalId = setInterval(() => {
+          fetchNui<ProximityShareProfile[]>('fleecanow:getcloseplayers', {}, proximityShareProfiles.slice(Math.floor(Math.random() * 2)))
+          .then(resp => {
+            setProximityUsers(resp);
+          })
+          .catch(() => {});
+        }, 2_000);
+      }
     });
 
     return () => {
-      fetchNui('fleecanow:stopcloseplayers');
+      if (intervalId) clearInterval(intervalId);
       isMounted = false;
     };
   }, []);
-
-  useNuiEvent<ProximityShareProfile[]>('fleecanow:updatecloseplayers', (users) => {
-    setProximityUsers(users);
-  });
 
   if (loading) {
     return (
