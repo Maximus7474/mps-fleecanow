@@ -2,6 +2,16 @@
 
 A lightweight and intuitive money transfer application, inspired by **Venmo**, built specifically for **FiveM servers** using React and TypeScript. Fleeca Now seamlessly integrates with LB Phone, empowering your players to send and receive money with ease, enhancing in-game financial interactions.
 
+--- 
+
+## ⚙️ Support
+
+- Support is given in the appropriate discord channels after claiming the customer role. https://discord.gg/wCcsEcUhzf
+- The creator can in no way give support or resolve an issue involving:
+  - Cancelling an asset transfer
+  - Lost or stolen assets
+  - Hacked or Lost Keymaster account
+
 ---
 
 ## ✨ Features
