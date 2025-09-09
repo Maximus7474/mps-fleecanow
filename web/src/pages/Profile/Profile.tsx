@@ -81,6 +81,8 @@ const ProfilePage: React.FC = () => {
     const urlRegex = /^https?:\/\/[^\s/$.?#].[^\s]*$/i;
     if (avatar.length > 20 && urlRegex.test(avatar)) {
       newData.avatar = avatar;
+    } else if (avatar.length < 5) {
+      delete newData.avatar;
     } else {
       invalidData = true;
       errors.avatar = T('PROFILE.AVATAR.INVALID');
@@ -115,7 +117,7 @@ const ProfilePage: React.FC = () => {
         setIsEditing(false);
       } else {
         // ToDo: propagate to UI
-        console.error('unable to update');
+        console.error('unable to update', r);
       }
     });
   };
