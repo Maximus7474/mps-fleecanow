@@ -40,14 +40,14 @@ RegisterServerCallback('fleecanow:sendtransfer', async (source, data: TransferDa
     return { success: false, message: Locale('CORE.TRANSFER.INVALID_AMOUNT') };
   }
 
-  const senderBalance = sender.get('balance') as number;
+  const senderBalance = sender.getValue('balance') as number;
 
   if (senderBalance < data.amount) return { success: false, message: Locale('CORE.TRANSFER.INSUFFICIENT_FUNDS') };
 
   let receiverId;
   if (receiver) {
-    receiverId = receiver.get('id');
-    receiver.receiveMoney(data.amount, sender.get('id') as number, data?.message);
+    receiverId = receiver.getValue('id');
+    receiver.receiveMoney(data.amount, sender.getValue('id') as number, data?.message);
   } else {
     const receiver: { balance: number; id: number } = await MySQL.single(
       'SELECT `id`, `balance` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
@@ -68,7 +68,7 @@ RegisterServerCallback('fleecanow:sendtransfer', async (source, data: TransferDa
       account: receiver.id,
       action: 'transfer',
       amount: data.amount,
-      related_account: sender.get('id') as number,
+      related_account: sender.getValue('id') as number,
       message: data.message,
     });
 
@@ -78,7 +78,7 @@ RegisterServerCallback('fleecanow:sendtransfer', async (source, data: TransferDa
   Log(
     'info',
     'transfer',
-    `${data.amount}$ was transfered from @${sender.get('username')} to @${data.destination}`,
+    `${data.amount}$ was transfered from @${sender.getValue('username')} to @${data.destination}`,
     null,
     String(source),
     null,

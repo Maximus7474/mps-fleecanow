@@ -61,7 +61,7 @@ export class FleecaNowUser {
     Player(this.source).state.set('fleecanow-user', data, true);
   };
 
-  get = (key?: keyof ServerUser | 'phone_number' | 'balance') => {
+  getValue = (key?: keyof ServerUser | 'phone_number' | 'balance') => {
     if (!key) return { ...this.user, phone_number: this.phone_number };
 
     if (key === 'phone_number') return this.phone_number;

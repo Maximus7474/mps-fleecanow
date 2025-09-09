@@ -112,7 +112,7 @@ RegisterServerCallback(
       return { success: false, error: Locale('CORE.GLOBAL.NOT_AUTHENTICATED') };
     }
 
-    const userName = currentUser.get('username') as string;
+    const userName = currentUser.getValue('username') as string;
 
     if (userName !== newUser.username) {
       const existingUser: { username: string } | null = await MySQL.single(
@@ -172,8 +172,8 @@ onNet('fleecanow:logout', async () => {
 
   if (!user) return;
 
-  const username = user.get('username') as string;
-  const phone_number = user.get('phone_number');
+  const username = user.getValue('username') as string;
+  const phone_number = user.getValue('phone_number');
 
   await MySQL.update(
     'DELETE FROM `phone_logged_in_accounts` WHERE `app` = "FleecaNow" AND `username` = ? AND `phone_number` = ?',

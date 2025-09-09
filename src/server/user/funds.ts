@@ -9,7 +9,7 @@ RegisterServerCallback('fleecanow:getBalance', async (source: number): Promise<G
 
     if (!user) return { success: false, error: Locale('CORE.FUNDS.UNABLE_TO_GET_BALANCE') };
 
-    return { success: true, amount: user.get('balance') as number };
+    return { success: true, amount: user.getValue('balance') as number };
   } catch (err) {
     console.error(`Unable to get player (svid: ${source}) balance`, err);
     return { success: false, error: Locale('CORE.FUNDS.UNABLE_TO_GET_BALANCE') };
