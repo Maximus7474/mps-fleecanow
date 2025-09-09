@@ -172,7 +172,8 @@
       "USER_NOT_FOUND": "Username was not found",
       "INSUFFICIENT_FUNDS": "Insufficient funds",
       "UNKNOWN_ACCOUNT": "Unknown account",
-      "UNABLE_TO_TRANSFER": "Unable to transfer"
+      "UNABLE_TO_TRANSFER": "Unable to transfer",
+      "INVALID_AMOUNT": "Invalid amount"
     },
     "AUTHENTICATION": {
       "INVALID_CREDENTIALS": "Invalid username or password",
