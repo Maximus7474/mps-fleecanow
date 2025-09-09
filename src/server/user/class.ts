@@ -1,5 +1,5 @@
 import { oxmysql as MySQL } from '@communityox/oxmysql';
-import { AccountHistory, GetBalanceResponse, RawUser } from '@common/types';
+import { AccountHistory, GetBalanceResponse, RawUser, User } from '@common/types';
 import { resourceExport } from '@common/export';
 import { LogAccountAction } from '../utils/log_account_action';
 import { Log } from '../utils/logging_wrapper';
@@ -114,27 +114,27 @@ export class FleecaNowUser {
     return raw as AccountHistory[];
   };
 
-  updateData = async (data: Partial<ServerUser>) => {
+  updateData = async (data: Partial<User>) => {
     const initialUsername: string = this.user.username;
     const updatedFields: Record<string, any> = {};
 
-    if (data.username) {
+    if (typeof data.username !== 'undefined') {
       updatedFields.newUsername = data.username;
       this.user.username = data.username;
     }
-    if (data.email) {
+    if (typeof data.email !== 'undefined') {
       updatedFields.newEmail = data.email;
       this.user.email = data.email;
     }
-    if (data.display_name) {
-      updatedFields.newDisplayName = data.display_name;
-      this.user.display_name = data.display_name;
+    if (typeof data.displayName !== 'undefined') {
+      updatedFields.newDisplayName = data.displayName;
+      this.user.display_name = data.displayName;
     }
-    if (data.proximity_sharing) {
-      updatedFields.newProximitySharing = data.proximity_sharing === 1;
-      this.user.proximity_sharing = data.proximity_sharing;
+    if (typeof data.proximitySharing !== 'undefined') {
+      updatedFields.newProximitySharing = data.proximitySharing !== (this.user.proximity_sharing === 1);
+      this.user.proximity_sharing = data.proximitySharing ? 1 : 0;
     }
-    if (data.avatar) {
+    if (typeof data.avatar !== 'undefined') {
       updatedFields.newAvatar = data.avatar;
       this.user.avatar = data.avatar;
     }
@@ -155,7 +155,7 @@ export class FleecaNowUser {
         this.user.display_name,
         this.user.email,
         this.user.avatar,
-        this.user.proximity_sharing ? 1 : 0,
+        this.user.proximity_sharing,
         this.user.username,
       ],
     );
