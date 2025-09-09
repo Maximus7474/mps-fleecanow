@@ -11,7 +11,7 @@ const productionOptions = watch
   : {
     minify: true,
     keepNames: false,
-    mangleProps: /^get/,
+    mangleProps: /^get[a-zA-Z]+/,
   };
 
 if (!watch) dropLabels.push('$DEV');
@@ -63,8 +63,8 @@ createBuilder(
       },
     });
 
-    if (web && !watch) await exec("cd ./web && vite build");
+    // if (web && !watch) await exec("cd ./web && vite build");
   }
 );
 
-if (web && watch) await exec("cd ./web && vite build --watch");
+// if (web && watch) await exec("cd ./web && vite build --watch");
