@@ -19,7 +19,7 @@ export function GetPlayersInDistance(distance: number = 5.0): PlayerInDistance[]
     const distToCoords = Vdist2(origin[0], origin[1], origin[2], coords[0], coords[1], coords[2]);
 
     if (distToCoords <= sqDist) {
-      players.push({ idx, distance: distToCoords });
+      players.push({ idx, distance: Math.round(Math.sqrt(distToCoords)) });
     }
   }
 
