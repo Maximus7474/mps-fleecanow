@@ -36,6 +36,10 @@ RegisterServerCallback('fleecanow:sendtransfer', async (source, data: TransferDa
     return { success: false, message: Locale('CORE.GLOBAL.NOT_AUTHENTICATED') };
   }
 
+  if (!data.amount || typeof data.amount !== 'number' || data.amount <= 0) {
+    return { success: false, message: Locale('CORE.TRANSFER.INVALID_AMOUNT') };
+  }
+
   const senderBalance = sender.get('balance') as number;
 
   if (senderBalance < data.amount) return { success: false, message: Locale('CORE.TRANSFER.INSUFFICIENT_FUNDS') };
