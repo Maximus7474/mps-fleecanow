@@ -124,15 +124,19 @@ const ConfirmTransfer: React.FC = () => {
         <div>
           <label htmlFor='amount'>{T('GLOBAL.AMOUNT')}:</label>
           <input
-            type='number'
-            value={transferData.amount}
+            type='text'
+            value={`${T('GLOBAL.CURRENCY')} ${transferData.amount}`}
             min={0}
-            onChange={(e) =>
+            onChange={(e) => {
+              const value = Number(
+                (e.target.value ?? '0').replace(/[^0-9.]/g, '')
+              );
+              
               setTransferData((prev) => ({
                 ...prev,
-                amount: e.target.value === '' ? 0 : Number(e.target.value),
+                amount: isNaN(value) ? 0 : value,
               }))
-            }
+            }}
           />
         </div>
         <div>
