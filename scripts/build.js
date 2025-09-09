@@ -63,8 +63,8 @@ createBuilder(
       },
     });
 
-    // if (web && !watch) await exec("cd ./web && vite build");
+    if (web && !watch) await exec("cd ./web && vite build");
   }
 );
 
-// if (web && watch) await exec("cd ./web && vite build --watch");
+if (web && watch) await exec("cd ./web && vite build --watch");
