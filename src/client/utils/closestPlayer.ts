@@ -4,6 +4,7 @@ interface PlayerInDistance {
 }
 
 export function GetPlayersInDistance(distance: number = 5.0): PlayerInDistance[] {
+  const sqDist = distance * distance;
   const playerId = PlayerId();
   const origin = GetEntityCoords(PlayerPedId(), true);
   const activePlayers = GetActivePlayers();
@@ -15,10 +16,11 @@ export function GetPlayersInDistance(distance: number = 5.0): PlayerInDistance[]
     const ped = GetPlayerPed(idx);
     const coords = GetEntityCoords(ped, true);
 
-    const distToCoords = Math.sqrt(origin[0] * coords[0] + origin[2] * coords[1] + origin[2] * coords[3]);
+    const distToCoords = Vdist2(origin[0], origin[1], origin[2], coords[0], coords[1], coords[2]);
 
-    if (distToCoords <= distance) {
+    if (distToCoords <= sqDist) {
       players.push({ idx, distance: distToCoords });
+      console.log('Player in range', idx, distToCoords);
     }
   }
 
