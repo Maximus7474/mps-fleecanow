@@ -20,7 +20,6 @@ export function GetPlayersInDistance(distance: number = 5.0): PlayerInDistance[]
 
     if (distToCoords <= sqDist) {
       players.push({ idx, distance: distToCoords });
-      console.log('Player in range', idx, distToCoords);
     }
   }
 
