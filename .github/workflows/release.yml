@@ -59,9 +59,13 @@ jobs:
           git commit -am '${{ github.ref_name }}'
           git push
 
-      - name: Bundle files
+      - name: Bundle release files
         run: |
           zip -r ${{ github.event.repository.name }}.zip . -x "./.*" "./node_modules/*" "./scripts/*" "./src/*" "./web/*" "./tsconfig.json" "./biome.json" "./pnpm-lock.yaml" "./package.json" "./eslint.config.js" "./designs/*"
+
+      - name: Bundle source files
+        run: |
+          zip -r ${{ github.event.repository.name }}-source.zip . -x "./node_modules/*" "./pnpm-lock.yaml" "./designs/*" "./.github/*" "./.git/*"
 
       - name: Create Release
         uses: 'marvinpinto/action-automatic-releases@v1.2.1'
@@ -70,7 +74,9 @@ jobs:
           repo_token: '${{ secrets.GITHUB_TOKEN }}'
           title: '${{ env.RELEASE_VERSION }}'
           prerelease: false
-          files: ${{ github.event.repository.name }}.zip
+          files: |
+            ${{ github.event.repository.name }}.zip
+            ${{ github.event.repository.name }}-source.zip
 
         env:
           CI: false
