@@ -65,7 +65,7 @@ jobs:
 
       - name: Bundle source files
         run: |
-          zip -r ${{ github.event.repository.name }}-source.zip . -x "./node_modules/*" "./pnpm-lock.yaml" "./designs/*" "./.github/*" "./.git/*"
+          zip -r ${{ github.event.repository.name }}-source.zip . -x "./node_modules/*" "./pnpm-lock.yaml" "./designs/*" "./.github/*" "./.git/*" "*.zip"
 
       - name: Create Release
         uses: 'marvinpinto/action-automatic-releases@v1.2.1'
