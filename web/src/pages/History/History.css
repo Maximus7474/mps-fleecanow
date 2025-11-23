@@ -18,7 +18,7 @@
 
 .history > .recap {
   display: flex;
-  max-height: 77vh;
+  height: 77vh;
   flex-direction: column;
   gap: 0.5rem;
   align-items: center;
