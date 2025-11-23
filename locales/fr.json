@@ -1,0 +1,192 @@
+{
+  "BRIDGE": {
+    "REMOVED_MONEY": "Fonds ajoutés à FleecaNow.",
+    "ADDED_MONEY": "Fonds retirés du compte FleecaNow."
+  },
+  "UI": {
+    "GLOBAL": {
+      "LOADING": "Chargement...",
+      "AMOUNT": "Montant",
+      "OPTIONAL": "Facultatif",
+      "CURRENCY": "€"
+    },
+    "BALANCE": {
+      "BALANCE": "Solde",
+      "ADD_FUNDS": "Ajouter des fonds",
+      "REMOVE_FUNDS": "Retirer des fonds",
+      "CONFIRMATION_POPUP": {
+        "TITLE": {
+          "ADD": "Ajouter des fonds",
+          "REMOVE": "Retirer des fonds"
+        },
+        "DESCRIPTION": {
+          "ADD": "Combien voulez-vous ajouter à votre compte ?",
+          "REMOVE": "Combien voulez-vous retirer de votre compte ?"
+        },
+        "CONFIRM": "Confirmer",
+        "CANCEL": "Annuler"
+      }
+    },
+    "HISTORY": {
+      "TITLE": "Historique du compte",
+      "DELETED_USER": "Utilisateur supprimé",
+      "NO_HISTORY": "Aucun historique a affiché",
+      "ACTIONS": {
+        "WITHDRAW": "Retrait",
+        "DEPOSIT": "Dépôt",
+        "RECEIVED": "De {user}",
+        "SENT": "À {user}"
+      }
+    },
+    "HOME": {
+      "WELCOME_BACK": "Bienvenue, {username} !",
+      "NOT_CONNECTED": "Vous n'êtes pas connecté(e).",
+      "LOGIN_OR_REGISTER": "Vous avez besoin d'un compte pour utiliser FleecaNow.",
+      "LOGOUT": "Se déconnecter",
+      "LOGIN": "Se connecter",
+      "REGISTER": "S'inscrire",
+      "OR": "OU",
+      "ABOUT": {
+        "HEADING": "À propos de nous",
+        "DESCRIPTION": "Bienvenue sur FleecaNow, une application créée par Fleeca Banks©. Avec nous, vous pouvez désormais envoyer de l'argent à votre famille ou à vos amis via votre téléphone !"
+      }
+    },
+    "LOGIN": {
+      "USERNAME": {
+        "LABEL": "Nom d'utilisateur :",
+        "PLACEHOLDER": "nom d'utilisateur"
+      },
+      "PASSWORD": {
+        "LABEL": "Mot de passe :",
+        "PLACEHOLDER": "mot de passe"
+      },
+      "LOGIN": "Se connecter",
+      "NO_ACCOUNT": "Vous n'avez pas de compte ?",
+      "REGISTER": "S'inscrire"
+    },
+    "REGISTER": {
+      "USERNAME": {
+        "LABEL": "Nom d'utilisateur :",
+        "PLACEHOLDER": "nom d'utilisateur"
+      },
+      "PASSWORD": {
+        "LABEL": "Mot de passe :",
+        "PLACEHOLDER": "mot de passe",
+        "CONFIRM": "Confirmer le mot de passe :"
+      },
+      "ERRORS": {
+        "USERNAME_TOO_SHORT": "Le nom d'utilisateur est trop court",
+        "PASSWORD_TOO_SHORT": "Le mot de passe est trop court",
+        "PASSWORD_NOT_MATCH": "Le mot de passe ne correspond pas"
+      },
+      "REGISTER": "S'inscrire",
+      "HAVE_AN_ACCOUNT": "Vous avez déjà un compte ?",
+      "LOGIN": "Se connecter"
+    },
+    "PROFILE": {
+      "TITLE": "Votre profil",
+      "AVATAR": {
+        "LABEL": "Avatar",
+        "PLACEHOLDER": "www.imagehost.com/image.png",
+        "INVALID": "L'URL de l'image de l'avatar n'est pas valide"
+      },
+      "USERNAME": {
+        "LABEL": "Nom d'utilisateur",
+        "PLACEHOLDER": "nom d'utilisateur"
+      },
+      "DISPLAY_NAME": {
+        "LABEL": "Nom d'affichage",
+        "PLACEHOLDER": "nom d'affichage",
+        "INVALID": "L'URL de l'image de l'avatar n'est pas valide"
+      },
+      "EMAIL": {
+        "LABEL": "Adresse e-mail",
+        "PLACEHOLDER": "adresse e-mail (facultatif)",
+        "INVALID": "L'adresse e-mail n'est pas valide"
+      },
+      "PROXIMITY": {
+        "LABEL": "Accepter les transferts par proximité",
+        "ACTIVE": "Nom d'utilisateur partagé par proximité",
+        "INACTIVE": "Nom d'utilisateur non partagé par proximité"
+      },
+      "DELETE_POPUP": {
+        "TITLE": "Suppression de compte",
+        "DESCRIPTION": "Cette action est irréversible, toutes les informations, l'argent et les contacts liés à ce compte seront perdus !",
+        "CANCEL": "Annuler",
+        "CONFIRM": "Confirmer",
+        "FAILED": {
+          "TITLE": "Impossible de supprimer le compte",
+          "CLOSE": "Fermer"
+        }
+      },
+      "SAVE": "Sauvegarder",
+      "LOGOUT": "Se déconnecter",
+      "EDIT": "Modifier le profil",
+      "DELETE": "Supprimer le profil"
+    },
+    "TRANSFER": {
+      "TITLE": "Transférer de l'argent",
+      "DESCRIPTION": "Comment voulez-vous envoyer de l'argent ?",
+      "BY_USERNAME": "Par nom d'utilisateur",
+      "BY_PROXIMITY": "Par proximité",
+      "PROXIMITY": {
+        "LOADING": "Chargement des utilisateurs",
+        "NO_USERS": "Aucun utilisateur trouvé",
+        "HELP_TEXT": "Sélectionnez un utilisateur à qui envoyer de l'argent",
+        "DISTANCE_UNIT": "m"
+      },
+      "USERNAME": {
+        "NOT_FOUND": "Utilisateur non trouvé",
+        "HEADING": "Recherche d'utilisateur",
+        "HELP_TEXT": "Veuillez entrer le nom d'utilisateur de la personne à qui vous souhaitez envoyer de l'argent.",
+        "USERNAME": "Nom d'utilisateur",
+        "SEARCH": "Rechercher"
+      },
+      "CONFIRM": {
+        "NO_USER_FOUND": "Aucun utilisateur trouvé !",
+        "BACK": "Retour à la sélection",
+        "TITLE": "Envoyer de l'argent à",
+        "MESSAGE": "Message",
+        "SEND": "Envoyer de l'argent",
+        "POPUP": {
+          "TITLE": "Envoyer de l'argent",
+          "DESCRIPTION": "Êtes-vous sûr(e) de vouloir envoyer {amount}€ à @{user} ?",
+          "YES": "Oui"
+        },
+        "NOTIFICATION": {
+          "TITLE": "Transfert d'argent",
+          "CONTENT": "{amount}€ a été envoyé à @{user}"
+        },
+        "ERROR": {
+          "TITLE": "Impossible d'envoyer",
+          "FALLBACK": "Nous n'avons pas pu envoyer l'argent",
+          "OK": "Ok"
+        }
+      }
+    }
+  },
+  "CORE": {
+    "GLOBAL": {
+      "NOT_AUTHENTICATED": "Aucun compte connecté"
+    },
+    "TRANSFER": {
+      "USER_NOT_FOUND": "Nom d'utilisateur non trouvé",
+      "INSUFFICIENT_FUNDS": "Fonds insuffisants",
+      "UNKNOWN_ACCOUNT": "Compte inconnu",
+      "UNABLE_TO_TRANSFER": "Impossible de transférer",
+      "INVALID_AMOUNT": "Montant invalide"
+    },
+    "AUTHENTICATION": {
+      "INVALID_CREDENTIALS": "Nom d'utilisateur ou mot de passe invalide",
+      "USERNAME_TAKEN": "Le nom d'utilisateur est déjà pris",
+      "UNABLE_TO_REGISTER": "Impossible de s'inscrire",
+      "FUNDS_STILL_PRESENT": "Il vous reste des fonds sur votre compte"
+    },
+    "FUNDS": {
+      "UNABLE_TO_GET_BALANCE": "Impossible de récupérer le solde"
+    },
+    "HISTORY": {
+      "UNABLE_TO_GET_HISTORY": "Impossible de récupérer l'historique"
+    }
+  }
+}
