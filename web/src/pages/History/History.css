@@ -16,6 +16,14 @@
   text-align: center;
 }
 
+.history > .no-history {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
 .history > .recap {
   display: flex;
   height: 77vh;
