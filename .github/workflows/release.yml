@@ -59,6 +59,36 @@ jobs:
           git commit -am '${{ github.ref_name }}'
           git push
 
+      # fetches the new files from the locale-repo (has to be public)
+      - name: Update locale files
+        uses: Maximus7474/locale-manager-action@v1.0.0
+        with:
+          resource-name: 'mps-fleecanow'
+          locale-repo: 'Maximus7474/mps-locales'
+          locale-directory: './locales'
+
+      # an ugly step to check if any changes occured to the locale directory
+      # this is an example, you can rename directories
+      - name: Check if locales were updated
+        id: git-check
+        run: |
+          # Check for changes only in the locales directory
+          git_status=$(git status --porcelain ./locales)
+          echo "changes<<EOF" >> $GITHUB_OUTPUT
+          echo "$git_status" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      # (optionnal) update your repository with the new changes
+      # it is neater so do it and don't consider it as optional
+      - name: Commit and Push if changes were made to locales
+        if: steps.git-check.outputs.changes != ''
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -am 'chore(locales): updated for ${{ github.ref_name }}'
+          git push
+
       - name: Bundle release files
         run: |
           zip -r ${{ github.event.repository.name }}.zip . -x "./.*" "./node_modules/*" "./scripts/*" "./src/*" "./web/*" "./tsconfig.json" "./biome.json" "./pnpm-lock.yaml" "./package.json" "./eslint.config.js" "./designs/*"
