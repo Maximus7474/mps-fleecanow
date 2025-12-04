@@ -16,7 +16,7 @@ on('playerDropped', () => {
 
   if (!user) return;
 
-  const username = user.get('username') as string;
+  const username = user.getValue('username') as string;
   FleecaNowUser.removeUser(username);
 });
 
