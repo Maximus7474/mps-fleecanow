@@ -93,10 +93,6 @@ jobs:
         run: |
           zip -r ${{ github.event.repository.name }}.zip . -x "./.*" "./node_modules/*" "./scripts/*" "./src/*" "./web/*" "./tsconfig.json" "./biome.json" "./pnpm-lock.yaml" "./package.json" "./eslint.config.js" "./designs/*"
 
-      - name: Bundle source files
-        run: |
-          zip -r ${{ github.event.repository.name }}-source.zip . -x "./node_modules/*" "./pnpm-lock.yaml" "./designs/*" "./.github/*" "./.git/*" "*.zip"
-
       - name: Create Release
         uses: 'marvinpinto/action-automatic-releases@v1.2.1'
         id: auto_release
@@ -106,7 +102,6 @@ jobs:
           prerelease: false
           files: |
             ${{ github.event.repository.name }}.zip
-            ${{ github.event.repository.name }}-source.zip
 
         env:
           CI: false
