@@ -48,9 +48,6 @@ export class FleecaNowUser {
     this.source = source;
     this.phone_number = phone_number;
 
-    delete user.balance;
-    this.user = user;
-
     FleecaNowUser.users[this.user.username] = this;
   }
 
@@ -90,7 +87,7 @@ export class FleecaNowUser {
 
   getHistory = async (): Promise<AccountHistory[]> => {
     const raw = await MySQL.query(
-      "SELECT                            \
+      'SELECT                            \
         T.action,                        \
         T.amount,                        \
         T.message,                       \
@@ -106,7 +103,7 @@ export class FleecaNowUser {
         T.account = ?                    \
       ORDER BY                           \
         T.timestamp DESC                 \
-      LIMIT 25;",
+      LIMIT 25;',
       [this.user.id],
     );
 
@@ -162,7 +159,7 @@ export class FleecaNowUser {
 
   updateFunds = (action: 'add' | 'withdraw', amount: number): GetBalanceResponse => {
     if (action === 'add') {
-      const result: boolean = resourceExport('mps-fleecanow', 'RemoveMoney')(this.source, amount);
+      const result: boolean = exports['mps-fleecanow'].RemoveMoney(this.source, amount);
 
       if (!result) return { success: false, error: 'Unable to retrieve funds from bank account' };
 
@@ -215,6 +212,8 @@ export class FleecaNowUser {
       );
 
       return { success: true, amount: this.balance };
+    } else {
+      throw new Error('Invalid action was sent !');
     }
   };
 

@@ -22,11 +22,15 @@ const ProximuityTransfer: React.FC<TransferProps> = ({ setSection, T }) => {
 
       if (!intervalId) {
         intervalId = setInterval(() => {
-          fetchNui<ProximityShareProfile[]>('fleecanow:getcloseplayers', {}, proximityShareProfiles.slice(Math.floor(Math.random() * 2)))
-          .then(resp => {
-            setProximityUsers(resp);
-          })
-          .catch(() => {});
+          fetchNui<ProximityShareProfile[]>(
+            'fleecanow:getcloseplayers',
+            {},
+            proximityShareProfiles.slice(Math.floor(Math.random() * 2)),
+          )
+            .then((resp) => {
+              setProximityUsers(resp);
+            })
+            .catch(() => {});
         }, 2_000);
       }
     });
@@ -75,7 +79,11 @@ const ProximuityTransfer: React.FC<TransferProps> = ({ setSection, T }) => {
 
             return (
               <Link key={i} to={`/transfer/confirm?${query}`} className='card'>
-                <ProfilePicture src={user.avatar && user.avatar?.length > 10 ? user.avatar : './icon.png'} fallback='./icon.png' className='' />
+                <ProfilePicture
+                  src={user.avatar && user.avatar?.length > 10 ? user.avatar : './icon.png'}
+                  fallback='./icon.png'
+                  className=''
+                />
                 <div>
                   <p>{user.displayName ?? user.username}</p>
                   <p className='username'>@{user.username}</p>

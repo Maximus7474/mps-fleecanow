@@ -128,14 +128,12 @@ const ConfirmTransfer: React.FC = () => {
             value={`${T('GLOBAL.CURRENCY')} ${transferData.amount}`}
             min={0}
             onChange={(e) => {
-              const value = Number(
-                (e.target.value ?? '0').replace(/[^0-9.]/g, '')
-              );
-              
+              const value = Number((e.target.value ?? '0').replace(/[^0-9.]/g, ''));
+
               setTransferData((prev) => ({
                 ...prev,
                 amount: isNaN(value) ? 0 : value,
-              }))
+              }));
             }}
           />
         </div>

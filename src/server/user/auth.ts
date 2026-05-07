@@ -79,7 +79,7 @@ RegisterServerCallback(
 
     const phone_number = exports['lb-phone'].GetEquippedPhoneNumber(source);
 
-    const rawUser: RawUser | null = await MySQL.single(
+    const rawUser: RawUser = await MySQL.single(
       'SELECT `id`, `username`, `display_name`, `email`, `avatar`, `balance` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
       [data.username],
     );
@@ -126,7 +126,7 @@ RegisterServerCallback(
 
     const isValidEmail = (email: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-    const email = newUser.email && isValidEmail(newUser.email) ? newUser.email : null;
+    const email = newUser.email && isValidEmail(newUser.email) ? newUser.email : undefined;
 
     currentUser.updateData({ ...newUser, email });
 

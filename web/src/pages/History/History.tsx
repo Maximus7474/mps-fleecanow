@@ -47,56 +47,51 @@ const History: React.FC = () => {
     <div className='history'>
       <h2>{T('HISTORY.TITLE')}</h2>
 
-      {loading ?
-        (
-          <div className='balance'>
-            <Loader size={48} className='spinner' />
-            <p>{T('GLOBAL.LOADING')}...</p>
-          </div>
-        )
-        : history.length === 0
-          ? (
-            <div className='no-history'>
-              <HistoryIcon size={48} />
-              <p>{T('HISTORY.NO_HISTORY')}...</p>
+      {loading ? (
+        <div className='balance'>
+          <Loader size={48} className='spinner' />
+          <p>{T('GLOBAL.LOADING')}...</p>
+        </div>
+      ) : history.length === 0 ? (
+        <div className='no-history'>
+          <HistoryIcon size={48} />
+          <p>{T('HISTORY.NO_HISTORY')}...</p>
+        </div>
+      ) : (
+        <div className='recap'>
+          {history.map((item, idx) => (
+            <div
+              key={idx}
+              className={expandedIdx === idx ? 'card expanded' : 'card'}
+              onClick={() => {
+                if (item.message) setExpandedIdx((prev) => (prev === idx ? null : idx));
+              }}
+            >
+              {getIconForAction(item.action, item.amount)}
+              <div>
+                {item.action === 'withdraw' ? (
+                  T('HISTORY.ACTIONS.WITHDRAW')
+                ) : item.action === 'deposit' ? (
+                  T('HISTORY.ACTIONS.DEPOSIT')
+                ) : (
+                  <p>
+                    {T(`HISTORY.ACTIONS.${item.amount > 0 ? 'RECEIVED' : 'SENT'}`, {
+                      user: item.related_account ?? T('HISTORY.DELETED_USER'),
+                    })}
+                  </p>
+                )}
+                {expandedIdx === idx && item.message && <p className='message'>{item.message}</p>}
+                <p className='username'>{formatDate(item.timestamp)}</p>
+              </div>
+              <div>
+                {item.amount < 0 && '-'}
+                {formatBalanceValue(Math.abs(item.amount))}
+                {T('GLOBAL.CURRENCY')}
+              </div>
             </div>
-          )
-          : (
-            <div className='recap'>
-              {history.map((item, idx) => (
-                <div
-                  key={idx}
-                  className={expandedIdx === idx ? 'card expanded' : 'card'}
-                  onClick={() => {
-                    if (item.message) setExpandedIdx((prev) => (prev === idx ? null : idx));
-                  }}
-                >
-                  {getIconForAction(item.action, item.amount)}
-                  <div>
-                    {item.action === 'withdraw' ? (
-                      T('HISTORY.ACTIONS.WITHDRAW')
-                    ) : item.action === 'deposit' ? (
-                      T('HISTORY.ACTIONS.DEPOSIT')
-                    ) : (
-                      <p>
-                        {T(`HISTORY.ACTIONS.${item.amount > 0 ? 'RECEIVED' : 'SENT'}`, {
-                          user: item.related_account ?? T('HISTORY.DELETED_USER'),
-                        })}
-                      </p>
-                    )}
-                    {expandedIdx === idx && item.message && <p className='message'>{item.message}</p>}
-                    <p className='username'>{formatDate(item.timestamp)}</p>
-                  </div>
-                  <div>
-                    {item.amount < 0 && '-'}
-                    {formatBalanceValue(Math.abs(item.amount))}
-                    {T('GLOBAL.CURRENCY')}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )
-      }
+          ))}
+        </div>
+      )}
     </div>
   );
 };

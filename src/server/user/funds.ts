@@ -5,7 +5,7 @@ import Locale from '@common/locale';
 
 RegisterServerCallback('fleecanow:getBalance', async (source: number): Promise<GetBalanceResponse> => {
   try {
-    const user: FleecaNowUser = FleecaNowUser.getUserBySource(source);
+    const user = FleecaNowUser.getUserBySource(source);
 
     if (!user) return { success: false, error: Locale('CORE.FUNDS.UNABLE_TO_GET_BALANCE') };
 
@@ -19,7 +19,7 @@ RegisterServerCallback('fleecanow:getBalance', async (source: number): Promise<G
 RegisterServerCallback(
   'fleecanow:handleFunds',
   async (source: number, data: { action: 'withdraw' | 'add'; amount: number }): Promise<GetBalanceResponse> => {
-    const user: FleecaNowUser = FleecaNowUser.getUserBySource(source);
+    const user = FleecaNowUser.getUserBySource(source);
 
     if (!user) return { success: false, error: Locale('CORE.FUNDS.UNABLE_TO_GET_BALANCE') };
 
