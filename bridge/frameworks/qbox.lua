@@ -1,17 +1,10 @@
 if (not IsFrameworkStarted("qbx")) then return end
 
-local QBX = exports["qb-core"]:GetCoreObject()
-
-if (not QBX) then
-    error('\n > Unable to import QBox shared object, please check why this is occuring.\n > This script WILL NOT work until you resolve this.')
-    return
-end
-
 ---Get the player's current bank account balance
 ---@param src number
 ---@return integer
 function GetBankBalance(src)
-    local qPlayer = QBX.Functions.GetPlayer(tonumber(src))
+    local qPlayer = exports.qbx_core:GetPlayer(tonumber(src))
 
     if not qPlayer then
         return 0
@@ -25,19 +18,21 @@ end
 ---@param amount number
 ---@return boolean success
 function RemoveMoney(src, amount)
-    local qPlayer = QBX.Functions.GetPlayer(tonumber(src))
+    local qPlayer = exports.qbx_core:GetPlayer(tonumber(src))
 
     if not qPlayer then
         return false
     end
-
-    qPlayer.Functions.RemoveMoney("bank", amount, Locale("REMOVED_MONEY"))
 
     local balance = GetBankBalance(src)
 
     if (balance < amount) then
         return false
     end
+
+    local result = qPlayer.Functions.RemoveMoney("bank", amount, Locale("REMOVED_MONEY"))
+
+    print('RemoveMoney qbox result', result or 'nil')
 
     return true
 end
@@ -47,7 +42,7 @@ end
 ---@param amount number
 ---@return boolean success
 function AddMoney(src, amount)
-    local qPlayer = QBX.Functions.GetPlayer(tonumber(src))
+    local qPlayer = exports.qbx_core:GetPlayer(tonumber(src))
 
     if not qPlayer or amount < 0 then
         return false
@@ -61,3 +56,5 @@ end
 exports('GetBankBalance', GetBankBalance)
 exports('RemoveMoney', RemoveMoney)
 exports('AddMoney', AddMoney)
+
+print('Registered qbox bridge')

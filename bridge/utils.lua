@@ -40,7 +40,7 @@ function IsFrameworkStarted(framework)
         local state = GetResourceState('qb-core')
         return state == "starting" or state == "started"
     elseif (framework == "qbx") then
-        local state = GetResourceState('qbx-core')
+        local state = GetResourceState('qbx_core')
         return state == "starting" or state == "started"
     elseif (framework == "custom") then
         return true
