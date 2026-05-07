@@ -1,21 +1,19 @@
-// import Config from '@common/config';
+import Config from '@common/config';
 
 export async function VersionCheck() {
-  // if (Config.VersionCheck !== false) return;
+  if (Config.VersionCheck !== false) return;
 
   let repo_version: string = '0.0.0';
-  const current_version: string = '0.5.5'; // GetResourceMetadata(GetCurrentResourceName(), 'version', 0);
+  const current_version: string = GetResourceMetadata(GetCurrentResourceName(), 'version', 0);
 
   try {
-    const versionResponse = await fetch(
-      'https://api.github.com/repos/Maximus7474/mps-fleecanow/releases/latest',
-    );
+    const versionResponse = await fetch('https://api.github.com/repos/Maximus7474/mps-fleecanow/releases/latest');
 
     if (!versionResponse.ok) {
       throw new Error(`HTTP error! status: ${versionResponse.status}`);
     }
 
-    const responseData = await versionResponse.json() as any;
+    const responseData = (await versionResponse.json()) as any;
     const upstreamVersion = responseData.tag_name as string;
 
     repo_version = upstreamVersion.replace(/[a-zA-Z]+/, '');
