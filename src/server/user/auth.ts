@@ -1,5 +1,4 @@
 import { oxmysql as MySQL } from '@communityox/oxmysql';
-import { resourceExport } from '@common/export';
 import type { DeletionResponse, LoginResponse, RawUser, UpdateProfileResponse, User } from '@common/types';
 import { RegisterServerCallback } from '../utils/callbacks';
 import { FleecaNowUser } from './class';
@@ -14,7 +13,7 @@ const setLoggedInAccount = async (phoneNumber: string, username: string) => {
 };
 
 RegisterServerCallback('fleecanow:getconnectedaccount', async (source: number): Promise<User | null> => {
-  const phone_number = resourceExport('lb-phone', 'GetEquippedPhoneNumber')(source);
+  const phone_number = exports['lb-phone'].GetEquippedPhoneNumber(source);
   if (!phone_number) return null;
 
   const username: { username: string } | null = await MySQL.single(
@@ -49,7 +48,7 @@ RegisterServerCallback(
     const passwordValid = VerifyPasswordHash(data.password, rawUser.password);
     if (!passwordValid) return { success: false, error: Locale('CORE.AUTHENTICATION.INVALID_CREDENTIALS') };
 
-    const phone_number = resourceExport('lb-phone', 'GetEquippedPhoneNumber')(source);
+    const phone_number = exports['lb-phone'].GetEquippedPhoneNumber(source);
 
     const userClass = new FleecaNowUser(rawUser, source, phone_number);
 
@@ -78,7 +77,7 @@ RegisterServerCallback(
 
     if (!id) return { success: false, error: Locale('CORE.AUTHENTICATION.UNABLE_TO_REGISTER') };
 
-    const phone_number = resourceExport('lb-phone', 'GetEquippedPhoneNumber')(source);
+    const phone_number = exports['lb-phone'].GetEquippedPhoneNumber(source);
 
     const rawUser: RawUser | null = await MySQL.single(
       'SELECT `id`, `username`, `display_name`, `email`, `avatar`, `balance` FROM `phone_fleecanow_accounts` WHERE `username` = ?',
@@ -138,7 +137,7 @@ RegisterServerCallback(
 );
 
 RegisterServerCallback('fleecanow:deleteaccount', async (source: number): Promise<DeletionResponse> => {
-  const phone_number = resourceExport('lb-phone', 'GetEquippedPhoneNumber')(source);
+  const phone_number = exports['lb-phone'].GetEquippedPhoneNumber(source);
   if (!phone_number) return { success: false, error: 'No phone number found' };
 
   const usernameResult: { username: string } | null = await MySQL.single(

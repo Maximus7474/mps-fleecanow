@@ -1,6 +1,5 @@
 import { oxmysql as MySQL } from '@communityox/oxmysql';
 import { AccountHistory, GetBalanceResponse, RawUser, User } from '@common/types';
-import { resourceExport } from '@common/export';
 import { LogAccountAction } from '../utils/log_account_action';
 import { Log } from '../utils/logging_wrapper';
 
@@ -190,7 +189,7 @@ export class FleecaNowUser {
 
       return { success: true, amount: this.balance };
     } else if (action === 'withdraw') {
-      const result: boolean = resourceExport('mps-fleecanow', 'AddMoney')(this.source, amount);
+      const result: boolean = exports['mps-fleecanow'].AddMoney(this.source, amount);
 
       if (!result) return { success: false, error: 'Unable to add funds to bank account' };
 

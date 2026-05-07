@@ -1,11 +1,10 @@
 import { waitForResourceStarted } from '@common/utils';
 import { appConfig } from './data';
-import { resourceExport } from '@common/export';
 
 const lbPhone = 'lb-phone';
 
 const loadApplication = () => {
-  const response = resourceExport('lb-phone', 'AddCustomApp')(appConfig) as [boolean, string?];
+  const response = exports['lb-phone'].AddCustomApp(appConfig) as [boolean, string?];
 
   const added = Array.isArray(response) ? response[0] : response;
 
