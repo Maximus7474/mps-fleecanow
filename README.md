@@ -6,11 +6,7 @@ A lightweight and intuitive money transfer application, inspired by **Venmo**, b
 
 ## ⚙️ Support
 
-- Support is given in the appropriate discord channels after claiming the customer role. https://discord.gg/wCcsEcUhzf
-- The creator can in no way give support or resolve an issue involving:
-  - Cancelling an asset transfer
-  - Lost or stolen assets
-  - Hacked or Lost Keymaster account
+- Support is given in the [issues section](https://github.com/Maximus7474/mps-fleecanow/issues) of this github repo.
 
 ---
 
